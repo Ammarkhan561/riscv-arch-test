@@ -29,22 +29,19 @@ RVTEST_CODE_BEGIN
 RVTEST_SIGBASE( x13,signature_x13_1)
   	
 main:
-#ifdef rvtest_mtrap_routine	// Verification of existance of rvtest_mtrap_routine
+ # ---------------------------------------------------------------------------------------------
+
+#ifdef rvtest_mtrap_routine								// Verification of existance of rvtest_mtrap_routine
 	LI (a4, 0xceed)
 	RVTEST_SIGUPD(x13,a4)
 #endif
-#ifdef rvtest_strap_routine	// Verification of existance of rvtest_strap_routine
+#ifdef rvtest_strap_routine								// Verification of existance of rvtest_strap_routine
 	LI (a4, 0xbeed)
 	RVTEST_SIGUPD(x13,a4)
 #endif
 	
-	# LI (t2, -1)		// WHOLE PHYSICAL MEMORY AS SINGLE REGION
-	# csrw pmpaddr0, t2
-	# LI (t2, 0x0F)		// TOR MODE WITH LOCK BIT ON; WIll write in terms of MACROS later
-	# csrw pmpcfg0, t2
-	ALL_MEM_PMP
-	// write satp with all zeros (bare mode)
-	WRITE_CSR (satp,x0)
+	ALL_MEM_PMP          								# set the PMP permissions
+	WRITE_CSR (satp,x0)  								# write satp with all zeros (bare mode)
 
 	.set va,		0x90000000
 	.set pa,		0x80000000 
@@ -55,14 +52,15 @@ main:
 	in their respective S-mode save area */
 
 	/****** code ******/
+
 	LI (t0, va)
 	LI (t1, pa)
-	sub t0, t0, t1   // (VA-PA) Note: VA > PA 
+	sub t0, t0, t1   									# (VA-PA) Note: VA > PA 
 	csrr sp, mscratch
 	add t1,sp,t0
 	csrw sscratch, t1 
 	
-	li s1, 0xffffffff
+	li s1, ALL_F_S
     li s2, SATP32_PPN
     li s3, SATP32_ASID
  
@@ -70,15 +68,15 @@ main:
     SET_CSR   (satp,s2)
     WRITE_CSR (satp,s3)
 
-	RVTEST_GOTO_LOWER_MODE Smode
+	RVTEST_GOTO_LOWER_MODE Smode					    # changes mode from M to S
 
     CLEAR_CSR (satp,s1)
     SET_CSR   (satp,s2)
     WRITE_CSR (satp,s3)
 
-	RVTEST_GOTO_LOWER_MODE Umode
+	RVTEST_GOTO_LOWER_MODE Umode						# changes mode from S to U
 
-	CLEAR_CSR (satp,s1)
+	CLEAR_CSR (satp,s1)								    # Illegal instruction exception is generated when accessed in U mode 
     SET_CSR   (satp,s2)
     WRITE_CSR (satp,s3)
 
@@ -110,7 +108,9 @@ mmode:
 	csrr a4, pmpaddr1
 	RVTEST_SIGUPD(x13,a4)
 #endif 
+
  # ---------------------------------------------------------------------------------------------
+
 RVTEST_CODE_END
 RVMODEL_HALT
 

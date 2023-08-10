@@ -8,5 +8,5 @@
 /riscof_work
 #ignore Mac file system artifacts
 *.DS_Store
-
+./riscof_work
 riscv-target/
