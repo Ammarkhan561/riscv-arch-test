@@ -32,6 +32,8 @@ RVTEST_CODE_BEGIN
 RVTEST_SIGBASE( x13,signature_x13_1)
   	
 main:
+# ---------------------------------------------------------------------------------------------
+
 #ifdef rvtest_mtrap_routine	// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
 	RVTEST_SIGUPD(x13,a4)
@@ -41,12 +43,9 @@ main:
 	RVTEST_SIGUPD(x13,a4)
 #endif
 	
-	LI t2, -1		// WHOLE PHYSICAL MEMORY AS SINGLE REGION
-	csrw pmpaddr0, t2
-	LI t2, 0x0F		// TOR MODE WITH LOCK BIT ON; WIll write in terms of MACROS later
-	csrw pmpcfg0, t2
-	// write satp with all zeros (bare mode)
-	csrw satp, x0
+	ALL_MEM_PMP          								# set the PMP permissions
+	WRITE_CSR (satp,x0)  								# write satp with all zeros (bare mode)
+
 
 	.set va_0, 0x90000000
 	.set pa_0, 0x80000000 
@@ -54,11 +53,12 @@ main:
 
 	// PTE setup for Instruction memory 0x90000000 -> 0x80000000
 	LA a0, pa_0
+
 	LI a1, (PTE_V | PTE_R | PTE_A | PTE_W | PTE_X | PTE_D | PTE_G)
 	PTE_SETUP_RV32(a0, a1, t0, t1, va_0,1)
 	
 	LA a0, rvtest_data
-	LI a1, (PTE_R | PTE_A | PTE_W | PTE_X | PTE_D | PTE_G)
+	LI a1, (PTE_R | PTE_A | PTE_W | PTE_X | PTE_D | PTE_G |PTE_V )
 	PTE_SETUP_RV32(a0, a1, t0, t1, va_1,1)
 
 
@@ -113,9 +113,9 @@ RVTEST_CODE_END
 RVMODEL_HALT
 
 RVTEST_DATA_BEGIN
-.align 22
+.align 24
 rvtest_data:
-.word 0xbabecafe
+.word 0xbeefcafe
 .word 0xbabecafe
 .word 0xbabecafe
 .word 0xbabecafe
