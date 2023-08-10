@@ -82,6 +82,121 @@
 #define FAILED  1
 
 
+#define WRITE_CSR(CSR_REG, SRC_REG)                                ;\
+    csrw CSR_REG, SRC_REG                                          ;
+
+#define CLEAR_CSR(CSR_REG, SRC_REG)                                ;\
+    csrc CSR_REG, SRC_REG                                          ;
+
+#define SET_CSR(CSR_REG, SRC_REG)                                  ;\
+    csrs CSR_REG, SRC_REG                                          ;
+
+#define READ_CSR(CSR_REG, DST_REG)                                 ;\
+    csrr DST_REG, CSR_REG                                          ;
+
+#define CLEAR_REG(REG)                                             ;\
+    li REG, 0                                                      ;
+
+#define ALL_MEM_PMP                                                ;\
+    li t2, ALL_F_S                                                 ;\
+    csrw pmpaddr0, t2                                              ;\
+    CLEAR_REG(t2)                                                  ;\
+    SET_PMP_TOR_RWX(t2, t6, PMPADDR0)                              ;\
+    csrw pmpcfg0, t2                                               ;\
+
+
+#define SET_PMP_R(REG, TMP, PMPADDR)                               ;\
+    .if(PMPADDR == PMPADDR0)                                       ;\
+        ori REG, REG, PMP_R                                        ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR1)                                       ;\
+        li TMP, PMP_R                                              ;\
+        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR2)                                       ;\
+        li TMP, PMP_R                                              ;\
+        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR3)                                       ;\
+        li TMP, PMP_R                                              ;\
+        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    CLEAR_REG(TMP)                                                 ;
+
+#define SET_PMP_W(REG, TMP, PMPADDR)                               ;\
+    .if(PMPADDR == PMPADDR0)                                       ;\
+        ori REG, REG, PMP_W                                        ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR1)                                       ;\
+        li TMP, PMP_W                                              ;\
+        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR2)                                       ;\
+        li TMP, PMP_W                                              ;\
+        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR3)                                       ;\
+        li TMP, PMP_W                                              ;\
+        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    CLEAR_REG(TMP)                                                 ;
+
+#define SET_PMP_X(REG, TMP, PMPADDR)                               ;\
+    .if(PMPADDR == PMPADDR0)                                       ;\
+        ori REG, REG, PMP_X                                        ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR1)                                       ;\
+        li TMP, PMP_X                                              ;\
+        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR2)                                       ;\
+        li TMP, PMP_X                                              ;\
+        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR3)                                       ;\
+        li TMP, PMP_X                                              ;\
+        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    CLEAR_REG(TMP)                                                 ;
+
+
+#define SET_PMP_TOR(REG, TMP, PMPADDR)                             ;\
+    .if(PMPADDR == PMPADDR0)                                       ;\
+        ori REG, REG, PMP_TOR                                      ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR1)                                       ;\
+        li TMP, PMP_TOR                                            ;\
+        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR2)                                       ;\
+        li TMP, PMP_TOR                                            ;\
+        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    .if(PMPADDR == PMPADDR3)                                       ;\
+        li TMP, PMP_TOR                                            ;\
+        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
+        or REG, REG, TMP                                           ;\
+    .endif                                                         ;\
+    CLEAR_REG(TMP)                                                 ;
+
+
+#define SET_PMP_TOR_RWX(REG, TMP, PMPADDR)                         ;\
+    SET_PMP_X(REG, TMP, PMPADDR)                                   ;\
+    SET_PMP_R(REG, TMP, PMPADDR)                                   ;\
+    SET_PMP_W(REG, TMP, PMPADDR)                                   ;\
+    SET_PMP_TOR(REG, TMP, PMPADDR)                                 ;
+
 
 
 
@@ -188,17 +303,7 @@
     READ_CSR(satp, DST_REG)                                        ;\
     srli DST_REG, DST_REG, 31                                      ;\
 
-#define WRITE_CSR(CSR_REG, SRC_REG)                                ;\
-    csrw CSR_REG, SRC_REG                                          ;
 
-#define CLEAR_CSR(CSR_REG, SRC_REG)                                ;\
-    csrc CSR_REG, SRC_REG                                          ;
-
-#define SET_CSR(CSR_REG, SRC_REG)                                  ;\
-    csrs CSR_REG, SRC_REG                                          ;
-
-#define READ_CSR(CSR_REG, DST_REG)                                 ;\
-    csrr DST_REG, CSR_REG                                          ;
 
 #define PTE(PA, PR)                                                ;\
     srli     PA, PA, PTE_OFFSET_SHIFT                              ;\
@@ -290,68 +395,7 @@
     .align UNROLLSZ                                                ;\
     .option p                                                      ;
 
-#define SET_PMP_R(REG, TMP, PMPADDR)                               ;\
-    .if(PMPADDR == PMPADDR0)                                       ;\
-        ori REG, REG, PMP_R                                        ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR1)                                       ;\
-        li TMP, PMP_R                                              ;\
-        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR2)                                       ;\
-        li TMP, PMP_R                                              ;\
-        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR3)                                       ;\
-        li TMP, PMP_R                                              ;\
-        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    CLEAR_REG(TMP)                                                 ;
 
-#define SET_PMP_W(REG, TMP, PMPADDR)                               ;\
-    .if(PMPADDR == PMPADDR0)                                       ;\
-        ori REG, REG, PMP_W                                        ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR1)                                       ;\
-        li TMP, PMP_W                                              ;\
-        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR2)                                       ;\
-        li TMP, PMP_W                                              ;\
-        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR3)                                       ;\
-        li TMP, PMP_W                                              ;\
-        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    CLEAR_REG(TMP)                                                 ;
-
-#define SET_PMP_X(REG, TMP, PMPADDR)                               ;\
-    .if(PMPADDR == PMPADDR0)                                       ;\
-        ori REG, REG, PMP_X                                        ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR1)                                       ;\
-        li TMP, PMP_X                                              ;\
-        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR2)                                       ;\
-        li TMP, PMP_X                                              ;\
-        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR3)                                       ;\
-        li TMP, PMP_X                                              ;\
-        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    CLEAR_REG(TMP)                                                 ;
 
 #define SET_PMP_RWX(REG, TMP, PMPADDR)                             ;\
     SET_PMP_X(REG, TMP, PMPADDR)                                   ;\
@@ -370,11 +414,7 @@
     SET_PMP_W(REG, TMP, PMPADDR)                                   ;\
     SET_PMP_R(REG, TMP, PMPADDR)                                   ;
 
-#define SET_PMP_TOR_RWX(REG, TMP, PMPADDR)                         ;\
-    SET_PMP_X(REG, TMP, PMPADDR)                                   ;\
-    SET_PMP_R(REG, TMP, PMPADDR)                                   ;\
-    SET_PMP_W(REG, TMP, PMPADDR)                                   ;\
-    SET_PMP_TOR(REG, TMP, PMPADDR)                                 ;
+
 
 #define SET_PMP_NA4_RWX(REG, TMP, PMPADDR)                         ;\
     SET_PMP_X(REG, TMP, PMPADDR)                                   ;\
@@ -388,26 +428,6 @@
     SET_PMP_W(REG, TMP, PMPADDR)                                   ;\
     SET_PMP_NA4(REG, TMP, PMPADDR)                                 ;
 
-#define SET_PMP_TOR(REG, TMP, PMPADDR)                             ;\
-    .if(PMPADDR == PMPADDR0)                                       ;\
-        ori REG, REG, PMP_TOR                                      ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR1)                                       ;\
-        li TMP, PMP_TOR                                            ;\
-        slli TMP, TMP, PMPADDR1 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR2)                                       ;\
-        li TMP, PMP_TOR                                            ;\
-        slli TMP, TMP, PMPADDR2 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    .if(PMPADDR == PMPADDR3)                                       ;\
-        li TMP, PMP_TOR                                            ;\
-        slli TMP, TMP, PMPADDR3 << PMPADDR3                        ;\
-        or REG, REG, TMP                                           ;\
-    .endif                                                         ;\
-    CLEAR_REG(TMP)                                                 ;
 
 #define SET_PMP_NA4(REG, TMP, PMPADDR)                             ;\
     .if(PMPADDR == PMPADDR0)                                       ;\
@@ -451,15 +471,7 @@
     .endif                                                         ;\
     CLEAR_REG(TMP)                                                 ;
 
-#define CLEAR_REG(REG)                                             ;\
-    li REG, 0                                                      ;
 
-#define ALL_MEM_PMP                                                ;\
-    li t2, ALL_F_S                                                 ;\
-    csrw pmpaddr0, t2                                              ;\
-    CLEAR_REG(t2)                                                  ;\
-    SET_PMP_TOR_RWX(t2, t6, PMPADDR0)                              ;\
-    csrw pmpcfg0, t2                                               ;\
 
 #define ABit_trap_handler                                          ;\
     trap_handler:                                                  ;\
