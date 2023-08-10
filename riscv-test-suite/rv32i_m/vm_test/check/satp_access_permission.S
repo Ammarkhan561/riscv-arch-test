@@ -12,6 +12,7 @@
 #################################################################################################   
 
 #include "model_test.h"
+#include "custom_macros.h"
 #include "arch_test.h"
 
 RVTEST_ISA("RV32I_Zicsr")
