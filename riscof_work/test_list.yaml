@@ -1,5 +1,5 @@
-# testlist generated on 2023-08-10 12:15 GMT
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/satp_access_permission.S:
+# testlist generated on 2023-08-10 12:57 GMT
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/satp_access_permission.S:
   commit_id: '-'
   work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/satp_access_permission.S
   macros:
@@ -11,4 +11,4 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/satp_access_permission.S
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/satp_access_permission.S
