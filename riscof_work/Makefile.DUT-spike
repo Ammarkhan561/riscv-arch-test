@@ -1,0 +1,589 @@
+
+
+.PHONY : TARGET0
+TARGET0 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3-1-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3-1-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3-1-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET1
+TARGET1 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3-1-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3-1-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3-1-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET2
+TARGET2 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3-1-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3-1-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3-1-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET3
+TARGET3 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.2.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.2.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.2.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET4
+TARGET4 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.2.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.2.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.2.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET5
+TARGET5 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.2.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.2.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.2.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET6
+TARGET6 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.3.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.3.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.3.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET7
+TARGET7 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.3.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.3.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.3.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET8
+TARGET8 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.3.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.3.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.3.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET9
+TARGET9 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.4.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.4.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.4.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET10
+TARGET10 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.4.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.4.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.4.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET11
+TARGET11 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.4.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.4.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.4.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET12
+TARGET12 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.5.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.5.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.5.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET13
+TARGET13 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.5.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.5.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.5.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET14
+TARGET14 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.5.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.5.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.5.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET15
+TARGET15 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.6.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.6.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.6.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET16
+TARGET16 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.6.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.6.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.6.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET17
+TARGET17 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.6.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.6.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.6.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET18
+TARGET18 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.7.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.7.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.7.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET19
+TARGET19 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.7.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.7.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.7.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET20
+TARGET20 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.7.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.7.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.7.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET21
+TARGET21 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.8.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.8.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.8.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET22
+TARGET22 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.8.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.8.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.8.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET23
+TARGET23 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/3.8.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/3.8.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/3.8.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET24
+TARGET24 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/4-2-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/4-2-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/4-2-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET25
+TARGET25 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/4.1.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/4.1.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/4.1.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET26
+TARGET26 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/4.1.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/4.1.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/4.1.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET27
+TARGET27 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/4.1.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/4.1.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/4.1.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET28
+TARGET28 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/4.2.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/4.2.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/4.2.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET29
+TARGET29 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/4.2.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/4.2.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/4.2.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET30
+TARGET30 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-10-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-10-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-10-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET31
+TARGET31 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-10-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-10-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-10-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET32
+TARGET32 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-10-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-10-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-10-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET33
+TARGET33 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-11-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-11-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-11-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET34
+TARGET34 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-11-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-11-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-11-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET35
+TARGET35 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-11-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-11-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-11-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET36
+TARGET36 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-13-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-13-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-13-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET37
+TARGET37 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-13-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-13-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-13-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET38
+TARGET38 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-13-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-13-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-13-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET39
+TARGET39 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-14-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-14-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-14-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET40
+TARGET40 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-14-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-14-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-14-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET41
+TARGET41 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-14-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-14-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-14-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET42
+TARGET42 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-15-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-15-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-15-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET43
+TARGET43 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-15-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-15-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-15-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET44
+TARGET44 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-15-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-15-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-15-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET45
+TARGET45 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-18-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-18-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-18-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET46
+TARGET46 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-19-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-19-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-19-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET47
+TARGET47 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-19-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-19-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-19-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET48
+TARGET48 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-19-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-19-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-19-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET49
+TARGET49 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-20-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-20-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-20-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET50
+TARGET50 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-20-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-20-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-20-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET51
+TARGET51 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-20-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-20-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-20-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET52
+TARGET52 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-21-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-21-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-21-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET53
+TARGET53 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-21-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-21-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-21-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET54
+TARGET54 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-21-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-21-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-21-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET55
+TARGET55 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-24-1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-24-1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-24-1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET56
+TARGET56 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-24-2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-24-2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-24-2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET57
+TARGET57 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5-24-3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5-24-3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5-24-3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET58
+TARGET58 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.1.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.1.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.1.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET59
+TARGET59 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.1.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.1.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.1.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET60
+TARGET60 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.1.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.1.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.1.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET61
+TARGET61 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.10.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.10.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.10.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET62
+TARGET62 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.10.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.10.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.10.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET63
+TARGET63 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.10.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.10.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.10.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET64
+TARGET64 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.11.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.11.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.11.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET65
+TARGET65 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.11.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.11.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.11.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET66
+TARGET66 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.11.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.11.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.11.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET67
+TARGET67 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.12.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.12.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.12.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET68
+TARGET68 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.12.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.12.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.12.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET69
+TARGET69 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.12.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.12.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.12.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET70
+TARGET70 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.16.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.16.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.16.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET71
+TARGET71 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.16.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.16.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.16.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET72
+TARGET72 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.16.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.16.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.16.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET73
+TARGET73 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.17.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.17.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.17.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET74
+TARGET74 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.17.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.17.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.17.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET75
+TARGET75 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.17.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.17.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.17.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET76
+TARGET76 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.18.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.18.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.18.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET77
+TARGET77 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.18.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.18.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.18.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET78
+TARGET78 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.19.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.19.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.19.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET79
+TARGET79 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.19.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.19.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.19.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET80
+TARGET80 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.19.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.19.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.19.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET81
+TARGET81 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.2.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.2.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.2.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET82
+TARGET82 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.2.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.2.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.2.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET83
+TARGET83 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.2.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.2.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.2.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET84
+TARGET84 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.20.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.20.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.20.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET85
+TARGET85 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.20.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.20.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.20.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET86
+TARGET86 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.20.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.20.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.20.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET87
+TARGET87 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.21.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.21.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.21.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET88
+TARGET88 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.21.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.21.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.21.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET89
+TARGET89 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.21.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.21.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.21.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET90
+TARGET90 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.22.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.22.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.22.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET91
+TARGET91 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.22.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.22.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.22.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET92
+TARGET92 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.22.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.22.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.22.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET93
+TARGET93 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.23.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.23.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.23.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET94
+TARGET94 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.23.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.23.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.23.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET95
+TARGET95 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.23.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.23.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.23.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET96
+TARGET96 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.24.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.24.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.24.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET97
+TARGET97 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.24.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.24.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.24.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET98
+TARGET98 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.24.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.24.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.24.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET99
+TARGET99 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.25.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.25.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.25.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET100
+TARGET100 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.25.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.25.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.25.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET101
+TARGET101 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.25.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.25.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.25.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET102
+TARGET102 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.26.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.26.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.26.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET103
+TARGET103 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.26.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.26.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.26.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET104
+TARGET104 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.26.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.26.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.26.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET105
+TARGET105 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.27.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.27.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.27.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET106
+TARGET106 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.27.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.27.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.27.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET107
+TARGET107 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.27.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.27.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.27.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET108
+TARGET108 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.28.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.28.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.28.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET109
+TARGET109 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.28.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.28.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.28.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET110
+TARGET110 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.28.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.28.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.28.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET111
+TARGET111 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.29.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.29.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.29.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET112
+TARGET112 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.29.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.29.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.29.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET113
+TARGET113 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.29.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.29.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.29.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET114
+TARGET114 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.3.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.3.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.3.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET115
+TARGET115 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.3.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.3.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.3.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET116
+TARGET116 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.3.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.3.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.3.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET117
+TARGET117 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.30.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.30.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.30.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET118
+TARGET118 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.30.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.30.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.30.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET119
+TARGET119 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.30.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.30.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.30.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET120
+TARGET120 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.31.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.31.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.31.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET121
+TARGET121 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.31.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.31.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.31.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET122
+TARGET122 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.31.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.31.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.31.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET123
+TARGET123 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.32.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.32.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.32.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET124
+TARGET124 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.32.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.32.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.32.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET125
+TARGET125 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.32.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.32.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.32.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET126
+TARGET126 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.33.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.33.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.33.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET127
+TARGET127 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.33.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.33.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.33.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET128
+TARGET128 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.33.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.33.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.33.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET129
+TARGET129 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.4.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.4.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.4.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET130
+TARGET130 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.4.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.4.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.4.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET131
+TARGET131 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.4.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.4.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.4.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET132
+TARGET132 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.5.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.5.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.5.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET133
+TARGET133 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.5.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.5.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.5.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET134
+TARGET134 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.5.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.5.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.5.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET135
+TARGET135 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.6.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.6.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.6.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET136
+TARGET136 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.6.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.6.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.6.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET137
+TARGET137 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.6.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.6.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.6.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET138
+TARGET138 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.7.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.7.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.7.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET139
+TARGET139 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.7.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.7.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.7.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET140
+TARGET140 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.7.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.7.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.7.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET141
+TARGET141 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.8.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.8.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.8.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET142
+TARGET142 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.8.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.8.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.8.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET143
+TARGET143 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.8.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.8.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.8.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET144
+TARGET144 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.9.1.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.9.1.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.9.1.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET145
+TARGET145 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.9.2.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.9.2.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.9.2.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;
+
+.PHONY : TARGET146
+TARGET146 :
+	@cd /home/ammar/Documents/riscv-arch-test/riscof_work/5.9.3.S/dut; riscv32-unknown-elf-gcc -march=rv32i_zicsr          -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -g         -T /home/ammar/Documents/riscv-arch-test/spike/env/link.ld         -I /home/ammar/Documents/riscv-arch-test/spike/env/         -I /home/ammar/Documents/riscv-arch-test/riscv-test-suite/env /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/src/5.9.3.S -o my.elf  -Drvtest_mtrap_routine=True -Drvtest_strap_routine=True -DTEST_CASE_1=True -DXLEN=32 -mabi=ilp32 ; spike --isa=rv32imc +signature=/home/ammar/Documents/riscv-arch-test/riscof_work/5.9.3.S/dut/DUT-spike.signature +signature-granularity=4 my.elf;

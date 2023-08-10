@@ -1,0 +1,2909 @@
+
+ref.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text.init:
+
+80000000 <rvtest_entry_point>:
+80000000:	00400317          	auipc	t1,0x400
+80000004:	00030313          	mv	t1,t1
+80000008:	00000013          	nop
+8000000c:	00000013          	nop
+80000010:	00000013          	nop
+80000014:	00000013          	nop
+80000018:	00000013          	nop
+8000001c:	00000013          	nop
+
+80000020 <init_Mscratch>:
+80000020:	34031473          	csrrw	s0,mscratch,t1
+80000024:	1c832823          	sw	s0,464(t1) # 804001d0 <Mscratch_save>
+
+80000028 <init_Medeleg>:
+80000028:	00000393          	li	t2,0
+8000002c:	302393f3          	csrrw	t2,medeleg,t2
+80000030:	1a732c23          	sw	t2,440(t1)
+
+80000034 <init_Msatp>:
+80000034:	00000013          	nop
+80000038:	00000013          	nop
+8000003c:	00000013          	nop
+80000040:	00000497          	auipc	s1,0x0
+80000044:	64048493          	add	s1,s1,1600 # 80000680 <Mtrampoline>
+80000048:	00000013          	nop
+8000004c:	00000013          	nop
+80000050:	00000013          	nop
+80000054:	00000013          	nop
+80000058:	00000013          	nop
+8000005c:	00000013          	nop
+80000060:	15448413          	add	s0,s1,340
+80000064:	1a832823          	sw	s0,432(t1)
+80000068:	30502473          	csrr	s0,mtvec
+8000006c:	1c832423          	sw	s0,456(t1)
+80000070:	00347393          	and	t2,s0,3
+80000074:	0074e3b3          	or	t2,s1,t2
+80000078:	1c732023          	sw	t2,448(t1)
+8000007c:	30539073          	csrw	mtvec,t2
+80000080:	30502573          	csrr	a0,mtvec
+80000084:	08750063          	beq	a0,t2,80000104 <rvtest_Mprolog_done>
+80000088:	30541073          	csrw	mtvec,s0
+8000008c:	04040663          	beqz	s0,800000d8 <abortMtest>
+80000090:	1c832023          	sw	s0,448(t1)
+
+80000094 <init_Mtramp>:
+80000094:	ffc47393          	and	t2,s0,-4
+80000098:	15438413          	add	s0,t2,340
+
+8000009c <overwt_tt_Mloop>:
+8000009c:	0003a583          	lw	a1,0(t2)
+800000a0:	00b32023          	sw	a1,0(t1)
+800000a4:	0004a503          	lw	a0,0(s1)
+800000a8:	00a3a023          	sw	a0,0(t2)
+800000ac:	0003a583          	lw	a1,0(t2)
+800000b0:	00a59a63          	bne	a1,a0,800000c4 <endcopy_Mtramp>
+800000b4:	00438393          	add	t2,t2,4
+800000b8:	00430313          	add	t1,t1,4
+800000bc:	00448493          	add	s1,s1,4
+800000c0:	fc741ee3          	bne	s0,t2,8000009c <overwt_tt_Mloop>
+
+800000c4 <endcopy_Mtramp>:
+800000c4:	00000013          	nop
+800000c8:	34002373          	csrr	t1,mscratch
+800000cc:	1a732423          	sw	t2,424(t1)
+800000d0:	1a932823          	sw	s1,432(t1)
+800000d4:	02740863          	beq	s0,t2,80000104 <rvtest_Mprolog_done>
+
+800000d8 <abortMtest>:
+800000d8:	00000013          	nop
+800000dc:	00000013          	nop
+800000e0:	00000597          	auipc	a1,0x0
+800000e4:	53458593          	add	a1,a1,1332 # 80000614 <rvtest_Send>
+800000e8:	00000013          	nop
+800000ec:	00000013          	nop
+800000f0:	00000013          	nop
+800000f4:	00000013          	nop
+800000f8:	00000013          	nop
+800000fc:	00000013          	nop
+80000100:	00058067          	jr	a1
+
+80000104 <rvtest_Mprolog_done>:
+80000104:	00000013          	nop
+80000108:	00000013          	nop
+8000010c:	00000013          	nop
+80000110:	00000013          	nop
+80000114:	00000013          	nop
+80000118:	00000013          	nop
+8000011c:	00000013          	nop
+80000120:	00400317          	auipc	t1,0x400
+80000124:	0d830313          	add	t1,t1,216 # 804001f8 <Stramptbl_sv>
+80000128:	00000013          	nop
+8000012c:	00000013          	nop
+80000130:	00000013          	nop
+80000134:	00000013          	nop
+80000138:	00000013          	nop
+8000013c:	00000013          	nop
+
+80000140 <init_Sscratch>:
+80000140:	14031473          	csrrw	s0,sscratch,t1
+80000144:	1c832823          	sw	s0,464(t1)
+
+80000148 <init_Sedeleg>:
+80000148:	00000393          	li	t2,0
+8000014c:	1a732c23          	sw	t2,440(t1)
+
+80000150 <init_Ssatp>:
+80000150:	00000013          	nop
+80000154:	00000013          	nop
+80000158:	00000013          	nop
+8000015c:	00000013          	nop
+80000160:	00c01497          	auipc	s1,0xc01
+80000164:	ea048493          	add	s1,s1,-352 # 80c01000 <rvtest_Sroot_pg_tbl>
+80000168:	00000013          	nop
+8000016c:	00000013          	nop
+80000170:	00000013          	nop
+80000174:	00000013          	nop
+80000178:	00000013          	nop
+8000017c:	00000013          	nop
+80000180:	180494f3          	csrrw	s1,satp,s1
+80000184:	1a932023          	sw	s1,416(t1)
+
+80000188 <init_Stvec>:
+80000188:	00000013          	nop
+8000018c:	00000013          	nop
+80000190:	00000013          	nop
+80000194:	00000013          	nop
+80000198:	00000013          	nop
+8000019c:	00000013          	nop
+800001a0:	00001497          	auipc	s1,0x1
+800001a4:	b2048493          	add	s1,s1,-1248 # 80000cc0 <Strampoline>
+800001a8:	00000013          	nop
+800001ac:	00000013          	nop
+800001b0:	00000013          	nop
+800001b4:	00000013          	nop
+800001b8:	00000013          	nop
+800001bc:	00000013          	nop
+800001c0:	15448413          	add	s0,s1,340
+800001c4:	1a832823          	sw	s0,432(t1)
+800001c8:	10502473          	csrr	s0,stvec
+800001cc:	1c832423          	sw	s0,456(t1)
+800001d0:	00347393          	and	t2,s0,3
+800001d4:	0074e3b3          	or	t2,s1,t2
+800001d8:	1c732023          	sw	t2,448(t1)
+800001dc:	10539073          	csrw	stvec,t2
+800001e0:	10502573          	csrr	a0,stvec
+800001e4:	08750063          	beq	a0,t2,80000264 <rvtest_Sprolog_done>
+800001e8:	10541073          	csrw	stvec,s0
+800001ec:	04040663          	beqz	s0,80000238 <abortStest>
+800001f0:	1c832023          	sw	s0,448(t1)
+
+800001f4 <init_Stramp>:
+800001f4:	ffc47393          	and	t2,s0,-4
+800001f8:	15438413          	add	s0,t2,340
+
+800001fc <overwt_tt_Sloop>:
+800001fc:	0003a583          	lw	a1,0(t2)
+80000200:	00b32023          	sw	a1,0(t1)
+80000204:	0004a503          	lw	a0,0(s1)
+80000208:	00a3a023          	sw	a0,0(t2)
+8000020c:	0003a583          	lw	a1,0(t2)
+80000210:	00a59a63          	bne	a1,a0,80000224 <endcopy_Stramp>
+80000214:	00438393          	add	t2,t2,4
+80000218:	00430313          	add	t1,t1,4
+8000021c:	00448493          	add	s1,s1,4
+80000220:	fc741ee3          	bne	s0,t2,800001fc <overwt_tt_Sloop>
+
+80000224 <endcopy_Stramp>:
+80000224:	00000013          	nop
+80000228:	14002373          	csrr	t1,sscratch
+8000022c:	1a732423          	sw	t2,424(t1)
+80000230:	1a932823          	sw	s1,432(t1)
+80000234:	02740863          	beq	s0,t2,80000264 <rvtest_Sprolog_done>
+
+80000238 <abortStest>:
+80000238:	00000013          	nop
+8000023c:	00000013          	nop
+80000240:	00000597          	auipc	a1,0x0
+80000244:	38858593          	add	a1,a1,904 # 800005c8 <cleanup_epilogs>
+80000248:	00000013          	nop
+8000024c:	00000013          	nop
+80000250:	00000013          	nop
+80000254:	00000013          	nop
+80000258:	00000013          	nop
+8000025c:	00000013          	nop
+80000260:	00058067          	jr	a1
+
+80000264 <rvtest_Sprolog_done>:
+80000264:	feedc0b7          	lui	ra,0xfeedc
+80000268:	ead08093          	add	ra,ra,-339 # feedbead <va_data+0x6dedbead>
+8000026c:	ff76e137          	lui	sp,0xff76e
+80000270:	f5610113          	add	sp,sp,-170 # ff76df56 <va_data+0x6e76df56>
+80000274:	7fbb71b7          	lui	gp,0x7fbb7
+80000278:	fab18193          	add	gp,gp,-85 # 7fbb6fab <absimm+0x7fbabeb0>
+8000027c:	bfddb237          	lui	tp,0xbfddb
+80000280:	7d520213          	add	tp,tp,2005 # bfddb7d5 <va_data+0x2eddb7d5>
+80000284:	dfeee2b7          	lui	t0,0xdfeee
+80000288:	bea28293          	add	t0,t0,-1046 # dfeedbea <va_data+0x4eeedbea>
+8000028c:	6ff77337          	lui	t1,0x6ff77
+80000290:	df530313          	add	t1,t1,-523 # 6ff76df5 <absimm+0x6ff6bcfa>
+80000294:	b7fbb3b7          	lui	t2,0xb7fbb
+80000298:	6fa38393          	add	t2,t2,1786 # b7fbb6fa <va_data+0x26fbb6fa>
+8000029c:	5bfde437          	lui	s0,0x5bfde
+800002a0:	b7d40413          	add	s0,s0,-1155 # 5bfddb7d <absimm+0x5bfd2a82>
+800002a4:	adfef4b7          	lui	s1,0xadfef
+800002a8:	dbe48493          	add	s1,s1,-578 # adfeedbe <va_data+0x1cfeedbe>
+800002ac:	56ff7537          	lui	a0,0x56ff7
+800002b0:	6df50513          	add	a0,a0,1759 # 56ff76df <absimm+0x56fec5e4>
+800002b4:	ab7fc5b7          	lui	a1,0xab7fc
+800002b8:	b6f58593          	add	a1,a1,-1169 # ab7fbb6f <va_data+0x1a7fbb6f>
+800002bc:	d5bfe637          	lui	a2,0xd5bfe
+800002c0:	db760613          	add	a2,a2,-585 # d5bfddb7 <va_data+0x44bfddb7>
+800002c4:	eadff6b7          	lui	a3,0xeadff
+800002c8:	edb68693          	add	a3,a3,-293 # eadfeedb <va_data+0x59dfeedb>
+800002cc:	f56ff737          	lui	a4,0xf56ff
+800002d0:	76d70713          	add	a4,a4,1901 # f56ff76d <va_data+0x646ff76d>
+800002d4:	fab807b7          	lui	a5,0xfab80
+800002d8:	bb678793          	add	a5,a5,-1098 # fab7fbb6 <va_data+0x69b7fbb6>
+800002dc:	7d5c0837          	lui	a6,0x7d5c0
+800002e0:	ddb80813          	add	a6,a6,-549 # 7d5bfddb <absimm+0x7d5b4ce0>
+800002e4:	beae08b7          	lui	a7,0xbeae0
+800002e8:	eed88893          	add	a7,a7,-275 # beadfeed <va_data+0x2dadfeed>
+800002ec:	df570937          	lui	s2,0xdf570
+800002f0:	f7690913          	add	s2,s2,-138 # df56ff76 <va_data+0x4e56ff76>
+800002f4:	6fab89b7          	lui	s3,0x6fab8
+800002f8:	fbb98993          	add	s3,s3,-69 # 6fab7fbb <absimm+0x6faacec0>
+800002fc:	b7d5ca37          	lui	s4,0xb7d5c
+80000300:	fdda0a13          	add	s4,s4,-35 # b7d5bfdd <va_data+0x26d5bfdd>
+80000304:	dbeaeab7          	lui	s5,0xdbeae
+80000308:	feea8a93          	add	s5,s5,-18 # dbeadfee <va_data+0x4aeadfee>
+8000030c:	6df57b37          	lui	s6,0x6df57
+80000310:	ff7b0b13          	add	s6,s6,-9 # 6df56ff7 <absimm+0x6df4befc>
+80000314:	b6fabbb7          	lui	s7,0xb6fab
+80000318:	7fbb8b93          	add	s7,s7,2043 # b6fab7fb <va_data+0x25fab7fb>
+8000031c:	db7d6c37          	lui	s8,0xdb7d6
+80000320:	bfdc0c13          	add	s8,s8,-1027 # db7d5bfd <va_data+0x4a7d5bfd>
+80000324:	edbebcb7          	lui	s9,0xedbeb
+80000328:	dfec8c93          	add	s9,s9,-514 # edbeadfe <va_data+0x5cbeadfe>
+8000032c:	76df5d37          	lui	s10,0x76df5
+80000330:	6ffd0d13          	add	s10,s10,1791 # 76df56ff <absimm+0x76dea604>
+80000334:	bb6fbdb7          	lui	s11,0xbb6fb
+80000338:	b7fd8d93          	add	s11,s11,-1153 # bb6fab7f <va_data+0x2a6fab7f>
+8000033c:	ddb7de37          	lui	t3,0xddb7d
+80000340:	5bfe0e13          	add	t3,t3,1471 # ddb7d5bf <va_data+0x4cb7d5bf>
+80000344:	eedbfeb7          	lui	t4,0xeedbf
+80000348:	adfe8e93          	add	t4,t4,-1313 # eedbeadf <va_data+0x5ddbeadf>
+8000034c:	f76dff37          	lui	t5,0xf76df
+80000350:	56ff0f13          	add	t5,t5,1391 # f76df56f <va_data+0x666df56f>
+80000354:	fbb70fb7          	lui	t6,0xfbb70
+80000358:	ab7f8f93          	add	t6,t6,-1353 # fbb6fab7 <va_data+0x6ab6fab7>
+
+8000035c <rvtest_code_begin>:
+8000035c:	00000013          	nop
+80000360:	00c02697          	auipc	a3,0xc02
+80000364:	db468693          	add	a3,a3,-588 # 80c02114 <signature_x13_1>
+80000368:	00000013          	nop
+8000036c:	00000013          	nop
+80000370:	00000013          	nop
+80000374:	00000013          	nop
+80000378:	00000013          	nop
+8000037c:	00000013          	nop
+
+80000380 <main>:
+80000380:	0000d737          	lui	a4,0xd
+80000384:	eed70713          	add	a4,a4,-275 # ceed <absimm+0x1df2>
+80000388:	00e6a023          	sw	a4,0(a3)
+8000038c:	0000c737          	lui	a4,0xc
+80000390:	eed70713          	add	a4,a4,-275 # beed <absimm+0xdf2>
+80000394:	00e6a223          	sw	a4,4(a3)
+80000398:	fff00393          	li	t2,-1
+8000039c:	3b039073          	csrw	pmpaddr0,t2
+800003a0:	00f00393          	li	t2,15
+800003a4:	3a039073          	csrw	pmpcfg0,t2
+800003a8:	18001073          	csrw	satp,zero
+800003ac:	00000013          	nop
+800003b0:	00000013          	nop
+800003b4:	00000013          	nop
+800003b8:	00000013          	nop
+800003bc:	00000013          	nop
+800003c0:	80000537          	lui	a0,0x80000
+800003c4:	00000013          	nop
+800003c8:	00000013          	nop
+800003cc:	00000013          	nop
+800003d0:	00000013          	nop
+800003d4:	00000013          	nop
+800003d8:	00000013          	nop
+800003dc:	00000013          	nop
+800003e0:	0ff00593          	li	a1,255
+800003e4:	00c55513          	srl	a0,a0,0xc
+800003e8:	00a51513          	sll	a0,a0,0xa
+800003ec:	00b56533          	or	a0,a0,a1
+800003f0:	00000013          	nop
+800003f4:	00000013          	nop
+800003f8:	00000013          	nop
+800003fc:	00000013          	nop
+80000400:	00c01317          	auipc	t1,0xc01
+80000404:	c0030313          	add	t1,t1,-1024 # 80c01000 <rvtest_Sroot_pg_tbl>
+80000408:	00000013          	nop
+8000040c:	00000013          	nop
+80000410:	00000013          	nop
+80000414:	00000013          	nop
+80000418:	00000013          	nop
+8000041c:	00000013          	nop
+80000420:	000012b7          	lui	t0,0x1
+80000424:	90028293          	add	t0,t0,-1792 # 900 <CSR_XSATP+0x780>
+80000428:	00530333          	add	t1,t1,t0
+8000042c:	00a32023          	sw	a0,0(t1)
+80000430:	00000013          	nop
+80000434:	00000013          	nop
+80000438:	00000013          	nop
+8000043c:	00000013          	nop
+80000440:	00800517          	auipc	a0,0x800
+80000444:	bc050513          	add	a0,a0,-1088 # 80800000 <rvtest_data>
+80000448:	00000013          	nop
+8000044c:	00000013          	nop
+80000450:	00000013          	nop
+80000454:	00000013          	nop
+80000458:	00000013          	nop
+8000045c:	00000013          	nop
+80000460:	0fd00593          	li	a1,253
+80000464:	00c55513          	srl	a0,a0,0xc
+80000468:	00a51513          	sll	a0,a0,0xa
+8000046c:	00b56533          	or	a0,a0,a1
+80000470:	00000013          	nop
+80000474:	00000013          	nop
+80000478:	00000013          	nop
+8000047c:	00000013          	nop
+80000480:	00c01317          	auipc	t1,0xc01
+80000484:	b8030313          	add	t1,t1,-1152 # 80c01000 <rvtest_Sroot_pg_tbl>
+80000488:	00000013          	nop
+8000048c:	00000013          	nop
+80000490:	00000013          	nop
+80000494:	00000013          	nop
+80000498:	00000013          	nop
+8000049c:	00000013          	nop
+800004a0:	000012b7          	lui	t0,0x1
+800004a4:	91028293          	add	t0,t0,-1776 # 910 <vpn>
+800004a8:	00530333          	add	t1,t1,t0
+800004ac:	00a32023          	sw	a0,0(t1)
+800004b0:	00000013          	nop
+800004b4:	00000013          	nop
+800004b8:	00000013          	nop
+800004bc:	00000013          	nop
+800004c0:	00c01f97          	auipc	t6,0xc01
+800004c4:	b40f8f93          	add	t6,t6,-1216 # 80c01000 <rvtest_Sroot_pg_tbl>
+800004c8:	00000013          	nop
+800004cc:	00000013          	nop
+800004d0:	00000013          	nop
+800004d4:	00000013          	nop
+800004d8:	00000013          	nop
+800004dc:	00000013          	nop
+800004e0:	80000f37          	lui	t5,0x80000
+800004e4:	00cfdf93          	srl	t6,t6,0xc
+800004e8:	01efefb3          	or	t6,t6,t5
+800004ec:	180f9073          	csrw	satp,t6
+800004f0:	900002b7          	lui	t0,0x90000
+800004f4:	80000337          	lui	t1,0x80000
+800004f8:	406282b3          	sub	t0,t0,t1
+800004fc:	34002173          	csrr	sp,mscratch
+80000500:	00510333          	add	t1,sp,t0
+80000504:	14031073          	csrw	sscratch,t1
+80000508:	15812303          	lw	t1,344(sp)
+8000050c:	005303b3          	add	t2,t1,t0
+80000510:	34712823          	sw	t2,848(sp)
+80000514:	54712423          	sw	t2,1352(sp)
+80000518:	16812303          	lw	t1,360(sp)
+8000051c:	005303b3          	add	t2,t1,t0
+80000520:	36712023          	sw	t2,864(sp)
+80000524:	54712c23          	sw	t2,1368(sp)
+80000528:	17812303          	lw	t1,376(sp)
+8000052c:	005303b3          	add	t2,t1,t0
+80000530:	36712823          	sw	t2,880(sp)
+80000534:	56712423          	sw	t2,1384(sp)
+80000538:	12000073          	sfence.vma
+8000053c:	000024b7          	lui	s1,0x2
+80000540:	80048493          	add	s1,s1,-2048 # 1800 <vpn+0xef0>
+80000544:	3004b073          	csrc	mstatus,s1
+80000548:	34002173          	csrr	sp,mscratch
+8000054c:	15812303          	lw	t1,344(sp)
+80000550:	15812483          	lw	s1,344(sp)
+80000554:	40930333          	sub	t1,t1,s1
+80000558:	01030313          	add	t1,t1,16 # 80000010 <rvtest_entry_point+0x10>
+8000055c:	00000497          	auipc	s1,0x0
+80000560:	006484b3          	add	s1,s1,t1
+80000564:	341494f3          	csrrw	s1,mepc,s1
+80000568:	30200073          	mret
+
+8000056c <vm_en>:
+8000056c:	00000013          	nop
+80000570:	00000013          	nop
+80000574:	00000013          	nop
+80000578:	00000013          	nop
+8000057c:	00000013          	nop
+80000580:	91000337          	lui	t1,0x91000
+80000584:	00000013          	nop
+80000588:	00000013          	nop
+8000058c:	00000013          	nop
+80000590:	00000013          	nop
+80000594:	00000013          	nop
+80000598:	00000013          	nop
+8000059c:	00000013          	nop
+800005a0:	00032283          	lw	t0,0(t1) # 91000000 <va_data>
+800005a4:	00000113          	li	sp,0
+800005a8:	00000073          	ecall
+
+800005ac <mmode>:
+800005ac:	0000b3b7          	lui	t2,0xb
+800005b0:	bab38393          	add	t2,t2,-1109 # abab <vpn+0xa29b>
+800005b4:	3b139073          	csrw	pmpaddr1,t2
+800005b8:	3b102773          	csrr	a4,pmpaddr1
+800005bc:	00e6a423          	sw	a4,8(a3)
+
+800005c0 <rvtest_code_end>:
+800005c0:	00000113          	li	sp,0
+800005c4:	00000073          	ecall
+
+800005c8 <cleanup_epilogs>:
+800005c8:	34002373          	csrr	t1,mscratch
+800005cc:	1f830313          	add	t1,t1,504
+
+800005d0 <resto_Sedeleg>:
+800005d0:	1b832383          	lw	t2,440(t1)
+
+800005d4 <resto_Ssatp>:
+800005d4:	1a032383          	lw	t2,416(t1)
+800005d8:	18039073          	csrw	satp,t2
+
+800005dc <resto_Sscratch>:
+800005dc:	1d032503          	lw	a0,464(t1)
+800005e0:	14051073          	csrw	sscratch,a0
+
+800005e4 <resto_Sxtvec>:
+800005e4:	1c832483          	lw	s1,456(t1)
+800005e8:	105493f3          	csrrw	t2,stvec,s1
+800005ec:	ffc4f493          	and	s1,s1,-4
+800005f0:	ffc3f393          	and	t2,t2,-4
+800005f4:	02749063          	bne	s1,t2,80000614 <rvtest_Send>
+
+800005f8 <resto_Stramp>:
+800005f8:	00030493          	mv	s1,t1
+800005fc:	1a832403          	lw	s0,424(t1)
+
+80000600 <resto_Sloop>:
+80000600:	0004a583          	lw	a1,0(s1) # 8000055c <main+0x1dc>
+80000604:	00b3a023          	sw	a1,0(t2)
+80000608:	00438393          	add	t2,t2,4
+8000060c:	00448493          	add	s1,s1,4
+80000610:	fe83c8e3          	blt	t2,s0,80000600 <resto_Sloop>
+
+80000614 <rvtest_Send>:
+80000614:	34002373          	csrr	t1,mscratch
+
+80000618 <resto_Medeleg>:
+80000618:	1b832383          	lw	t2,440(t1)
+8000061c:	30239073          	csrw	medeleg,t2
+
+80000620 <resto_Mscratch>:
+80000620:	1d032503          	lw	a0,464(t1)
+80000624:	34051073          	csrw	mscratch,a0
+
+80000628 <resto_Mxtvec>:
+80000628:	1c832483          	lw	s1,456(t1)
+8000062c:	305493f3          	csrrw	t2,mtvec,s1
+80000630:	ffc4f493          	and	s1,s1,-4
+80000634:	ffc3f393          	and	t2,t2,-4
+80000638:	02749063          	bne	s1,t2,80000658 <rvtest_Mend>
+
+8000063c <resto_Mtramp>:
+8000063c:	00030493          	mv	s1,t1
+80000640:	1a832403          	lw	s0,424(t1)
+
+80000644 <resto_Mloop>:
+80000644:	0004a583          	lw	a1,0(s1)
+80000648:	00b3a023          	sw	a1,0(t2)
+8000064c:	00438393          	add	t2,t2,4
+80000650:	00448493          	add	s1,s1,4
+80000654:	fe83c8e3          	blt	t2,s0,80000644 <resto_Mloop>
+
+80000658 <rvtest_Mend>:
+80000658:	40d0006f          	j	80001264 <exit_cleanup>
+
+8000065c <abort_tests>:
+8000065c:	17812483          	lw	s1,376(sp)
+80000660:	18012303          	lw	t1,384(sp)
+80000664:	00930333          	add	t1,t1,s1
+80000668:	bad0e337          	lui	t1,0xbad0e
+8000066c:	ad030313          	add	t1,t1,-1328 # bad0dad0 <va_data+0x29d0dad0>
+80000670:	fe64ae23          	sw	t1,-4(s1)
+80000674:	3f10006f          	j	80001264 <exit_cleanup>
+80000678:	00000013          	nop
+8000067c:	00000013          	nop
+
+80000680 <Mtrampoline>:
+80000680:	0800006f          	j	80000700 <trap_Mhandler>
+80000684:	0880006f          	j	8000070c <trap_Mhandler+0xc>
+80000688:	0900006f          	j	80000718 <trap_Mhandler+0x18>
+8000068c:	0980006f          	j	80000724 <trap_Mhandler+0x24>
+80000690:	0a00006f          	j	80000730 <trap_Mhandler+0x30>
+80000694:	0a80006f          	j	8000073c <trap_Mhandler+0x3c>
+80000698:	0b00006f          	j	80000748 <trap_Mhandler+0x48>
+8000069c:	0b80006f          	j	80000754 <trap_Mhandler+0x54>
+800006a0:	0c00006f          	j	80000760 <trap_Mhandler+0x60>
+800006a4:	0c80006f          	j	8000076c <trap_Mhandler+0x6c>
+800006a8:	0d00006f          	j	80000778 <trap_Mhandler+0x78>
+800006ac:	0d80006f          	j	80000784 <trap_Mhandler+0x84>
+800006b0:	0e00006f          	j	80000790 <trap_Mhandler+0x90>
+800006b4:	0e80006f          	j	8000079c <trap_Mhandler+0x9c>
+800006b8:	0f00006f          	j	800007a8 <trap_Mhandler+0xa8>
+800006bc:	0f80006f          	j	800007b4 <trap_Mhandler+0xb4>
+800006c0:	1580006f          	j	80000818 <rvtest_Mendtest>
+800006c4:	1540006f          	j	80000818 <rvtest_Mendtest>
+800006c8:	1500006f          	j	80000818 <rvtest_Mendtest>
+800006cc:	14c0006f          	j	80000818 <rvtest_Mendtest>
+800006d0:	1480006f          	j	80000818 <rvtest_Mendtest>
+800006d4:	1440006f          	j	80000818 <rvtest_Mendtest>
+800006d8:	1400006f          	j	80000818 <rvtest_Mendtest>
+800006dc:	13c0006f          	j	80000818 <rvtest_Mendtest>
+800006e0:	1380006f          	j	80000818 <rvtest_Mendtest>
+800006e4:	1340006f          	j	80000818 <rvtest_Mendtest>
+800006e8:	1300006f          	j	80000818 <rvtest_Mendtest>
+800006ec:	12c0006f          	j	80000818 <rvtest_Mendtest>
+800006f0:	1280006f          	j	80000818 <rvtest_Mendtest>
+800006f4:	1240006f          	j	80000818 <rvtest_Mendtest>
+800006f8:	1200006f          	j	80000818 <rvtest_Mendtest>
+800006fc:	11c0006f          	j	80000818 <rvtest_Mendtest>
+
+80000700 <trap_Mhandler>:
+80000700:	34011173          	csrrw	sp,mscratch,sp
+80000704:	1eb12823          	sw	a1,496(sp)
+80000708:	0b8005ef          	jal	a1,800007c0 <common_Mhandler>
+8000070c:	34011173          	csrrw	sp,mscratch,sp
+80000710:	1eb12823          	sw	a1,496(sp)
+80000714:	0ac005ef          	jal	a1,800007c0 <common_Mhandler>
+80000718:	34011173          	csrrw	sp,mscratch,sp
+8000071c:	1eb12823          	sw	a1,496(sp)
+80000720:	0a0005ef          	jal	a1,800007c0 <common_Mhandler>
+80000724:	34011173          	csrrw	sp,mscratch,sp
+80000728:	1eb12823          	sw	a1,496(sp)
+8000072c:	094005ef          	jal	a1,800007c0 <common_Mhandler>
+80000730:	34011173          	csrrw	sp,mscratch,sp
+80000734:	1eb12823          	sw	a1,496(sp)
+80000738:	088005ef          	jal	a1,800007c0 <common_Mhandler>
+8000073c:	34011173          	csrrw	sp,mscratch,sp
+80000740:	1eb12823          	sw	a1,496(sp)
+80000744:	07c005ef          	jal	a1,800007c0 <common_Mhandler>
+80000748:	34011173          	csrrw	sp,mscratch,sp
+8000074c:	1eb12823          	sw	a1,496(sp)
+80000750:	070005ef          	jal	a1,800007c0 <common_Mhandler>
+80000754:	34011173          	csrrw	sp,mscratch,sp
+80000758:	1eb12823          	sw	a1,496(sp)
+8000075c:	064005ef          	jal	a1,800007c0 <common_Mhandler>
+80000760:	34011173          	csrrw	sp,mscratch,sp
+80000764:	1eb12823          	sw	a1,496(sp)
+80000768:	058005ef          	jal	a1,800007c0 <common_Mhandler>
+8000076c:	34011173          	csrrw	sp,mscratch,sp
+80000770:	1eb12823          	sw	a1,496(sp)
+80000774:	04c005ef          	jal	a1,800007c0 <common_Mhandler>
+80000778:	34011173          	csrrw	sp,mscratch,sp
+8000077c:	1eb12823          	sw	a1,496(sp)
+80000780:	040005ef          	jal	a1,800007c0 <common_Mhandler>
+80000784:	34011173          	csrrw	sp,mscratch,sp
+80000788:	1eb12823          	sw	a1,496(sp)
+8000078c:	034005ef          	jal	a1,800007c0 <common_Mhandler>
+80000790:	34011173          	csrrw	sp,mscratch,sp
+80000794:	1eb12823          	sw	a1,496(sp)
+80000798:	028005ef          	jal	a1,800007c0 <common_Mhandler>
+8000079c:	34011173          	csrrw	sp,mscratch,sp
+800007a0:	1eb12823          	sw	a1,496(sp)
+800007a4:	01c005ef          	jal	a1,800007c0 <common_Mhandler>
+800007a8:	34011173          	csrrw	sp,mscratch,sp
+800007ac:	1eb12823          	sw	a1,496(sp)
+800007b0:	010005ef          	jal	a1,800007c0 <common_Mhandler>
+800007b4:	34011173          	csrrw	sp,mscratch,sp
+800007b8:	1eb12823          	sw	a1,496(sp)
+800007bc:	004005ef          	jal	a1,800007c0 <common_Mhandler>
+
+800007c0 <common_Mhandler>:
+800007c0:	1ea12623          	sw	a0,492(sp)
+800007c4:	34011573          	csrrw	a0,mscratch,sp
+800007c8:	1ea12a23          	sw	a0,500(sp)
+800007cc:	1b012503          	lw	a0,432(sp)
+800007d0:	00050067          	jr	a0
+
+800007d4 <common_Mentry>:
+800007d4:	1e912423          	sw	s1,488(sp)
+800007d8:	1e812223          	sw	s0,484(sp)
+800007dc:	1e712023          	sw	t2,480(sp)
+800007e0:	1c612e23          	sw	t1,476(sp)
+
+800007e4 <spcl_M2mmode_test>:
+800007e4:	34202573          	csrr	a0,mcause
+800007e8:	ff850493          	add	s1,a0,-8
+800007ec:	ffc4f493          	and	s1,s1,-4
+800007f0:	00049663          	bnez	s1,800007fc <Mtrapsig_ptr_upd>
+800007f4:	1f412383          	lw	t2,500(sp)
+800007f8:	44038e63          	beqz	t2,80000c54 <rtn2mmode>
+
+800007fc <Mtrapsig_ptr_upd>:
+800007fc:	01000393          	li	t2,16
+80000800:	04055263          	bgez	a0,80000844 <Mxcpt_sig_sv>
+
+80000804 <Mint_sig_sv>:
+80000804:	00151413          	sll	s0,a0,0x1
+80000808:	ff240413          	add	s0,s0,-14
+8000080c:	04045463          	bgez	s0,80000854 <Mtrap_sig_sv>
+80000810:	00c00393          	li	t2,12
+80000814:	0400006f          	j	80000854 <Mtrap_sig_sv>
+
+80000818 <rvtest_Mendtest>:
+80000818:	00000013          	nop
+8000081c:	00000013          	nop
+80000820:	00000317          	auipc	t1,0x0
+80000824:	e3830313          	add	t1,t1,-456 # 80000658 <rvtest_Mend>
+80000828:	00000013          	nop
+8000082c:	00000013          	nop
+80000830:	00000013          	nop
+80000834:	00000013          	nop
+80000838:	00000013          	nop
+8000083c:	00000013          	nop
+80000840:	00030067          	jr	t1
+
+80000844 <Mxcpt_sig_sv>:
+80000844:	30102373          	csrr	t1,misa
+80000848:	01831313          	sll	t1,t1,0x18
+8000084c:	00035463          	bgez	t1,80000854 <Mtrap_sig_sv>
+80000850:	01800393          	li	t2,24
+
+80000854 <Mtrap_sig_sv>:
+80000854:	19812303          	lw	t1,408(sp)
+80000858:	007304b3          	add	s1,t1,t2
+8000085c:	18912c23          	sw	s1,408(sp)
+80000860:	1c012403          	lw	s0,448(sp)
+
+80000864 <sv_Mvect>:
+80000864:	408585b3          	sub	a1,a1,s0
+80000868:	00459593          	sll	a1,a1,0x4
+8000086c:	0075e5b3          	or	a1,a1,t2
+80000870:	00358593          	add	a1,a1,3
+80000874:	00b32023          	sw	a1,0(t1)
+
+80000878 <sv_Mcause>:
+80000878:	00a32223          	sw	a0,4(t1)
+8000087c:	12054663          	bltz	a0,800009a8 <common_Mint_handler>
+
+80000880 <common_Mexcpt_handler>:
+80000880:	00010493          	mv	s1,sp
+80000884:	300025f3          	csrr	a1,mstatus
+80000888:	01359413          	sll	s0,a1,0x13
+8000088c:	00044c63          	bltz	s0,800008a4 <vmem_adj_Mepc>
+80000890:	1f848493          	add	s1,s1,504
+80000894:	310025f3          	csrr	a1,0x310
+80000898:	01859593          	sll	a1,a1,0x18
+8000089c:	0005d463          	bgez	a1,800008a4 <vmem_adj_Mepc>
+800008a0:	1f848493          	add	s1,s1,504
+
+800008a4 <vmem_adj_Mepc>:
+800008a4:	341023f3          	csrr	t2,mepc
+800008a8:	1884a403          	lw	s0,392(s1)
+800008ac:	1904a583          	lw	a1,400(s1)
+800008b0:	008585b3          	add	a1,a1,s0
+800008b4:	00b3f463          	bgeu	t2,a1,800008bc <code_adj_Mepc>
+800008b8:	0283f663          	bgeu	t2,s0,800008e4 <adj_Mepc>
+
+800008bc <code_adj_Mepc>:
+800008bc:	1584a403          	lw	s0,344(s1)
+800008c0:	1604a583          	lw	a1,352(s1)
+800008c4:	008585b3          	add	a1,a1,s0
+800008c8:	00b3f463          	bgeu	t2,a1,800008d0 <data_adj_Mepc>
+800008cc:	0083fc63          	bgeu	t2,s0,800008e4 <adj_Mepc>
+
+800008d0 <data_adj_Mepc>:
+800008d0:	1684a403          	lw	s0,360(s1)
+800008d4:	1704a583          	lw	a1,368(s1)
+800008d8:	008585b3          	add	a1,a1,s0
+800008dc:	ceb3f6e3          	bgeu	t2,a1,800005c8 <cleanup_epilogs>
+800008e0:	ce83e4e3          	bltu	t2,s0,800005c8 <cleanup_epilogs>
+
+800008e4 <adj_Mepc>:
+800008e4:	40838433          	sub	s0,t2,s0
+
+800008e8 <sv_Mepc>:
+800008e8:	00832423          	sw	s0,8(t1)
+
+800008ec <adj_Mepc_rtn>:
+800008ec:	ffc3f593          	and	a1,t2,-4
+800008f0:	00858593          	add	a1,a1,8
+800008f4:	34159073          	csrw	mepc,a1
+800008f8:	343023f3          	csrr	t2,mtval
+
+800008fc <chk_Mtval>:
+800008fc:	00f57513          	and	a0,a0,15
+80000900:	0000b437          	lui	s0,0xb
+80000904:	0fb40413          	add	s0,s0,251 # b0fb <absimm>
+80000908:	00a45433          	srl	s0,s0,a0
+8000090c:	01f41413          	sll	s0,s0,0x1f
+80000910:	04045c63          	bgez	s0,80000968 <sv_Mtval>
+
+80000914 <vmem_adj_Mtval>:
+80000914:	1884a403          	lw	s0,392(s1)
+80000918:	1904a583          	lw	a1,400(s1)
+8000091c:	008585b3          	add	a1,a1,s0
+80000920:	00b3f463          	bgeu	t2,a1,80000928 <sig_adj_Mtval>
+80000924:	0483f063          	bgeu	t2,s0,80000964 <adj_Mtval>
+
+80000928 <sig_adj_Mtval>:
+80000928:	1784a403          	lw	s0,376(s1)
+8000092c:	1804a583          	lw	a1,384(s1)
+80000930:	008585b3          	add	a1,a1,s0
+80000934:	00b3f463          	bgeu	t2,a1,8000093c <code_adj_Mtval>
+80000938:	0283f663          	bgeu	t2,s0,80000964 <adj_Mtval>
+
+8000093c <code_adj_Mtval>:
+8000093c:	1584a403          	lw	s0,344(s1)
+80000940:	1604a583          	lw	a1,352(s1)
+80000944:	008585b3          	add	a1,a1,s0
+80000948:	00b3f463          	bgeu	t2,a1,80000950 <data_adj_Mtval>
+8000094c:	0083fc63          	bgeu	t2,s0,80000964 <adj_Mtval>
+
+80000950 <data_adj_Mtval>:
+80000950:	1684a403          	lw	s0,360(s1)
+80000954:	1704a583          	lw	a1,368(s1)
+80000958:	008585b3          	add	a1,a1,s0
+8000095c:	c6b3f6e3          	bgeu	t2,a1,800005c8 <cleanup_epilogs>
+80000960:	c683e4e3          	bltu	t2,s0,800005c8 <cleanup_epilogs>
+
+80000964 <adj_Mtval>:
+80000964:	40838433          	sub	s0,t2,s0
+
+80000968 <sv_Mtval>:
+80000968:	00832623          	sw	s0,12(t1)
+
+8000096c <chk_Mtrapsig_overrun>:
+8000096c:	19812483          	lw	s1,408(sp)
+80000970:	17812383          	lw	t2,376(sp)
+80000974:	18012303          	lw	t1,384(sp)
+80000978:	00730333          	add	t1,t1,t2
+8000097c:	c49366e3          	bltu	t1,s1,800005c8 <cleanup_epilogs>
+80000980:	10000393          	li	t2,256
+80000984:	0400006f          	j	800009c4 <spcl_Mhandler>
+
+80000988 <resto_Mrtn>:
+80000988:	1dc12303          	lw	t1,476(sp)
+8000098c:	1e012383          	lw	t2,480(sp)
+80000990:	1e412403          	lw	s0,484(sp)
+80000994:	1e812483          	lw	s1,488(sp)
+80000998:	1ec12503          	lw	a0,492(sp)
+8000099c:	1f012583          	lw	a1,496(sp)
+800009a0:	1f412103          	lw	sp,500(sp)
+800009a4:	30200073          	mret
+
+800009a8 <common_Mint_handler>:
+800009a8:	00100413          	li	s0,1
+800009ac:	00f57393          	and	t2,a0,15
+800009b0:	00741433          	sll	s0,s0,t2
+800009b4:	304434f3          	csrrc	s1,mie,s0
+800009b8:	344434f3          	csrrc	s1,mip,s0
+
+800009bc <sv_Mip>:
+800009bc:	00932423          	sw	s1,8(t1)
+800009c0:	00000393          	li	t2,0
+
+800009c4 <spcl_Mhandler>:
+800009c4:	00000417          	auipc	s0,0x0
+800009c8:	03c40413          	add	s0,s0,60 # 80000a00 <clrint_Mtbl>
+800009cc:	00740433          	add	s0,s0,t2
+800009d0:	00351393          	sll	t2,a0,0x3
+800009d4:	00740433          	add	s0,s0,t2
+800009d8:	ff847413          	and	s0,s0,-8
+800009dc:	00042403          	lw	s0,0(s0)
+
+800009e0 <spcl_Mdispatch_hndling>:
+800009e0:	c6040ee3          	beqz	s0,8000065c <abort_tests>
+800009e4:	01f41393          	sll	t2,s0,0x1f
+800009e8:	0003d863          	bgez	t2,800009f8 <spcl_Mdispatch>
+800009ec:	00145413          	srl	s0,s0,0x1
+800009f0:	f8850ce3          	beq	a0,s0,80000988 <resto_Mrtn>
+800009f4:	c69ff06f          	j	8000065c <abort_tests>
+
+800009f8 <spcl_Mdispatch>:
+800009f8:	00040067          	jr	s0
+800009fc:	00000013          	nop
+
+80000a00 <clrint_Mtbl>:
+	...
+80000a08:	0001                	.2byte	0x1
+80000a0a:	0000                	.2byte	0x0
+80000a0c:	0000                	.2byte	0x0
+80000a0e:	0000                	.2byte	0x0
+80000a10:	0001                	.2byte	0x1
+80000a12:	0000                	.2byte	0x0
+80000a14:	0000                	.2byte	0x0
+80000a16:	0000                	.2byte	0x0
+80000a18:	0c00                	.2byte	0xc00
+80000a1a:	8000                	.2byte	0x8000
+	...
+80000a28:	0001                	.2byte	0x1
+80000a2a:	0000                	.2byte	0x0
+80000a2c:	0000                	.2byte	0x0
+80000a2e:	0000                	.2byte	0x0
+80000a30:	0001                	.2byte	0x1
+80000a32:	0000                	.2byte	0x0
+80000a34:	0000                	.2byte	0x0
+80000a36:	0000                	.2byte	0x0
+80000a38:	0c08                	.2byte	0xc08
+80000a3a:	8000                	.2byte	0x8000
+	...
+80000a48:	0001                	.2byte	0x1
+80000a4a:	0000                	.2byte	0x0
+80000a4c:	0000                	.2byte	0x0
+80000a4e:	0000                	.2byte	0x0
+80000a50:	0001                	.2byte	0x1
+80000a52:	0000                	.2byte	0x0
+80000a54:	0000                	.2byte	0x0
+80000a56:	0000                	.2byte	0x0
+80000a58:	0c10                	.2byte	0xc10
+80000a5a:	8000                	.2byte	0x8000
+80000a5c:	0000                	.2byte	0x0
+80000a5e:	0000                	.2byte	0x0
+80000a60:	0001                	.2byte	0x1
+80000a62:	0000                	.2byte	0x0
+80000a64:	0000                	.2byte	0x0
+80000a66:	0000                	.2byte	0x0
+80000a68:	0001                	.2byte	0x1
+80000a6a:	0000                	.2byte	0x0
+80000a6c:	0000                	.2byte	0x0
+80000a6e:	0000                	.2byte	0x0
+80000a70:	0001                	.2byte	0x1
+80000a72:	0000                	.2byte	0x0
+80000a74:	0000                	.2byte	0x0
+80000a76:	0000                	.2byte	0x0
+80000a78:	0001                	.2byte	0x1
+	...
+
+80000b00 <excpt_Mhndlr_tbl>:
+80000b00:	0001                	.2byte	0x1
+80000b02:	0000                	.2byte	0x0
+80000b04:	0000                	.2byte	0x0
+80000b06:	0000                	.2byte	0x0
+80000b08:	00000003          	lb	zero,0(zero) # 0 <cry>
+80000b0c:	0000                	.2byte	0x0
+80000b0e:	0000                	.2byte	0x0
+80000b10:	0005                	.2byte	0x5
+80000b12:	0000                	.2byte	0x0
+80000b14:	0000                	.2byte	0x0
+80000b16:	0000                	.2byte	0x0
+80000b18:	00000007          	.4byte	0x7
+80000b1c:	0000                	.2byte	0x0
+80000b1e:	0000                	.2byte	0x0
+80000b20:	0009                	.2byte	0x9
+80000b22:	0000                	.2byte	0x0
+80000b24:	0000                	.2byte	0x0
+80000b26:	0000                	.2byte	0x0
+80000b28:	0000000b          	.4byte	0xb
+80000b2c:	0000                	.2byte	0x0
+80000b2e:	0000                	.2byte	0x0
+80000b30:	000d                	.2byte	0xd
+80000b32:	0000                	.2byte	0x0
+80000b34:	0000                	.2byte	0x0
+80000b36:	0000                	.2byte	0x0
+80000b38:	0000000f          	fence	unknown,unknown
+80000b3c:	0000                	.2byte	0x0
+80000b3e:	0000                	.2byte	0x0
+80000b40:	0011                	.2byte	0x11
+80000b42:	0000                	.2byte	0x0
+80000b44:	0000                	.2byte	0x0
+80000b46:	0000                	.2byte	0x0
+80000b48:	00000013          	nop
+80000b4c:	0000                	.2byte	0x0
+80000b4e:	0000                	.2byte	0x0
+80000b50:	0015                	.2byte	0x15
+80000b52:	0000                	.2byte	0x0
+80000b54:	0000                	.2byte	0x0
+80000b56:	0000                	.2byte	0x0
+80000b58:	00000017          	auipc	zero,0x0
+80000b5c:	0000                	.2byte	0x0
+80000b5e:	0000                	.2byte	0x0
+80000b60:	0019                	.2byte	0x19
+80000b62:	0000                	.2byte	0x0
+80000b64:	0000                	.2byte	0x0
+80000b66:	0000                	.2byte	0x0
+80000b68:	0000001b          	.4byte	0x1b
+80000b6c:	0000                	.2byte	0x0
+80000b6e:	0000                	.2byte	0x0
+80000b70:	001d                	.2byte	0x1d
+80000b72:	0000                	.2byte	0x0
+80000b74:	0000                	.2byte	0x0
+80000b76:	0000                	.2byte	0x0
+80000b78:	001f 0000 0000      	.byte	0x1f, 0x00, 0x00, 0x00, 0x00, 0x00
+	...
+
+80000c00 <Mclr_Msw_int>:
+80000c00:	9c9ff06f          	j	800005c8 <cleanup_epilogs>
+80000c04:	d85ff06f          	j	80000988 <resto_Mrtn>
+
+80000c08 <Mclr_Mtmr_int>:
+80000c08:	9c1ff06f          	j	800005c8 <cleanup_epilogs>
+80000c0c:	d7dff06f          	j	80000988 <resto_Mrtn>
+
+80000c10 <Mclr_Mext_int>:
+80000c10:	9b9ff06f          	j	800005c8 <cleanup_epilogs>
+80000c14:	00832623          	sw	s0,12(t1)
+80000c18:	d71ff06f          	j	80000988 <resto_Mrtn>
+
+80000c1c <Mclr_Ssw_int>:
+80000c1c:	9adff06f          	j	800005c8 <cleanup_epilogs>
+80000c20:	d69ff06f          	j	80000988 <resto_Mrtn>
+
+80000c24 <Mclr_Stmr_int>:
+80000c24:	9a5ff06f          	j	800005c8 <cleanup_epilogs>
+80000c28:	d61ff06f          	j	80000988 <resto_Mrtn>
+
+80000c2c <Mclr_Sext_int>:
+80000c2c:	99dff06f          	j	800005c8 <cleanup_epilogs>
+80000c30:	00832623          	sw	s0,12(t1)
+80000c34:	d55ff06f          	j	80000988 <resto_Mrtn>
+
+80000c38 <Mclr_Vsw_int>:
+80000c38:	991ff06f          	j	800005c8 <cleanup_epilogs>
+80000c3c:	d4dff06f          	j	80000988 <resto_Mrtn>
+
+80000c40 <Mclr_Vtmr_int>:
+80000c40:	989ff06f          	j	800005c8 <cleanup_epilogs>
+80000c44:	d45ff06f          	j	80000988 <resto_Mrtn>
+
+80000c48 <Mclr_Vext_int>:
+80000c48:	981ff06f          	j	800005c8 <cleanup_epilogs>
+80000c4c:	00832623          	sw	s0,12(t1)
+80000c50:	d39ff06f          	j	80000988 <resto_Mrtn>
+
+80000c54 <rtn2mmode>:
+80000c54:	ff550493          	add	s1,a0,-11
+80000c58:	02048063          	beqz	s1,80000c78 <rtn_fm_mmode>
+80000c5c:	310023f3          	csrr	t2,0x310
+80000c60:	01839393          	sll	t2,t2,0x18
+80000c64:	35012583          	lw	a1,848(sp)
+80000c68:	0003d463          	bgez	t2,80000c70 <from_u_s>
+
+80000c6c <from_v>:
+80000c6c:	54812583          	lw	a1,1352(sp)
+
+80000c70 <from_u_s>:
+80000c70:	15812483          	lw	s1,344(sp)
+80000c74:	40b484b3          	sub	s1,s1,a1
+
+80000c78 <rtn_fm_mmode>:
+80000c78:	341023f3          	csrr	t2,mepc
+80000c7c:	009383b3          	add	t2,t2,s1
+80000c80:	1dc12303          	lw	t1,476(sp)
+80000c84:	1e412403          	lw	s0,484(sp)
+80000c88:	1e812483          	lw	s1,488(sp)
+80000c8c:	1ec12503          	lw	a0,492(sp)
+80000c90:	1f012583          	lw	a1,496(sp)
+80000c94:	1f412103          	lw	sp,500(sp)
+80000c98:	00438067          	jr	4(t2)
+80000c9c:	00000013          	nop
+80000ca0:	00000013          	nop
+80000ca4:	00000013          	nop
+80000ca8:	00000013          	nop
+80000cac:	00000013          	nop
+80000cb0:	00000013          	nop
+80000cb4:	00000013          	nop
+80000cb8:	00000013          	nop
+80000cbc:	00000013          	nop
+
+80000cc0 <Strampoline>:
+80000cc0:	0800006f          	j	80000d40 <trap_Shandler>
+80000cc4:	0880006f          	j	80000d4c <trap_Shandler+0xc>
+80000cc8:	0900006f          	j	80000d58 <trap_Shandler+0x18>
+80000ccc:	0980006f          	j	80000d64 <trap_Shandler+0x24>
+80000cd0:	0a00006f          	j	80000d70 <trap_Shandler+0x30>
+80000cd4:	0a80006f          	j	80000d7c <trap_Shandler+0x3c>
+80000cd8:	0b00006f          	j	80000d88 <trap_Shandler+0x48>
+80000cdc:	0b80006f          	j	80000d94 <trap_Shandler+0x54>
+80000ce0:	0c00006f          	j	80000da0 <trap_Shandler+0x60>
+80000ce4:	0c80006f          	j	80000dac <trap_Shandler+0x6c>
+80000ce8:	0d00006f          	j	80000db8 <trap_Shandler+0x78>
+80000cec:	0d80006f          	j	80000dc4 <trap_Shandler+0x84>
+80000cf0:	0e00006f          	j	80000dd0 <trap_Shandler+0x90>
+80000cf4:	0e80006f          	j	80000ddc <trap_Shandler+0x9c>
+80000cf8:	0f00006f          	j	80000de8 <trap_Shandler+0xa8>
+80000cfc:	0f80006f          	j	80000df4 <trap_Shandler+0xb4>
+80000d00:	1580006f          	j	80000e58 <rvtest_Sendtest>
+80000d04:	1540006f          	j	80000e58 <rvtest_Sendtest>
+80000d08:	1500006f          	j	80000e58 <rvtest_Sendtest>
+80000d0c:	14c0006f          	j	80000e58 <rvtest_Sendtest>
+80000d10:	1480006f          	j	80000e58 <rvtest_Sendtest>
+80000d14:	1440006f          	j	80000e58 <rvtest_Sendtest>
+80000d18:	1400006f          	j	80000e58 <rvtest_Sendtest>
+80000d1c:	13c0006f          	j	80000e58 <rvtest_Sendtest>
+80000d20:	1380006f          	j	80000e58 <rvtest_Sendtest>
+80000d24:	1340006f          	j	80000e58 <rvtest_Sendtest>
+80000d28:	1300006f          	j	80000e58 <rvtest_Sendtest>
+80000d2c:	12c0006f          	j	80000e58 <rvtest_Sendtest>
+80000d30:	1280006f          	j	80000e58 <rvtest_Sendtest>
+80000d34:	1240006f          	j	80000e58 <rvtest_Sendtest>
+80000d38:	1200006f          	j	80000e58 <rvtest_Sendtest>
+80000d3c:	11c0006f          	j	80000e58 <rvtest_Sendtest>
+
+80000d40 <trap_Shandler>:
+80000d40:	14011173          	csrrw	sp,sscratch,sp
+80000d44:	1eb12823          	sw	a1,496(sp)
+80000d48:	0b8005ef          	jal	a1,80000e00 <common_Shandler>
+80000d4c:	14011173          	csrrw	sp,sscratch,sp
+80000d50:	1eb12823          	sw	a1,496(sp)
+80000d54:	0ac005ef          	jal	a1,80000e00 <common_Shandler>
+80000d58:	14011173          	csrrw	sp,sscratch,sp
+80000d5c:	1eb12823          	sw	a1,496(sp)
+80000d60:	0a0005ef          	jal	a1,80000e00 <common_Shandler>
+80000d64:	14011173          	csrrw	sp,sscratch,sp
+80000d68:	1eb12823          	sw	a1,496(sp)
+80000d6c:	094005ef          	jal	a1,80000e00 <common_Shandler>
+80000d70:	14011173          	csrrw	sp,sscratch,sp
+80000d74:	1eb12823          	sw	a1,496(sp)
+80000d78:	088005ef          	jal	a1,80000e00 <common_Shandler>
+80000d7c:	14011173          	csrrw	sp,sscratch,sp
+80000d80:	1eb12823          	sw	a1,496(sp)
+80000d84:	07c005ef          	jal	a1,80000e00 <common_Shandler>
+80000d88:	14011173          	csrrw	sp,sscratch,sp
+80000d8c:	1eb12823          	sw	a1,496(sp)
+80000d90:	070005ef          	jal	a1,80000e00 <common_Shandler>
+80000d94:	14011173          	csrrw	sp,sscratch,sp
+80000d98:	1eb12823          	sw	a1,496(sp)
+80000d9c:	064005ef          	jal	a1,80000e00 <common_Shandler>
+80000da0:	14011173          	csrrw	sp,sscratch,sp
+80000da4:	1eb12823          	sw	a1,496(sp)
+80000da8:	058005ef          	jal	a1,80000e00 <common_Shandler>
+80000dac:	14011173          	csrrw	sp,sscratch,sp
+80000db0:	1eb12823          	sw	a1,496(sp)
+80000db4:	04c005ef          	jal	a1,80000e00 <common_Shandler>
+80000db8:	14011173          	csrrw	sp,sscratch,sp
+80000dbc:	1eb12823          	sw	a1,496(sp)
+80000dc0:	040005ef          	jal	a1,80000e00 <common_Shandler>
+80000dc4:	14011173          	csrrw	sp,sscratch,sp
+80000dc8:	1eb12823          	sw	a1,496(sp)
+80000dcc:	034005ef          	jal	a1,80000e00 <common_Shandler>
+80000dd0:	14011173          	csrrw	sp,sscratch,sp
+80000dd4:	1eb12823          	sw	a1,496(sp)
+80000dd8:	028005ef          	jal	a1,80000e00 <common_Shandler>
+80000ddc:	14011173          	csrrw	sp,sscratch,sp
+80000de0:	1eb12823          	sw	a1,496(sp)
+80000de4:	01c005ef          	jal	a1,80000e00 <common_Shandler>
+80000de8:	14011173          	csrrw	sp,sscratch,sp
+80000dec:	1eb12823          	sw	a1,496(sp)
+80000df0:	010005ef          	jal	a1,80000e00 <common_Shandler>
+80000df4:	14011173          	csrrw	sp,sscratch,sp
+80000df8:	1eb12823          	sw	a1,496(sp)
+80000dfc:	004005ef          	jal	a1,80000e00 <common_Shandler>
+
+80000e00 <common_Shandler>:
+80000e00:	1ea12623          	sw	a0,492(sp)
+80000e04:	14011573          	csrrw	a0,sscratch,sp
+80000e08:	1ea12a23          	sw	a0,500(sp)
+80000e0c:	1b012503          	lw	a0,432(sp)
+80000e10:	00050067          	jr	a0
+
+80000e14 <common_Sentry>:
+80000e14:	1e912423          	sw	s1,488(sp)
+80000e18:	1e812223          	sw	s0,484(sp)
+80000e1c:	1e712023          	sw	t2,480(sp)
+80000e20:	1c612e23          	sw	t1,476(sp)
+
+80000e24 <spcl_S2mmode_test>:
+80000e24:	14202573          	csrr	a0,scause
+80000e28:	ff850493          	add	s1,a0,-8
+80000e2c:	ffc4f493          	and	s1,s1,-4
+80000e30:	00049663          	bnez	s1,80000e3c <Strapsig_ptr_upd>
+80000e34:	1f412383          	lw	t2,500(sp)
+80000e38:	e0038ee3          	beqz	t2,80000c54 <rtn2mmode>
+
+80000e3c <Strapsig_ptr_upd>:
+80000e3c:	01000393          	li	t2,16
+80000e40:	04055263          	bgez	a0,80000e84 <Strap_sig_sv>
+
+80000e44 <Sint_sig_sv>:
+80000e44:	00151413          	sll	s0,a0,0x1
+80000e48:	ff240413          	add	s0,s0,-14
+80000e4c:	02045c63          	bgez	s0,80000e84 <Strap_sig_sv>
+80000e50:	00c00393          	li	t2,12
+80000e54:	0300006f          	j	80000e84 <Strap_sig_sv>
+
+80000e58 <rvtest_Sendtest>:
+80000e58:	00000013          	nop
+80000e5c:	00000013          	nop
+80000e60:	fffff317          	auipc	t1,0xfffff
+80000e64:	7b430313          	add	t1,t1,1972 # 80000614 <rvtest_Send>
+80000e68:	00000013          	nop
+80000e6c:	00000013          	nop
+80000e70:	00000013          	nop
+80000e74:	00000013          	nop
+80000e78:	00000013          	nop
+80000e7c:	00000013          	nop
+80000e80:	00030067          	jr	t1
+
+80000e84 <Strap_sig_sv>:
+80000e84:	fa012303          	lw	t1,-96(sp)
+80000e88:	007304b3          	add	s1,t1,t2
+80000e8c:	fa912023          	sw	s1,-96(sp)
+80000e90:	1c012403          	lw	s0,448(sp)
+
+80000e94 <sv_Svect>:
+80000e94:	408585b3          	sub	a1,a1,s0
+80000e98:	00459593          	sll	a1,a1,0x4
+80000e9c:	0075e5b3          	or	a1,a1,t2
+80000ea0:	00158593          	add	a1,a1,1
+80000ea4:	00b32023          	sw	a1,0(t1)
+
+80000ea8 <sv_Scause>:
+80000ea8:	00a32223          	sw	a0,4(t1)
+80000eac:	10054663          	bltz	a0,80000fb8 <common_Sint_handler>
+
+80000eb0 <common_Sexcpt_handler>:
+80000eb0:	00010493          	mv	s1,sp
+
+80000eb4 <vmem_adj_Sepc>:
+80000eb4:	141023f3          	csrr	t2,sepc
+80000eb8:	1884a403          	lw	s0,392(s1)
+80000ebc:	1904a583          	lw	a1,400(s1)
+80000ec0:	008585b3          	add	a1,a1,s0
+80000ec4:	00b3f463          	bgeu	t2,a1,80000ecc <code_adj_Sepc>
+80000ec8:	0283f663          	bgeu	t2,s0,80000ef4 <adj_Sepc>
+
+80000ecc <code_adj_Sepc>:
+80000ecc:	1584a403          	lw	s0,344(s1)
+80000ed0:	1604a583          	lw	a1,352(s1)
+80000ed4:	008585b3          	add	a1,a1,s0
+80000ed8:	00b3f463          	bgeu	t2,a1,80000ee0 <data_adj_Sepc>
+80000edc:	0083fc63          	bgeu	t2,s0,80000ef4 <adj_Sepc>
+
+80000ee0 <data_adj_Sepc>:
+80000ee0:	1684a403          	lw	s0,360(s1)
+80000ee4:	1704a583          	lw	a1,368(s1)
+80000ee8:	008585b3          	add	a1,a1,s0
+80000eec:	ecb3fe63          	bgeu	t2,a1,800005c8 <cleanup_epilogs>
+80000ef0:	ec83ec63          	bltu	t2,s0,800005c8 <cleanup_epilogs>
+
+80000ef4 <adj_Sepc>:
+80000ef4:	40838433          	sub	s0,t2,s0
+
+80000ef8 <sv_Sepc>:
+80000ef8:	00832423          	sw	s0,8(t1)
+
+80000efc <adj_Sepc_rtn>:
+80000efc:	ffc3f593          	and	a1,t2,-4
+80000f00:	00858593          	add	a1,a1,8
+80000f04:	14159073          	csrw	sepc,a1
+80000f08:	143023f3          	csrr	t2,stval
+
+80000f0c <chk_Stval>:
+80000f0c:	00f57513          	and	a0,a0,15
+80000f10:	0000b437          	lui	s0,0xb
+80000f14:	0fb40413          	add	s0,s0,251 # b0fb <absimm>
+80000f18:	00a45433          	srl	s0,s0,a0
+80000f1c:	01f41413          	sll	s0,s0,0x1f
+80000f20:	04045c63          	bgez	s0,80000f78 <sv_Stval>
+
+80000f24 <vmem_adj_Stval>:
+80000f24:	1884a403          	lw	s0,392(s1)
+80000f28:	1904a583          	lw	a1,400(s1)
+80000f2c:	008585b3          	add	a1,a1,s0
+80000f30:	00b3f463          	bgeu	t2,a1,80000f38 <sig_adj_Stval>
+80000f34:	0483f063          	bgeu	t2,s0,80000f74 <adj_Stval>
+
+80000f38 <sig_adj_Stval>:
+80000f38:	1784a403          	lw	s0,376(s1)
+80000f3c:	1804a583          	lw	a1,384(s1)
+80000f40:	008585b3          	add	a1,a1,s0
+80000f44:	00b3f463          	bgeu	t2,a1,80000f4c <code_adj_Stval>
+80000f48:	0283f663          	bgeu	t2,s0,80000f74 <adj_Stval>
+
+80000f4c <code_adj_Stval>:
+80000f4c:	1584a403          	lw	s0,344(s1)
+80000f50:	1604a583          	lw	a1,352(s1)
+80000f54:	008585b3          	add	a1,a1,s0
+80000f58:	00b3f463          	bgeu	t2,a1,80000f60 <data_adj_Stval>
+80000f5c:	0083fc63          	bgeu	t2,s0,80000f74 <adj_Stval>
+
+80000f60 <data_adj_Stval>:
+80000f60:	1684a403          	lw	s0,360(s1)
+80000f64:	1704a583          	lw	a1,368(s1)
+80000f68:	008585b3          	add	a1,a1,s0
+80000f6c:	e4b3fe63          	bgeu	t2,a1,800005c8 <cleanup_epilogs>
+80000f70:	e483ec63          	bltu	t2,s0,800005c8 <cleanup_epilogs>
+
+80000f74 <adj_Stval>:
+80000f74:	40838433          	sub	s0,t2,s0
+
+80000f78 <sv_Stval>:
+80000f78:	00832623          	sw	s0,12(t1)
+
+80000f7c <chk_Strapsig_overrun>:
+80000f7c:	fa012483          	lw	s1,-96(sp)
+80000f80:	f8012383          	lw	t2,-128(sp)
+80000f84:	f8812303          	lw	t1,-120(sp)
+80000f88:	00730333          	add	t1,t1,t2
+80000f8c:	e2936e63          	bltu	t1,s1,800005c8 <cleanup_epilogs>
+80000f90:	10000393          	li	t2,256
+80000f94:	0400006f          	j	80000fd4 <spcl_Shandler>
+
+80000f98 <resto_Srtn>:
+80000f98:	1dc12303          	lw	t1,476(sp)
+80000f9c:	1e012383          	lw	t2,480(sp)
+80000fa0:	1e412403          	lw	s0,484(sp)
+80000fa4:	1e812483          	lw	s1,488(sp)
+80000fa8:	1ec12503          	lw	a0,492(sp)
+80000fac:	1f012583          	lw	a1,496(sp)
+80000fb0:	1f412103          	lw	sp,500(sp)
+80000fb4:	10200073          	sret
+
+80000fb8 <common_Sint_handler>:
+80000fb8:	00100413          	li	s0,1
+80000fbc:	00f57393          	and	t2,a0,15
+80000fc0:	00741433          	sll	s0,s0,t2
+80000fc4:	104434f3          	csrrc	s1,sie,s0
+80000fc8:	144434f3          	csrrc	s1,sip,s0
+
+80000fcc <sv_Sip>:
+80000fcc:	00932423          	sw	s1,8(t1)
+80000fd0:	00000393          	li	t2,0
+
+80000fd4 <spcl_Shandler>:
+80000fd4:	00000417          	auipc	s0,0x0
+80000fd8:	03c40413          	add	s0,s0,60 # 80001010 <clrint_Stbl>
+80000fdc:	00740433          	add	s0,s0,t2
+80000fe0:	00351393          	sll	t2,a0,0x3
+80000fe4:	00740433          	add	s0,s0,t2
+80000fe8:	ff847413          	and	s0,s0,-8
+80000fec:	00042403          	lw	s0,0(s0)
+
+80000ff0 <spcl_Sdispatch_hndling>:
+80000ff0:	e6040663          	beqz	s0,8000065c <abort_tests>
+80000ff4:	01f41393          	sll	t2,s0,0x1f
+80000ff8:	0003d863          	bgez	t2,80001008 <spcl_Sdispatch>
+80000ffc:	00145413          	srl	s0,s0,0x1
+80001000:	f8850ce3          	beq	a0,s0,80000f98 <resto_Srtn>
+80001004:	e58ff06f          	j	8000065c <abort_tests>
+
+80001008 <spcl_Sdispatch>:
+80001008:	00040067          	jr	s0
+8000100c:	00000013          	nop
+
+80001010 <clrint_Stbl>:
+	...
+80001018:	0001                	.2byte	0x1
+8000101a:	0000                	.2byte	0x0
+8000101c:	0000                	.2byte	0x0
+8000101e:	0000                	.2byte	0x0
+80001020:	0001                	.2byte	0x1
+80001022:	0000                	.2byte	0x0
+80001024:	0000                	.2byte	0x0
+80001026:	0000                	.2byte	0x0
+80001028:	1210                	.2byte	0x1210
+8000102a:	8000                	.2byte	0x8000
+	...
+80001038:	0001                	.2byte	0x1
+8000103a:	0000                	.2byte	0x0
+8000103c:	0000                	.2byte	0x0
+8000103e:	0000                	.2byte	0x0
+80001040:	0001                	.2byte	0x1
+80001042:	0000                	.2byte	0x0
+80001044:	0000                	.2byte	0x0
+80001046:	0000                	.2byte	0x0
+80001048:	1218                	.2byte	0x1218
+8000104a:	8000                	.2byte	0x8000
+	...
+80001058:	0001                	.2byte	0x1
+8000105a:	0000                	.2byte	0x0
+8000105c:	0000                	.2byte	0x0
+8000105e:	0000                	.2byte	0x0
+80001060:	0001                	.2byte	0x1
+80001062:	0000                	.2byte	0x0
+80001064:	0000                	.2byte	0x0
+80001066:	0000                	.2byte	0x0
+80001068:	1220                	.2byte	0x1220
+8000106a:	8000                	.2byte	0x8000
+8000106c:	0000                	.2byte	0x0
+8000106e:	0000                	.2byte	0x0
+80001070:	0001                	.2byte	0x1
+80001072:	0000                	.2byte	0x0
+80001074:	0000                	.2byte	0x0
+80001076:	0000                	.2byte	0x0
+80001078:	0001                	.2byte	0x1
+8000107a:	0000                	.2byte	0x0
+8000107c:	0000                	.2byte	0x0
+8000107e:	0000                	.2byte	0x0
+80001080:	0001                	.2byte	0x1
+80001082:	0000                	.2byte	0x0
+80001084:	0000                	.2byte	0x0
+80001086:	0000                	.2byte	0x0
+80001088:	0001                	.2byte	0x1
+	...
+
+80001110 <excpt_Shndlr_tbl>:
+80001110:	0001                	.2byte	0x1
+80001112:	0000                	.2byte	0x0
+80001114:	0000                	.2byte	0x0
+80001116:	0000                	.2byte	0x0
+80001118:	00000003          	lb	zero,0(zero) # 0 <cry>
+8000111c:	0000                	.2byte	0x0
+8000111e:	0000                	.2byte	0x0
+80001120:	0005                	.2byte	0x5
+80001122:	0000                	.2byte	0x0
+80001124:	0000                	.2byte	0x0
+80001126:	0000                	.2byte	0x0
+80001128:	00000007          	.4byte	0x7
+8000112c:	0000                	.2byte	0x0
+8000112e:	0000                	.2byte	0x0
+80001130:	0009                	.2byte	0x9
+80001132:	0000                	.2byte	0x0
+80001134:	0000                	.2byte	0x0
+80001136:	0000                	.2byte	0x0
+80001138:	0000000b          	.4byte	0xb
+8000113c:	0000                	.2byte	0x0
+8000113e:	0000                	.2byte	0x0
+80001140:	000d                	.2byte	0xd
+80001142:	0000                	.2byte	0x0
+80001144:	0000                	.2byte	0x0
+80001146:	0000                	.2byte	0x0
+80001148:	0000000f          	fence	unknown,unknown
+8000114c:	0000                	.2byte	0x0
+8000114e:	0000                	.2byte	0x0
+80001150:	0011                	.2byte	0x11
+80001152:	0000                	.2byte	0x0
+80001154:	0000                	.2byte	0x0
+80001156:	0000                	.2byte	0x0
+80001158:	00000013          	nop
+8000115c:	0000                	.2byte	0x0
+8000115e:	0000                	.2byte	0x0
+80001160:	0015                	.2byte	0x15
+80001162:	0000                	.2byte	0x0
+80001164:	0000                	.2byte	0x0
+80001166:	0000                	.2byte	0x0
+80001168:	00000017          	auipc	zero,0x0
+8000116c:	0000                	.2byte	0x0
+8000116e:	0000                	.2byte	0x0
+80001170:	0019                	.2byte	0x19
+80001172:	0000                	.2byte	0x0
+80001174:	0000                	.2byte	0x0
+80001176:	0000                	.2byte	0x0
+80001178:	0000001b          	.4byte	0x1b
+8000117c:	0000                	.2byte	0x0
+8000117e:	0000                	.2byte	0x0
+80001180:	001d                	.2byte	0x1d
+80001182:	0000                	.2byte	0x0
+80001184:	0000                	.2byte	0x0
+80001186:	0000                	.2byte	0x0
+80001188:	001f 0000 0000      	.byte	0x1f, 0x00, 0x00, 0x00, 0x00, 0x00
+	...
+
+80001210 <Sclr_Msw_int>:
+80001210:	bb8ff06f          	j	800005c8 <cleanup_epilogs>
+80001214:	d85ff06f          	j	80000f98 <resto_Srtn>
+
+80001218 <Sclr_Mtmr_int>:
+80001218:	bb0ff06f          	j	800005c8 <cleanup_epilogs>
+8000121c:	d7dff06f          	j	80000f98 <resto_Srtn>
+
+80001220 <Sclr_Mext_int>:
+80001220:	ba8ff06f          	j	800005c8 <cleanup_epilogs>
+80001224:	00832623          	sw	s0,12(t1)
+80001228:	d71ff06f          	j	80000f98 <resto_Srtn>
+
+8000122c <Sclr_Ssw_int>:
+8000122c:	b9cff06f          	j	800005c8 <cleanup_epilogs>
+80001230:	d69ff06f          	j	80000f98 <resto_Srtn>
+
+80001234 <Sclr_Stmr_int>:
+80001234:	b94ff06f          	j	800005c8 <cleanup_epilogs>
+80001238:	d61ff06f          	j	80000f98 <resto_Srtn>
+
+8000123c <Sclr_Sext_int>:
+8000123c:	b8cff06f          	j	800005c8 <cleanup_epilogs>
+80001240:	00832623          	sw	s0,12(t1)
+80001244:	d55ff06f          	j	80000f98 <resto_Srtn>
+
+80001248 <Sclr_Vsw_int>:
+80001248:	b80ff06f          	j	800005c8 <cleanup_epilogs>
+8000124c:	d4dff06f          	j	80000f98 <resto_Srtn>
+
+80001250 <Sclr_Vtmr_int>:
+80001250:	b78ff06f          	j	800005c8 <cleanup_epilogs>
+80001254:	d45ff06f          	j	80000f98 <resto_Srtn>
+
+80001258 <Sclr_Vext_int>:
+80001258:	b70ff06f          	j	800005c8 <cleanup_epilogs>
+8000125c:	00832623          	sw	s0,12(t1)
+80001260:	d39ff06f          	j	80000f98 <resto_Srtn>
+
+80001264 <exit_cleanup>:
+80001264:	00100093          	li	ra,1
+
+80001268 <write_tohost>:
+80001268:	00001f17          	auipc	t5,0x1
+8000126c:	d81f2c23          	sw	ra,-616(t5) # 80002000 <tohost>
+80001270:	ff9ff06f          	j	80001268 <write_tohost>
+	...
+
+Disassembly of section .tohost:
+
+80002000 <tohost>:
+	...
+
+80002100 <fromhost>:
+	...
+
+Disassembly of section .data:
+
+80400000 <Mtramptbl_sv>:
+80400000:	0000006f          	j	80400000 <Mtramptbl_sv>
+80400004:	0000006f          	j	80400004 <Mtramptbl_sv+0x4>
+80400008:	0000006f          	j	80400008 <Mtramptbl_sv+0x8>
+8040000c:	0000006f          	j	8040000c <Mtramptbl_sv+0xc>
+80400010:	0000006f          	j	80400010 <Mtramptbl_sv+0x10>
+80400014:	0000006f          	j	80400014 <Mtramptbl_sv+0x14>
+80400018:	0000006f          	j	80400018 <Mtramptbl_sv+0x18>
+8040001c:	0000006f          	j	8040001c <Mtramptbl_sv+0x1c>
+80400020:	0000006f          	j	80400020 <Mtramptbl_sv+0x20>
+80400024:	0000006f          	j	80400024 <Mtramptbl_sv+0x24>
+80400028:	0000006f          	j	80400028 <Mtramptbl_sv+0x28>
+8040002c:	0000006f          	j	8040002c <Mtramptbl_sv+0x2c>
+80400030:	0000006f          	j	80400030 <Mtramptbl_sv+0x30>
+80400034:	0000006f          	j	80400034 <Mtramptbl_sv+0x34>
+80400038:	0000006f          	j	80400038 <Mtramptbl_sv+0x38>
+8040003c:	0000006f          	j	8040003c <Mtramptbl_sv+0x3c>
+80400040:	0000006f          	j	80400040 <Mtramptbl_sv+0x40>
+80400044:	0000006f          	j	80400044 <Mtramptbl_sv+0x44>
+80400048:	0000006f          	j	80400048 <Mtramptbl_sv+0x48>
+8040004c:	0000006f          	j	8040004c <Mtramptbl_sv+0x4c>
+80400050:	0000006f          	j	80400050 <Mtramptbl_sv+0x50>
+80400054:	0000006f          	j	80400054 <Mtramptbl_sv+0x54>
+80400058:	0000006f          	j	80400058 <Mtramptbl_sv+0x58>
+8040005c:	0000006f          	j	8040005c <Mtramptbl_sv+0x5c>
+80400060:	0000006f          	j	80400060 <Mtramptbl_sv+0x60>
+80400064:	0000006f          	j	80400064 <Mtramptbl_sv+0x64>
+80400068:	0000006f          	j	80400068 <Mtramptbl_sv+0x68>
+8040006c:	0000006f          	j	8040006c <Mtramptbl_sv+0x6c>
+80400070:	0000006f          	j	80400070 <Mtramptbl_sv+0x70>
+80400074:	0000006f          	j	80400074 <Mtramptbl_sv+0x74>
+80400078:	0000006f          	j	80400078 <Mtramptbl_sv+0x78>
+8040007c:	0000006f          	j	8040007c <Mtramptbl_sv+0x7c>
+80400080:	0000006f          	j	80400080 <Mtramptbl_sv+0x80>
+80400084:	0000006f          	j	80400084 <Mtramptbl_sv+0x84>
+80400088:	0000006f          	j	80400088 <Mtramptbl_sv+0x88>
+8040008c:	0000006f          	j	8040008c <Mtramptbl_sv+0x8c>
+80400090:	0000006f          	j	80400090 <Mtramptbl_sv+0x90>
+80400094:	0000006f          	j	80400094 <Mtramptbl_sv+0x94>
+80400098:	0000006f          	j	80400098 <Mtramptbl_sv+0x98>
+8040009c:	0000006f          	j	8040009c <Mtramptbl_sv+0x9c>
+804000a0:	0000006f          	j	804000a0 <Mtramptbl_sv+0xa0>
+804000a4:	0000006f          	j	804000a4 <Mtramptbl_sv+0xa4>
+804000a8:	0000006f          	j	804000a8 <Mtramptbl_sv+0xa8>
+804000ac:	0000006f          	j	804000ac <Mtramptbl_sv+0xac>
+804000b0:	0000006f          	j	804000b0 <Mtramptbl_sv+0xb0>
+804000b4:	0000006f          	j	804000b4 <Mtramptbl_sv+0xb4>
+804000b8:	0000006f          	j	804000b8 <Mtramptbl_sv+0xb8>
+804000bc:	0000006f          	j	804000bc <Mtramptbl_sv+0xbc>
+804000c0:	0000006f          	j	804000c0 <Mtramptbl_sv+0xc0>
+804000c4:	0000006f          	j	804000c4 <Mtramptbl_sv+0xc4>
+804000c8:	0000006f          	j	804000c8 <Mtramptbl_sv+0xc8>
+804000cc:	0000006f          	j	804000cc <Mtramptbl_sv+0xcc>
+804000d0:	0000006f          	j	804000d0 <Mtramptbl_sv+0xd0>
+804000d4:	0000006f          	j	804000d4 <Mtramptbl_sv+0xd4>
+804000d8:	0000006f          	j	804000d8 <Mtramptbl_sv+0xd8>
+804000dc:	0000006f          	j	804000dc <Mtramptbl_sv+0xdc>
+804000e0:	0000006f          	j	804000e0 <Mtramptbl_sv+0xe0>
+804000e4:	0000006f          	j	804000e4 <Mtramptbl_sv+0xe4>
+804000e8:	0000006f          	j	804000e8 <Mtramptbl_sv+0xe8>
+804000ec:	0000006f          	j	804000ec <Mtramptbl_sv+0xec>
+804000f0:	0000006f          	j	804000f0 <Mtramptbl_sv+0xf0>
+804000f4:	0000006f          	j	804000f4 <Mtramptbl_sv+0xf4>
+804000f8:	0000006f          	j	804000f8 <Mtramptbl_sv+0xf8>
+804000fc:	0000006f          	j	804000fc <Mtramptbl_sv+0xfc>
+80400100:	0000006f          	j	80400100 <Mtramptbl_sv+0x100>
+80400104:	0000006f          	j	80400104 <Mtramptbl_sv+0x104>
+80400108:	0000006f          	j	80400108 <Mtramptbl_sv+0x108>
+8040010c:	0000006f          	j	8040010c <Mtramptbl_sv+0x10c>
+80400110:	0000006f          	j	80400110 <Mtramptbl_sv+0x110>
+80400114:	0000006f          	j	80400114 <Mtramptbl_sv+0x114>
+80400118:	0000006f          	j	80400118 <Mtramptbl_sv+0x118>
+8040011c:	0000006f          	j	8040011c <Mtramptbl_sv+0x11c>
+80400120:	0000006f          	j	80400120 <Mtramptbl_sv+0x120>
+80400124:	0000006f          	j	80400124 <Mtramptbl_sv+0x124>
+80400128:	0000006f          	j	80400128 <Mtramptbl_sv+0x128>
+8040012c:	0000006f          	j	8040012c <Mtramptbl_sv+0x12c>
+80400130:	0000006f          	j	80400130 <Mtramptbl_sv+0x130>
+80400134:	0000006f          	j	80400134 <Mtramptbl_sv+0x134>
+80400138:	0000006f          	j	80400138 <Mtramptbl_sv+0x138>
+8040013c:	0000006f          	j	8040013c <Mtramptbl_sv+0x13c>
+80400140:	0000006f          	j	80400140 <Mtramptbl_sv+0x140>
+80400144:	0000006f          	j	80400144 <Mtramptbl_sv+0x144>
+80400148:	0000006f          	j	80400148 <Mtramptbl_sv+0x148>
+8040014c:	0000006f          	j	8040014c <Mtramptbl_sv+0x14c>
+80400150:	0000006f          	j	80400150 <Mtramptbl_sv+0x150>
+80400154:	0000006f          	j	80400154 <Mtramptbl_sv+0x154>
+
+80400158 <Mcode_bgn_ptr>:
+80400158:	035c                	.2byte	0x35c
+8040015a:	8000                	.2byte	0x8000
+8040015c:	0000                	.2byte	0x0
+	...
+
+80400160 <Mcode_seg_sz>:
+80400160:	0264                	.2byte	0x264
+80400162:	0000                	.2byte	0x0
+80400164:	0000                	.2byte	0x0
+	...
+
+80400168 <Mdata_bgn_ptr>:
+80400168:	03f0                	.2byte	0x3f0
+8040016a:	8040                	.2byte	0x8040
+8040016c:	0000                	.2byte	0x0
+	...
+
+80400170 <Mdata_seg_sz>:
+80400170:	1c10                	.2byte	0x1c10
+80400172:	0080                	.2byte	0x80
+80400174:	0000                	.2byte	0x0
+	...
+
+80400178 <Msig_bgn_ptr>:
+80400178:	2110                	.2byte	0x2110
+8040017a:	80c0                	.2byte	0x80c0
+8040017c:	0000                	.2byte	0x0
+	...
+
+80400180 <Msig_seg_sz>:
+80400180:	0108                	.2byte	0x108
+80400182:	0000                	.2byte	0x0
+80400184:	0000                	.2byte	0x0
+	...
+
+80400188 <Mvmem_bgn_ptr>:
+80400188:	03f0                	.2byte	0x3f0
+8040018a:	8040                	.2byte	0x8040
+8040018c:	0000                	.2byte	0x0
+	...
+
+80400190 <Mvmem_seg_sz>:
+80400190:	1c10                	.2byte	0x1c10
+80400192:	0080                	.2byte	0x80
+80400194:	0000                	.2byte	0x0
+	...
+
+80400198 <Mtrap_sig>:
+80400198:	2194                	.2byte	0x2194
+8040019a:	80c0                	.2byte	0x80c0
+8040019c:	0000                	.2byte	0x0
+	...
+
+804001a0 <Msatp_sv>:
+	...
+
+804001a8 <Mtrampend_sv>:
+	...
+
+804001b0 <Mtentry_sv>:
+	...
+
+804001b8 <Medeleg_sv>:
+	...
+
+804001c0 <Mtvec_new>:
+	...
+
+804001c8 <Mtvec_save>:
+	...
+
+804001d0 <Mscratch_save>:
+	...
+
+804001d8 <Mtrapreg_sv>:
+804001d8:	deadbeef          	jal	t4,803db7c2 <fromhost+0x3d96c2>
+804001dc:	deadbeef          	jal	t4,803db7c6 <fromhost+0x3d96c6>
+804001e0:	deadbeef          	jal	t4,803db7ca <fromhost+0x3d96ca>
+804001e4:	deadbeef          	jal	t4,803db7ce <fromhost+0x3d96ce>
+804001e8:	deadbeef          	jal	t4,803db7d2 <fromhost+0x3d96d2>
+804001ec:	deadbeef          	jal	t4,803db7d6 <fromhost+0x3d96d6>
+804001f0:	deadbeef          	jal	t4,803db7da <fromhost+0x3d96da>
+804001f4:	deadbeef          	jal	t4,803db7de <fromhost+0x3d96de>
+
+804001f8 <Stramptbl_sv>:
+804001f8:	0000006f          	j	804001f8 <Stramptbl_sv>
+804001fc:	0000006f          	j	804001fc <Stramptbl_sv+0x4>
+80400200:	0000006f          	j	80400200 <Stramptbl_sv+0x8>
+80400204:	0000006f          	j	80400204 <Stramptbl_sv+0xc>
+80400208:	0000006f          	j	80400208 <Stramptbl_sv+0x10>
+8040020c:	0000006f          	j	8040020c <Stramptbl_sv+0x14>
+80400210:	0000006f          	j	80400210 <Stramptbl_sv+0x18>
+80400214:	0000006f          	j	80400214 <Stramptbl_sv+0x1c>
+80400218:	0000006f          	j	80400218 <Stramptbl_sv+0x20>
+8040021c:	0000006f          	j	8040021c <Stramptbl_sv+0x24>
+80400220:	0000006f          	j	80400220 <Stramptbl_sv+0x28>
+80400224:	0000006f          	j	80400224 <Stramptbl_sv+0x2c>
+80400228:	0000006f          	j	80400228 <Stramptbl_sv+0x30>
+8040022c:	0000006f          	j	8040022c <Stramptbl_sv+0x34>
+80400230:	0000006f          	j	80400230 <Stramptbl_sv+0x38>
+80400234:	0000006f          	j	80400234 <Stramptbl_sv+0x3c>
+80400238:	0000006f          	j	80400238 <Stramptbl_sv+0x40>
+8040023c:	0000006f          	j	8040023c <Stramptbl_sv+0x44>
+80400240:	0000006f          	j	80400240 <Stramptbl_sv+0x48>
+80400244:	0000006f          	j	80400244 <Stramptbl_sv+0x4c>
+80400248:	0000006f          	j	80400248 <Stramptbl_sv+0x50>
+8040024c:	0000006f          	j	8040024c <Stramptbl_sv+0x54>
+80400250:	0000006f          	j	80400250 <Stramptbl_sv+0x58>
+80400254:	0000006f          	j	80400254 <Stramptbl_sv+0x5c>
+80400258:	0000006f          	j	80400258 <Stramptbl_sv+0x60>
+8040025c:	0000006f          	j	8040025c <Stramptbl_sv+0x64>
+80400260:	0000006f          	j	80400260 <Stramptbl_sv+0x68>
+80400264:	0000006f          	j	80400264 <Stramptbl_sv+0x6c>
+80400268:	0000006f          	j	80400268 <Stramptbl_sv+0x70>
+8040026c:	0000006f          	j	8040026c <Stramptbl_sv+0x74>
+80400270:	0000006f          	j	80400270 <Stramptbl_sv+0x78>
+80400274:	0000006f          	j	80400274 <Stramptbl_sv+0x7c>
+80400278:	0000006f          	j	80400278 <Stramptbl_sv+0x80>
+8040027c:	0000006f          	j	8040027c <Stramptbl_sv+0x84>
+80400280:	0000006f          	j	80400280 <Stramptbl_sv+0x88>
+80400284:	0000006f          	j	80400284 <Stramptbl_sv+0x8c>
+80400288:	0000006f          	j	80400288 <Stramptbl_sv+0x90>
+8040028c:	0000006f          	j	8040028c <Stramptbl_sv+0x94>
+80400290:	0000006f          	j	80400290 <Stramptbl_sv+0x98>
+80400294:	0000006f          	j	80400294 <Stramptbl_sv+0x9c>
+80400298:	0000006f          	j	80400298 <Stramptbl_sv+0xa0>
+8040029c:	0000006f          	j	8040029c <Stramptbl_sv+0xa4>
+804002a0:	0000006f          	j	804002a0 <Stramptbl_sv+0xa8>
+804002a4:	0000006f          	j	804002a4 <Stramptbl_sv+0xac>
+804002a8:	0000006f          	j	804002a8 <Stramptbl_sv+0xb0>
+804002ac:	0000006f          	j	804002ac <Stramptbl_sv+0xb4>
+804002b0:	0000006f          	j	804002b0 <Stramptbl_sv+0xb8>
+804002b4:	0000006f          	j	804002b4 <Stramptbl_sv+0xbc>
+804002b8:	0000006f          	j	804002b8 <Stramptbl_sv+0xc0>
+804002bc:	0000006f          	j	804002bc <Stramptbl_sv+0xc4>
+804002c0:	0000006f          	j	804002c0 <Stramptbl_sv+0xc8>
+804002c4:	0000006f          	j	804002c4 <Stramptbl_sv+0xcc>
+804002c8:	0000006f          	j	804002c8 <Stramptbl_sv+0xd0>
+804002cc:	0000006f          	j	804002cc <Stramptbl_sv+0xd4>
+804002d0:	0000006f          	j	804002d0 <Stramptbl_sv+0xd8>
+804002d4:	0000006f          	j	804002d4 <Stramptbl_sv+0xdc>
+804002d8:	0000006f          	j	804002d8 <Stramptbl_sv+0xe0>
+804002dc:	0000006f          	j	804002dc <Stramptbl_sv+0xe4>
+804002e0:	0000006f          	j	804002e0 <Stramptbl_sv+0xe8>
+804002e4:	0000006f          	j	804002e4 <Stramptbl_sv+0xec>
+804002e8:	0000006f          	j	804002e8 <Stramptbl_sv+0xf0>
+804002ec:	0000006f          	j	804002ec <Stramptbl_sv+0xf4>
+804002f0:	0000006f          	j	804002f0 <Stramptbl_sv+0xf8>
+804002f4:	0000006f          	j	804002f4 <Stramptbl_sv+0xfc>
+804002f8:	0000006f          	j	804002f8 <Stramptbl_sv+0x100>
+804002fc:	0000006f          	j	804002fc <Stramptbl_sv+0x104>
+80400300:	0000006f          	j	80400300 <Stramptbl_sv+0x108>
+80400304:	0000006f          	j	80400304 <Stramptbl_sv+0x10c>
+80400308:	0000006f          	j	80400308 <Stramptbl_sv+0x110>
+8040030c:	0000006f          	j	8040030c <Stramptbl_sv+0x114>
+80400310:	0000006f          	j	80400310 <Stramptbl_sv+0x118>
+80400314:	0000006f          	j	80400314 <Stramptbl_sv+0x11c>
+80400318:	0000006f          	j	80400318 <Stramptbl_sv+0x120>
+8040031c:	0000006f          	j	8040031c <Stramptbl_sv+0x124>
+80400320:	0000006f          	j	80400320 <Stramptbl_sv+0x128>
+80400324:	0000006f          	j	80400324 <Stramptbl_sv+0x12c>
+80400328:	0000006f          	j	80400328 <Stramptbl_sv+0x130>
+8040032c:	0000006f          	j	8040032c <Stramptbl_sv+0x134>
+80400330:	0000006f          	j	80400330 <Stramptbl_sv+0x138>
+80400334:	0000006f          	j	80400334 <Stramptbl_sv+0x13c>
+80400338:	0000006f          	j	80400338 <Stramptbl_sv+0x140>
+8040033c:	0000006f          	j	8040033c <Stramptbl_sv+0x144>
+80400340:	0000006f          	j	80400340 <Stramptbl_sv+0x148>
+80400344:	0000006f          	j	80400344 <Stramptbl_sv+0x14c>
+80400348:	0000006f          	j	80400348 <Stramptbl_sv+0x150>
+8040034c:	0000006f          	j	8040034c <Stramptbl_sv+0x154>
+
+80400350 <Scode_bgn_ptr>:
+80400350:	035c                	.2byte	0x35c
+80400352:	8000                	.2byte	0x8000
+80400354:	0000                	.2byte	0x0
+	...
+
+80400358 <Scode_seg_sz>:
+80400358:	0264                	.2byte	0x264
+8040035a:	0000                	.2byte	0x0
+8040035c:	0000                	.2byte	0x0
+	...
+
+80400360 <Sdata_bgn_ptr>:
+80400360:	03f0                	.2byte	0x3f0
+80400362:	8040                	.2byte	0x8040
+80400364:	0000                	.2byte	0x0
+	...
+
+80400368 <Sdata_seg_sz>:
+80400368:	1c10                	.2byte	0x1c10
+8040036a:	0080                	.2byte	0x80
+8040036c:	0000                	.2byte	0x0
+	...
+
+80400370 <Ssig_bgn_ptr>:
+80400370:	2110                	.2byte	0x2110
+80400372:	80c0                	.2byte	0x80c0
+80400374:	0000                	.2byte	0x0
+	...
+
+80400378 <Ssig_seg_sz>:
+80400378:	0108                	.2byte	0x108
+8040037a:	0000                	.2byte	0x0
+8040037c:	0000                	.2byte	0x0
+	...
+
+80400380 <Svmem_bgn_ptr>:
+80400380:	03f0                	.2byte	0x3f0
+80400382:	8040                	.2byte	0x8040
+80400384:	0000                	.2byte	0x0
+	...
+
+80400388 <Svmem_seg_sz>:
+80400388:	1c10                	.2byte	0x1c10
+8040038a:	0080                	.2byte	0x80
+8040038c:	0000                	.2byte	0x0
+	...
+
+80400390 <Strap_sig>:
+80400390:	2194                	.2byte	0x2194
+80400392:	80c0                	.2byte	0x80c0
+80400394:	0000                	.2byte	0x0
+	...
+
+80400398 <Ssatp_sv>:
+	...
+
+804003a0 <Strampend_sv>:
+	...
+
+804003a8 <Stentry_sv>:
+	...
+
+804003b0 <Sedeleg_sv>:
+	...
+
+804003b8 <Stvec_new>:
+	...
+
+804003c0 <Stvec_save>:
+	...
+
+804003c8 <Sscratch_save>:
+	...
+
+804003d0 <Strapreg_sv>:
+804003d0:	deadbeef          	jal	t4,803db9ba <fromhost+0x3d98ba>
+804003d4:	deadbeef          	jal	t4,803db9be <fromhost+0x3d98be>
+804003d8:	deadbeef          	jal	t4,803db9c2 <fromhost+0x3d98c2>
+804003dc:	deadbeef          	jal	t4,803db9c6 <fromhost+0x3d98c6>
+804003e0:	deadbeef          	jal	t4,803db9ca <fromhost+0x3d98ca>
+804003e4:	deadbeef          	jal	t4,803db9ce <fromhost+0x3d98ce>
+804003e8:	deadbeef          	jal	t4,803db9d2 <fromhost+0x3d98d2>
+804003ec:	deadbeef          	jal	t4,803db9d6 <fromhost+0x3d98d6>
+
+804003f0 <rvtest_data_begin>:
+	...
+
+80800000 <rvtest_data>:
+80800000:	cafe                	.2byte	0xcafe
+80800002:	babe                	.2byte	0xbabe
+80800004:	cafe                	.2byte	0xcafe
+80800006:	babe                	.2byte	0xbabe
+80800008:	cafe                	.2byte	0xcafe
+8080000a:	babe                	.2byte	0xbabe
+8080000c:	cafe                	.2byte	0xcafe
+8080000e:	babe                	.2byte	0xbabe
+	...
+
+80c00000 <rvtest_slvl1_pg_tbl>:
+80c00000:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00008:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00010:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00018:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00020:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00028:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00030:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00038:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00040:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00048:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00050:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00058:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00060:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00068:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00070:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00078:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00080:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00088:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00090:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00098:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c000f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00100:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00108:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00110:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00118:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00120:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00128:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00130:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00138:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00140:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00148:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00150:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00158:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00160:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00168:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00170:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00178:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00180:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00188:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00190:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00198:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c001f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00200:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00208:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00210:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00218:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00220:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00228:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00230:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00238:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00240:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00248:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00250:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00258:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00260:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00268:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00270:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00278:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00280:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00288:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00290:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00298:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c002f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00300:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00308:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00310:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00318:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00320:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00328:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00330:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00338:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00340:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00348:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00350:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00358:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00360:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00368:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00370:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00378:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00380:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00388:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00390:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00398:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c003f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00400:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00408:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00410:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00418:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00420:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00428:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00430:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00438:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00440:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00448:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00450:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00458:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00460:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00468:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00470:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00478:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00480:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00488:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00490:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00498:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c004f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00500:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00508:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00510:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00518:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00520:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00528:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00530:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00538:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00540:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00548:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00550:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00558:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00560:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00568:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00570:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00578:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00580:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00588:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00590:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00598:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c005f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00600:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00608:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00610:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00618:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00620:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00628:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00630:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00638:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00640:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00648:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00650:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00658:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00660:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00668:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00670:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00678:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00680:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00688:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00690:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00698:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c006f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00700:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00708:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00710:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00718:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00720:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00728:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00730:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00738:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00740:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00748:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00750:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00758:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00760:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00768:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00770:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00778:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00780:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00788:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00790:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00798:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c007f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00800:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00808:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00810:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00818:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00820:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00828:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00830:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00838:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00840:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00848:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00850:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00858:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00860:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00868:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00870:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00878:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00880:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00888:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00890:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00898:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c008f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00900:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00908:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00910:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00918:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00920:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00928:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00930:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00938:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00940:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00948:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00950:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00958:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00960:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00968:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00970:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00978:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00980:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00988:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00990:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00998:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c009f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00a98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00aa0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00aa8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ab0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ab8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ac0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ac8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ad0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ad8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ae0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ae8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00af0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00af8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00b98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ba0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ba8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00be0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00be8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bf0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00bf8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00c98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ca0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ca8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ce0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ce8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cf0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00cf8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00d98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00da0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00da8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00db0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00db8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00dc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00dc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00dd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00dd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00de0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00de8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00df0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00df8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00e98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ea0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ea8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00eb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00eb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ec0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ec8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ed0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ed8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ee0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ee8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ef0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ef8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00f98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fa0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fa8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fe0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00fe8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ff0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c00ff8:	0000003f 0000003f 	.8byte	0x3f0000003f
+
+80c01000 <rvtest_Sroot_pg_tbl>:
+80c01000:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01008:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01010:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01018:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01020:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01028:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01030:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01038:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01040:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01048:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01050:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01058:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01060:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01068:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01070:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01078:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01080:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01088:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01090:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01098:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c010f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01100:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01108:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01110:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01118:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01120:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01128:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01130:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01138:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01140:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01148:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01150:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01158:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01160:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01168:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01170:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01178:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01180:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01188:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01190:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01198:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c011f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01200:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01208:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01210:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01218:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01220:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01228:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01230:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01238:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01240:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01248:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01250:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01258:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01260:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01268:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01270:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01278:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01280:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01288:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01290:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01298:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c012f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01300:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01308:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01310:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01318:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01320:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01328:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01330:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01338:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01340:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01348:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01350:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01358:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01360:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01368:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01370:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01378:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01380:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01388:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01390:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01398:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c013f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01400:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01408:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01410:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01418:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01420:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01428:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01430:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01438:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01440:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01448:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01450:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01458:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01460:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01468:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01470:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01478:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01480:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01488:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01490:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01498:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c014f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01500:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01508:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01510:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01518:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01520:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01528:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01530:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01538:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01540:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01548:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01550:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01558:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01560:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01568:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01570:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01578:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01580:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01588:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01590:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01598:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c015f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01600:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01608:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01610:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01618:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01620:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01628:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01630:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01638:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01640:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01648:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01650:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01658:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01660:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01668:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01670:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01678:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01680:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01688:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01690:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01698:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c016f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01700:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01708:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01710:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01718:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01720:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01728:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01730:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01738:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01740:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01748:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01750:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01758:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01760:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01768:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01770:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01778:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01780:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01788:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01790:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01798:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c017f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01800:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01808:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01810:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01818:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01820:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01828:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01830:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01838:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01840:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01848:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01850:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01858:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01860:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01868:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01870:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01878:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01880:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01888:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01890:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01898:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c018f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01900:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01908:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01910:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01918:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01920:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01928:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01930:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01938:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01940:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01948:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01950:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01958:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01960:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01968:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01970:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01978:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01980:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01988:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01990:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01998:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019a0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019a8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019b0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019b8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019c0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019c8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019d0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019d8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019e0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019e8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019f0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c019f8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01a98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01aa0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01aa8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ab0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ab8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ac0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ac8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ad0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ad8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ae0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ae8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01af0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01af8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01b98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ba0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ba8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01be0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01be8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bf0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01bf8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01c98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ca0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ca8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ce0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ce8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cf0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01cf8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01d98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01da0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01da8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01db0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01db8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01dc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01dc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01dd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01dd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01de0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01de8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01df0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01df8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01e98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ea0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ea8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01eb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01eb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ec0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ec8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ed0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ed8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ee0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ee8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ef0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ef8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f00:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f08:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f10:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f18:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f20:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f28:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f30:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f38:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f40:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f48:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f50:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f58:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f60:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f68:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f70:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f78:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f80:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f88:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f90:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01f98:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fa0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fa8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fb0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fb8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fc0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fc8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fd0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fd8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fe0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01fe8:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ff0:	0000003f 0000003f 	.8byte	0x3f0000003f
+80c01ff8:	0000003f 0000003f 	.8byte	0x3f0000003f
+
+80c02000 <begin_regstate>:
+80c02000:	0080                	.2byte	0x80
+	...
+
+80c02100 <end_regstate>:
+80c02100:	0004                	.2byte	0x4
+	...
+
+80c02110 <begin_signature>:
+80c02110:	a309                	.2byte	0xa309
+80c02112:	6f5c                	.2byte	0x6f5c
+
+80c02114 <signature_x13_1>:
+80c02114:	cafebeef          	jal	t4,80beddc2 <rvtest_data+0x3eddc2>
+80c02118:	cafebeef          	jal	t4,80beddc6 <rvtest_data+0x3eddc6>
+80c0211c:	cafebeef          	jal	t4,80beddca <rvtest_data+0x3eddca>
+80c02120:	cafebeef          	jal	t4,80beddce <rvtest_data+0x3eddce>
+80c02124:	cafebeef          	jal	t4,80beddd2 <rvtest_data+0x3eddd2>
+80c02128:	cafebeef          	jal	t4,80beddd6 <rvtest_data+0x3eddd6>
+80c0212c:	cafebeef          	jal	t4,80beddda <rvtest_data+0x3eddda>
+80c02130:	cafebeef          	jal	t4,80beddde <rvtest_data+0x3eddde>
+80c02134:	cafebeef          	jal	t4,80bedde2 <rvtest_data+0x3edde2>
+80c02138:	cafebeef          	jal	t4,80bedde6 <rvtest_data+0x3edde6>
+80c0213c:	cafebeef          	jal	t4,80beddea <rvtest_data+0x3eddea>
+80c02140:	cafebeef          	jal	t4,80beddee <rvtest_data+0x3eddee>
+80c02144:	cafebeef          	jal	t4,80beddf2 <rvtest_data+0x3eddf2>
+80c02148:	cafebeef          	jal	t4,80beddf6 <rvtest_data+0x3eddf6>
+80c0214c:	cafebeef          	jal	t4,80beddfa <rvtest_data+0x3eddfa>
+80c02150:	cafebeef          	jal	t4,80beddfe <rvtest_data+0x3eddfe>
+80c02154:	cafebeef          	jal	t4,80bede02 <rvtest_data+0x3ede02>
+80c02158:	cafebeef          	jal	t4,80bede06 <rvtest_data+0x3ede06>
+80c0215c:	cafebeef          	jal	t4,80bede0a <rvtest_data+0x3ede0a>
+80c02160:	cafebeef          	jal	t4,80bede0e <rvtest_data+0x3ede0e>
+80c02164:	cafebeef          	jal	t4,80bede12 <rvtest_data+0x3ede12>
+80c02168:	cafebeef          	jal	t4,80bede16 <rvtest_data+0x3ede16>
+80c0216c:	cafebeef          	jal	t4,80bede1a <rvtest_data+0x3ede1a>
+80c02170:	cafebeef          	jal	t4,80bede1e <rvtest_data+0x3ede1e>
+80c02174:	cafebeef          	jal	t4,80bede22 <rvtest_data+0x3ede22>
+80c02178:	cafebeef          	jal	t4,80bede26 <rvtest_data+0x3ede26>
+80c0217c:	cafebeef          	jal	t4,80bede2a <rvtest_data+0x3ede2a>
+80c02180:	cafebeef          	jal	t4,80bede2e <rvtest_data+0x3ede2e>
+80c02184:	cafebeef          	jal	t4,80bede32 <rvtest_data+0x3ede32>
+80c02188:	cafebeef          	jal	t4,80bede36 <rvtest_data+0x3ede36>
+80c0218c:	cafebeef          	jal	t4,80bede3a <rvtest_data+0x3ede3a>
+80c02190:	cafebeef          	jal	t4,80bede3e <rvtest_data+0x3ede3e>
+
+80c02194 <mtrap_sigptr>:
+80c02194:	deadbeef          	jal	t4,80bdd77e <rvtest_data+0x3dd77e>
+80c02198:	deadbeef          	jal	t4,80bdd782 <rvtest_data+0x3dd782>
+80c0219c:	deadbeef          	jal	t4,80bdd786 <rvtest_data+0x3dd786>
+80c021a0:	deadbeef          	jal	t4,80bdd78a <rvtest_data+0x3dd78a>
+80c021a4:	deadbeef          	jal	t4,80bdd78e <rvtest_data+0x3dd78e>
+80c021a8:	deadbeef          	jal	t4,80bdd792 <rvtest_data+0x3dd792>
+80c021ac:	deadbeef          	jal	t4,80bdd796 <rvtest_data+0x3dd796>
+80c021b0:	deadbeef          	jal	t4,80bdd79a <rvtest_data+0x3dd79a>
+80c021b4:	deadbeef          	jal	t4,80bdd79e <rvtest_data+0x3dd79e>
+80c021b8:	deadbeef          	jal	t4,80bdd7a2 <rvtest_data+0x3dd7a2>
+80c021bc:	deadbeef          	jal	t4,80bdd7a6 <rvtest_data+0x3dd7a6>
+80c021c0:	deadbeef          	jal	t4,80bdd7aa <rvtest_data+0x3dd7aa>
+80c021c4:	deadbeef          	jal	t4,80bdd7ae <rvtest_data+0x3dd7ae>
+80c021c8:	deadbeef          	jal	t4,80bdd7b2 <rvtest_data+0x3dd7b2>
+80c021cc:	deadbeef          	jal	t4,80bdd7b6 <rvtest_data+0x3dd7b6>
+80c021d0:	deadbeef          	jal	t4,80bdd7ba <rvtest_data+0x3dd7ba>
+80c021d4:	deadbeef          	jal	t4,80bdd7be <rvtest_data+0x3dd7be>
+80c021d8:	deadbeef          	jal	t4,80bdd7c2 <rvtest_data+0x3dd7c2>
+80c021dc:	deadbeef          	jal	t4,80bdd7c6 <rvtest_data+0x3dd7c6>
+80c021e0:	deadbeef          	jal	t4,80bdd7ca <rvtest_data+0x3dd7ca>
+80c021e4:	deadbeef          	jal	t4,80bdd7ce <rvtest_data+0x3dd7ce>
+80c021e8:	deadbeef          	jal	t4,80bdd7d2 <rvtest_data+0x3dd7d2>
+80c021ec:	deadbeef          	jal	t4,80bdd7d6 <rvtest_data+0x3dd7d6>
+80c021f0:	deadbeef          	jal	t4,80bdd7da <rvtest_data+0x3dd7da>
+80c021f4:	deadbeef          	jal	t4,80bdd7de <rvtest_data+0x3dd7de>
+80c021f8:	deadbeef          	jal	t4,80bdd7e2 <rvtest_data+0x3dd7e2>
+80c021fc:	deadbeef          	jal	t4,80bdd7e6 <rvtest_data+0x3dd7e6>
+80c02200:	deadbeef          	jal	t4,80bdd7ea <rvtest_data+0x3dd7ea>
+80c02204:	deadbeef          	jal	t4,80bdd7ee <rvtest_data+0x3dd7ee>
+80c02208:	deadbeef          	jal	t4,80bdd7f2 <rvtest_data+0x3dd7f2>
+80c0220c:	deadbeef          	jal	t4,80bdd7f6 <rvtest_data+0x3dd7f6>
+80c02210:	deadbeef          	jal	t4,80bdd7fa <rvtest_data+0x3dd7fa>
+
+80c02214 <sig_end_canary>:
+80c02214:	a309                	.2byte	0xa309
+80c02216:	6f5c                	.2byte	0x6f5c
+
+80c02218 <rvtest_sig_end>:
+	...
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	2641                	.2byte	0x2641
+   2:	0000                	.2byte	0x0
+   4:	7200                	.2byte	0x7200
+   6:	7369                	.2byte	0x7369
+   8:	01007663          	bgeu	zero,a6,14 <causeidx+0x4>
+   c:	001c                	.2byte	0x1c
+   e:	0000                	.2byte	0x0
+  10:	7205                	.2byte	0x7205
+  12:	3376                	.2byte	0x3376
+  14:	6932                	.2byte	0x6932
+  16:	7032                	.2byte	0x7032
+  18:	5f31                	.2byte	0x5f31
+  1a:	697a                	.2byte	0x697a
+  1c:	32727363          	bgeu	tp,t2,342 <CSR_XSATP+0x1c2>
+  20:	3070                	.2byte	0x3070
+  22:	0800                	.2byte	0x800
+  24:	0a01                	.2byte	0xa01
+  26:	0b              	Address 0x26 is out of bounds.
+
