@@ -90,7 +90,7 @@ main:
 	RVTEST_GOTO_LOWER_MODE	Smode		                   # Switching to S mode
 
 vm_en:
-	LA (t0, 0x91000000)
+	LA (t0, va_data)
     LI (t1, ALL_F_S)
     SREG t1, 0(t0)
 
