@@ -73,17 +73,19 @@ main:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)
+    SREG t2, code_bgn_off+2*sv_area_sz(sp)
 
 	/******* data *******/
 	// update save area
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)
 	add  t2, t1,t0
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)
+    SREG t2, data_bgn_off+2*sv_area_sz(sp)
 	//signature
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp) 
-
+    SREG t2, sig_bgn_off+2*sv_area_sz(sp) 
 	sfence.vma
 	RVTEST_GOTO_LOWER_MODE	Umode		                   # Switching to U mode
 
@@ -101,7 +103,7 @@ RVTEST_CODE_END
 RVMODEL_HALT
 
 RVTEST_DATA_BEGIN
-.align 24
+.align 22
 rvtest_data:
 .word 0xbeefcafe
 .word 0xbabecafe
