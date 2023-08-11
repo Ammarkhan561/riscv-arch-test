@@ -1,5 +1,110 @@
-# database generated on 2023-08-11 10:19 GMT
+# database generated on 2023-08-11 10:45 GMT
 !!omap
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_SATP_access.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_01.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_02.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_03.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_04.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_05.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_06.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
 - /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_07.S:
     commit_id: '-'
     isa:
@@ -31,6 +136,51 @@
         coverage_labels:
         - sv32
 - /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_09.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_10.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_11.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_12.S:
     commit_id: '-'
     isa:
     - RV32I_Zicsr
