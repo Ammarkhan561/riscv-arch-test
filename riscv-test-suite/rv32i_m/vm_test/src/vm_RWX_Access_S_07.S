@@ -1,8 +1,8 @@
 #################################################################################################           
-#                                                   					                        #
-# Verification Goal: Test the Execute Acces in Supervisor mode for Level1 (PTE.x = 0)           #
 #                                                                                               #
-# Description:       Execute access should raise instruction  page fault for execute.           #                                  
+# Verification Goal: Test the Read Acces in Supervisor mode for Level1 (PTE.r = 0)              #
+#                                                                                               #
+# Description:       Read access should raise load page fault                                   # 
 #                                                                                               #
 #################################################################################################
 #                                                                                               #
@@ -13,7 +13,6 @@
 #                      in supervisor privilege mode level 1 PTE.                                #   
 #                                                                                               #
 #################################################################################################   
- 
 
 #include "model_test.h"
 #include "custom_macros1.h"
@@ -52,11 +51,11 @@ main:
 	.set va_data, 0x91000000
                                              				  # PTE setup for Instruction memory 0x90000000 -> 0x80000000
 	LA (a0, pa)                                               # loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R | PTE_V )          # sets the permission bits
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )  # sets the permission bits
 	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)                # setup the PTE for level1
 														      # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	LA (a0, rvtest_data)                                      # loads the address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R | PTE_V )          # sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_V )                  # sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)           # setup the PTE for level1
 
     SATP_SETUP_SV32                                           # set the SATP for virtualization
@@ -91,10 +90,8 @@ main:
 
 vm_en:
 	LA (t0, va_data)
-    LI (t1, ALL_F_S)
-    SREG t1, 0(t0)
-    LREG t1, 0(t0)
-    
+	LREG x2, 0(t0)
+	LREG x3, 4(t0)
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)
