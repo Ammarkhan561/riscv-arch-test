@@ -47,17 +47,17 @@ main:
 	ALL_MEM_PMP          								     # set the PMP permissions
 	WRITE_CSR (satp,x0)  								     # write satp with all zeros (bare mode)
 
-	.set va_0, 0x90000000
-	.set pa_0, 0x80000000 
-	.set va_1, 0x91000000
+	.set va,      0x90000000
+	.set pa,      0x80000000 
+	.set va_data, 0x91000000
                                              				 # PTE setup for Instruction memory 0x90000000 -> 0x80000000
-	LA (a0, pa_0)                                            # loads the address in a0
+	LA (a0, pa)                                            # loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R )         # sets the permission bits
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_0, LEVEL1)             # setup the PTE for level1
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)             # setup the PTE for level1
 														     # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	LA (a0, rvtest_data)                                     # loads the address of label rvtest_data in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R )         # sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_1, LEVEL1)             # setup the PTE for level1
+	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)             # setup the PTE for level1
 
     SATP_SETUP_SV32                                          # set the SATP for virtualization
 
@@ -65,8 +65,8 @@ main:
 	in their respective S-mode save area */
 
 	/****** code ******/
-	LI (t0, va_0)
-	LA (t1, pa_0)
+	LI (t0, va)
+	LA (t1, pa)
 	sub t0, t0, t1 // (VA-PA) Note: VA > PA 
 	csrr sp, mscratch
 	add t1,sp,t0
