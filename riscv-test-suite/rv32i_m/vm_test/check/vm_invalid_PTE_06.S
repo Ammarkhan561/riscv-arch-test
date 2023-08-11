@@ -1,6 +1,6 @@
 #################################################################################################           
 #                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the execute Acces in Supervisor mode for Level1     #
+# Verification Goal: Set PTE.V = 0 and test the execute Acces in User mode for Level1           #
 #                                                                                               #
 # Description:       Instruction page fault for execute access.                                 #    
 #                                                                                               #
@@ -12,8 +12,6 @@
 #                      raise page fault exception of the corresponding access type.             #
 #                                                                                               #
 #################################################################################################   
-
-
 
 #include "model_test.h"
 #include "custom_macros1.h"
@@ -87,7 +85,7 @@ main:
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp) 
 
 	sfence.vma
-	RVTEST_GOTO_LOWER_MODE	Smode		                   # Switching to S mode
+	RVTEST_GOTO_LOWER_MODE	Umode		                   # Switching to U mode
 
 vm_en:
 	LA (t0, 0x91000000)

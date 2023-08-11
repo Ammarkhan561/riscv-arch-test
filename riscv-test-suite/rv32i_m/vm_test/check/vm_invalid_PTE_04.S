@@ -1,8 +1,8 @@
 #################################################################################################           
 #                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the execute Acces in Supervisor mode for Level1     #
+# Verification Goal: Set PTE.V = 0 and test the Read Acces in User mode for Level1              #
 #                                                                                               #
-# Description:       Instruction page fault for execute access.                                 #    
+# Description:       load page fault for read access.                                           #    
 #                                                                                               #
 #################################################################################################
 #                                                                                               #
@@ -12,8 +12,6 @@
 #                      raise page fault exception of the corresponding access type.             #
 #                                                                                               #
 #################################################################################################   
-
-
 
 #include "model_test.h"
 #include "custom_macros1.h"
@@ -52,7 +50,7 @@ main:
 	.set va_1, 0x91000000
                                              				 # PTE setup for Instruction memory 0x90000000 -> 0x80000000
 	LA (a0, pa_0)                                            # loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R )         # sets the permission bits
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V ) # sets the permission bits
 	PTE_SETUP_RV32(a0, a1, t0, t1, va_0, LEVEL1)             # setup the PTE for level1
 														     # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	LA (a0, rvtest_data)                                     # loads the address of label rvtest_data in a0
@@ -87,12 +85,11 @@ main:
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp) 
 
 	sfence.vma
-	RVTEST_GOTO_LOWER_MODE	Smode		                   # Switching to S mode
+	RVTEST_GOTO_LOWER_MODE	Umode		                   # Switching to U mode
 
 vm_en:
 	LA (t0, 0x91000000)
-    LI (t1, ALL_F_S)
-    SREG t1, 0(t0)
+	LREG x2, 0(t0)
 
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)
