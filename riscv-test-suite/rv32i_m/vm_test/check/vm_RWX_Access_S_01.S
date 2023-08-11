@@ -56,7 +56,7 @@ main:
 	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)                # setup the PTE for level1
 														      # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	LA (a0, rvtest_data)                                      # loads the address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )  # sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_R | PTE_V )                  # sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)           # setup the PTE for level1
 
     SATP_SETUP_SV32                                           # set the SATP for virtualization
