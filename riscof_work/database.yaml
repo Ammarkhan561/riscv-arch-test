@@ -1,6 +1,6 @@
-# database generated on 2023-08-11 05:31 GMT
+# database generated on 2023-08-11 05:57 GMT
 !!omap
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_SATP_access.S:
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_02.S:
     commit_id: '-'
     isa:
     - RV32I_Zicsr
@@ -15,7 +15,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_01.S:
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_03.S:
     commit_id: '-'
     isa:
     - RV32I_Zicsr

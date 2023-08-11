@@ -1,7 +1,7 @@
-# testlist generated on 2023-08-11 05:31 GMT
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_SATP_access.S:
+# testlist generated on 2023-08-11 05:57 GMT
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_02.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_SATP_access.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_invalid_PTE_02.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -11,10 +11,10 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_SATP_access.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_01.S:
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_02.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_03.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_invalid_PTE_01.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_invalid_PTE_03.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -24,4 +24,4 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_01.S
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_invalid_PTE_03.S
