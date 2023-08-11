@@ -1,8 +1,8 @@
 #################################################################################################           
 #                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for Level0        #
+# Verification Goal: Set PTE.V = 0 and test the write Acces in Supervisor mode for Level0       #
 #                                                                                               #
-# Description:       load page fault for read access.                                           #    
+# Description:       Store/AMO page fault for write access.                                     #    
 #                                                                                               #
 #################################################################################################
 #                                                                                               #
@@ -94,7 +94,8 @@ main:
 
 vm_en:
 	LA (t0, va_data)
-	LREG x2, 0(t0)
+    LI (t1, ALL_F_S)
+    SREG t1, 0(t0)
 
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)

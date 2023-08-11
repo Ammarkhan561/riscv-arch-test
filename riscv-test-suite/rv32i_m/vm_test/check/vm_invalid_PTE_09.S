@@ -1,8 +1,8 @@
 #################################################################################################           
 #                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for Level0        #
+# Verification Goal: Set PTE.V = 0 and test the execute Acces in Supervisor mode for Level0     #
 #                                                                                               #
-# Description:       load page fault for read access.                                           #    
+# Description:       Instruction page fault for execute access.   			                    #    
 #                                                                                               #
 #################################################################################################
 #                                                                                               #
@@ -42,27 +42,27 @@ main:
 	RVTEST_SIGUPD(x13,a4)
 #endif
 	
-	ALL_MEM_PMP          								     # set the PMP permissions
-	WRITE_CSR (satp,x0)  								     # write satp with all zeros (bare mode)
+	ALL_MEM_PMP          								    # set the PMP permissions
+	WRITE_CSR (satp,x0)  								    # write satp with all zeros (bare mode)
 
 	.set va,		0x90000000
 	.set pa,		0x80000000 
-	.set va_data,	0x90011000                               # MSB 10 bits should be same as that of va 
-                                             				 # pgtbl1 PTE Setup to point to the pgtbl0 PTE
-	LA (a0, rvtest_slvl1_pg_tbl)                             # stores the base address of pgtbl0 address in a0
-	LI (a1, PTE_V)                                           # sets the PR bit to valid only to point to the pgtbl0 PTE
-	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)               # setup the PTE for level1
+	.set va_data,	0x90011000                              # MSB 10 bits should be same as that of va 
+                                             				# pgtbl1 PTE Setup to point to the pgtbl0 PTE
+	LA (a0, rvtest_slvl1_pg_tbl)                            # stores the base address of pgtbl0 address in a0
+	LI (a1, PTE_V)                                          # sets the PR bit to valid only to point to the pgtbl0 PTE
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)              # setup the PTE for level1
      
-                                             				 # PTE setup for Instruction memory 0x90000000 -> 0x80000000
-	LA (a0, pa)                                              # loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V ) # sets the permission bits
-	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL0)               # setup the PTE for level1
-														     # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
-	LA (a0, rvtest_data)                                     # loads the address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R )         # sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL0)          # setup the PTE for level1
+                                             				# PTE setup for Instruction memory 0x90000000 -> 0x80000000
+	LA (a0, pa)                                             # loads the address in a0
+	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R | PTE_V )        # sets the permission bits
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL0)              # setup the PTE for level1
+														    # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
+	LA (a0, rvtest_data)                                    # loads the address of label rvtest_data in a0
+	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R )                # sets the permission bits (PTE_V == 0)
+	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL0)         # setup the PTE for level1
 
-    SATP_SETUP_SV32                                          # set the SATP for virtualization
+    SATP_SETUP_SV32                                         # set the SATP for virtualization
 
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
@@ -94,7 +94,8 @@ main:
 
 vm_en:
 	LA (t0, va_data)
-	LREG x2, 0(t0)
+    LI (t1, ALL_F_S)
+    SREG t1, 0(t0)
 
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)
