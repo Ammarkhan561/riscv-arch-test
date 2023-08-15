@@ -1,4 +1,4 @@
-# database generated on 2023-08-15 07:23 GMT
+# database generated on 2023-08-15 07:55 GMT
 !!omap
 - /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_01.S:
     commit_id: '-'
@@ -31,6 +31,51 @@
         coverage_labels:
         - sv32
 - /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_03.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_04.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_05.S:
+    commit_id: '-'
+    isa:
+    - RV32I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv32
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_06.S:
     commit_id: '-'
     isa:
     - RV32I_Zicsr
