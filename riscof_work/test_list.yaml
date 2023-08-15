@@ -1,7 +1,7 @@
-# testlist generated on 2023-08-11 12:55 GMT
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_01.S:
+# testlist generated on 2023-08-15 07:23 GMT
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_01.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_01.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_01.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -11,10 +11,10 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_01.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_02.S:
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_01.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_02.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_02.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_02.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -24,10 +24,10 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_02.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_03.S:
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_02.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_03.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_03.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_03.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -37,121 +37,4 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_03.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_04.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_04.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_04.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_05.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_05.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_05.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_06.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_06.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_06.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_07.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_07.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_07.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_08.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_08.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_08.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_09.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_09.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_09.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_10.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_10.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_10.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_11.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_11.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_11.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_12.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_S_12.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_S_12.S
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_03.S

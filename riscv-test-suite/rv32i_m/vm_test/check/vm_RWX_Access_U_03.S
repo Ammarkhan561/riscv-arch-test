@@ -1,10 +1,9 @@
 #################################################################################################           
 #                                                                                               #
-# Verification Goal: Test the Read acces in Supervisor mode for Level1 such that                #
-#                    (PTE.x = 1, PTE.r = 1, PTE.u=1 and mstatus.SUM=1)                          #
+# Verification Goal: Test the Execute Acces in Supervisor mode for Level1 such that             #
+#                    (PTE.x = 1, PTE.v = 1, PTE.u=1 and mstatus.SUM=1 )                         #
 #                                                                                               #
-# Description:       Read access to the PTE should be successful. So, the load works without    #
-#                    page fault and expected data is loaded from the memory                     #
+# Description:       Execute access should raise instruction page fault.                        #
 #                                                                                               #
 #################################################################################################
 #                                                                                               #
@@ -46,22 +45,23 @@ main:
 	RVTEST_SIGUPD(x13,a4)
 #endif
 	
-	ALL_MEM_PMP          								     # set the PMP permissions
-	WRITE_CSR (satp,x0)  								     # write satp with all zeros (bare mode)
+	ALL_MEM_PMP          								    # set the PMP permissions
+	WRITE_CSR (satp,x0)  								    # write satp with all zeros (bare mode)
 
 	.set va,      0x90000000
 	.set pa,      0x80000000 
 	.set va_data, 0x91000000
-                                             				  # PTE setup for Instruction memory 0x90000000 -> 0x80000000
-	LA (a0, pa)                                               # loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_V )			      # sets the permission bits
-	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)                # setup the PTE for level1
-														      # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
-	LA (a0, rvtest_data)                                      # loads the address of label rvtest_data in a0
-	LI a1, (PTE_D | PTE_A | PTE_U | PTE_X | PTE_R | PTE_V)    # sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)           # setup the PTE for level1
+                                             				# PTE setup for Instruction memory 0x90000000 -> 0x80000000
+	LA (a0, pa)                                             # loads the address in a0
+	LI a1, (PTE_D | PTE_A | PTE_U | PTE_X | PTE_V )		    # sets the permission bits
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)              # setup the PTE for level1
 
-    SATP_SETUP_SV32                                           # set the SATP for virtualization
+								        				    # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
+	LA (a0, rvtest_data)                                    # loads the address of label rvtest_data in a0
+	LI a1, (PTE_D | PTE_A | PTE_U | PTE_W | PTE_R | PTE_V)  # sets the permission bits (PTE_V == 0)
+	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)         # setup the PTE for level1
+
+    SATP_SETUP_SV32                                         # set the SATP for virtualization
 
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
@@ -90,14 +90,16 @@ main:
 
 	sfence.vma
     li s7, MSTATUS_SUM
-    WRITE_CSR(mstatus,s7)                                  # set the mstatus.SUM = 1 
-	RVTEST_GOTO_LOWER_MODE	Smode		                   # Switching to S mode
+    WRITE_CSR(mstatus,s7)                                   # set the mstatus.SUM = 1 
+	RVTEST_GOTO_LOWER_MODE	Smode		                    # Switching to S mode
 
 vm_en:
 	LA (t0, va_data)
-	LREG x2, 0(t0)
-	LREG x3, 4(t0)
-	RVTEST_GOTO_MMODE		                               # Switching back to M mode
+    LI (t1, ALL_F_S)
+    SREG t1, 0(t0)
+    LREG t1, 0(t0)
+
+	RVTEST_GOTO_MMODE		                                # Switching back to M mode
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)
 #endif
