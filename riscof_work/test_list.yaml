@@ -1,7 +1,7 @@
-# testlist generated on 2023-08-15 07:55 GMT
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_01.S:
+# testlist generated on 2023-08-15 08:32 GMT
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage01.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_01.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_Misaligned_Superpage01.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -11,69 +11,4 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_01.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_02.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_02.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_02.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_03.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_03.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_03.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_04.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_04.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_04.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_05.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_05.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_05.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_06.S:
-  commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_RWX_Access_U_06.S
-  macros:
-  - rvtest_mtrap_routine=True
-  - rvtest_strap_routine=True
-  - TEST_CASE_1=True
-  - XLEN=32
-  isa: RV32I_Zicsr
-  coverage_labels:
-  - sv32
-  test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_RWX_Access_U_06.S
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage01.S
