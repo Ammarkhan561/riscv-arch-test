@@ -49,7 +49,7 @@ main:
 	.set va,      0x90000000
 	.set pa,      0x80000000 
 	.set va_data, 0x91000000
-	 la s7,rvtest_data
+	 
                                              		# PTE setup for Instruction memory 0x90000000 -> 0x80000000
 	LA (a0, pa)                                     # loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_V )  		# sets the permission bits
