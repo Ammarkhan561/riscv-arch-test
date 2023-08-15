@@ -1,4 +1,4 @@
-# testlist generated on 2023-08-15 08:32 GMT
+# testlist generated on 2023-08-15 09:28 GMT
 /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage01.S:
   commit_id: '-'
   work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_Misaligned_Superpage01.S
@@ -12,3 +12,29 @@
   - sv32
   test_path: 
     /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage01.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage02.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_Misaligned_Superpage02.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage02.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage03.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_Misaligned_Superpage03.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage03.S
