@@ -26,6 +26,9 @@
 #define LOAD_PAGE_FAULT                13
 #define STORE_AMO_PAGE_FAULT           15
 
+#define ASID_IMPLE_CVA6 0x00400000
+#define EXPECTED_ASID   0x00400000
+
 #define WRITE_CSR(CSR_REG, SRC_REG)                                ;\
     csrw CSR_REG, SRC_REG                                          ;
 
