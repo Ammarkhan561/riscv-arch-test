@@ -1,6 +1,6 @@
 #################################################################################################           
 #                                                                                               #
-# Verification Goal: Test the Execute acces in Supervisor mode for Level1                       #
+# Verification Goal: Test the Execute acces in User mode for Level1                  	        #
 #                                                                                               #
 # Description:       Execute access to the PTE should raise instruction page fault              #
 #                                                                                               #
@@ -46,8 +46,10 @@ main:
 	ALL_MEM_PMP          							# set the PMP permissions
 	WRITE_CSR (satp,x0)  							# write satp with all zeros (bare mode)
 
+
+
 	.set va,      0x90000000
-	.set pa,      0x80010000						# PA of label vm_en 
+	.set pa,      0x80010000                        # PA of the lablel vm_en 
 	.set va_data, 0x91000000
                                              		# PTE setup for Instruction memory 0x90000000 -> 0x80000000
 	LA (a0, pa)                                     # loads the address in a0
@@ -75,27 +77,31 @@ main:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)
+    SREG t2, code_bgn_off+2*sv_area_sz(sp)
+
 	/******* data *******/
 	// update save area
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)
 	add  t2, t1,t0
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)
+    SREG t2, data_bgn_off+2*sv_area_sz(sp)
 	//signature
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp) 
-
+    SREG t2, sig_bgn_off+2*sv_area_sz(sp) 
 	sfence.vma
-	LA (s7,va)                                      	   # loads the VA of label vm_en is s7 
-	CHANGE_T0_S_MODE (s7)								   # Switching to S mode (s7->mepc)
-  .align 16 											   # to make the PA of vm_en misaligned 
-vm_en:	
-	LA (t0, va_data)									   # should raise fetch page fault
+    
+    LA (s7,va)									  # loads the VA of label vm_en is s7
+	CHANGE_T0_U_MODE (s7)					      # Switching to U mode (s7->mepc)
+  .align 16 									  # to make the PA of vm_en misaligned 	
+vm_en:
+	LA (t0, va_data)							  # should raise fetch page fault
     LI (t1, ALL_F_S)
     SREG t1, 0(t0)
     LREG t1, 0(t0)
 
-	RVTEST_GOTO_MMODE		                              # Switching back to M mode
+	RVTEST_GOTO_MMODE		                      # Switching back to M mode
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)
 #endif

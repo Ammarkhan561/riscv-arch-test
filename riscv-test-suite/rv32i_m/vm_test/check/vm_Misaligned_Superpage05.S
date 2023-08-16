@@ -1,18 +1,19 @@
 #################################################################################################           
 #                                                                                               #
-# Verification Goal: Test the Execute acces in Supervisor mode for Level1                       #
+# Verification Goal: Test the write acces in User mode for Level1                               #
 #                                                                                               #
-# Description:       Execute access to the PTE should raise instruction page fault              #
+# Description:       Write access to the PTE should raise store/AMO page fault                  #
 #                                                                                               #
 #################################################################################################
 #                                                                                               #
 # Sub Feature:         Misaligned Superpage                                                     #                
 #                                                                                               #   
-# Feature Discription: If PTE at level1 is leaf PTE (superpage) and its pte.ppn[0]!=0, then it  # 
+# Feature Discription: If PTE at level1 is leaf PTE (superpage) and its pte.ppn[0]=0, then it   # 
 #                      is a misaligned superpage and accessing that PTE would raise page fault  # 
 #                      exception of the corresponding access type.                              #   
 #                                                                                               #
-################################################################################################# 
+#################################################################################################   
+
 
 #include "model_test.h"
 #include "custom_macros1.h"
@@ -43,23 +44,23 @@ main:
 	RVTEST_SIGUPD(x13,a4)
 #endif
 	
-	ALL_MEM_PMP          							# set the PMP permissions
-	WRITE_CSR (satp,x0)  							# write satp with all zeros (bare mode)
+	ALL_MEM_PMP          							        # set the PMP permissions
+	WRITE_CSR (satp,x0)  							        # write satp with all zeros (bare mode)
 
 	.set va,      0x90000000
-	.set pa,      0x80010000						# PA of label vm_en 
+	.set pa,      0x80000000 
 	.set va_data, 0x91000000
-                                             		# PTE setup for Instruction memory 0x90000000 -> 0x80000000
-	LA (a0, pa)                                     # loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_V )  		# sets the permission bits
-	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)      # setup the PTE for level1
+                                             		        # PTE setup for Instruction memory 0x90000000 -> 0x80000000
+	LA (a0, pa)                                             # loads the address in a0
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_V )  	    # sets the permission bits
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)              # setup the PTE for level1
 
-													# PTE setup for rvtest_data 0x91000000 -> rvtest_data	
-	LA (a0, rvtest_data)                            # loads the address of label rvtest_data in a0
-	LI a1, (PTE_D | PTE_A | PTE_W | PTE_R | PTE_V)  # sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1) # setup the PTE for level1
+													        # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
+	LA (a0, rvtest_data)                                    # loads the address of label rvtest_data in a0
+	LI a1, (PTE_D | PTE_A | PTE_U | PTE_W | PTE_R | PTE_V)  # sets the permission bits (PTE_V == 0)
+	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)         # setup the PTE for level1
 
-    SATP_SETUP_SV32                                 # set the SATP for virtualization
+    SATP_SETUP_SV32                                         # set the SATP for virtualization
 
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
@@ -75,27 +76,29 @@ main:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)
+    SREG t2, code_bgn_off+2*sv_area_sz(sp)
+
 	/******* data *******/
 	// update save area
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)
 	add  t2, t1,t0
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)
+    SREG t2, data_bgn_off+2*sv_area_sz(sp)
 	//signature
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp) 
-
+    SREG t2, sig_bgn_off+2*sv_area_sz(sp) 
 	sfence.vma
-	LA (s7,va)                                      	   # loads the VA of label vm_en is s7 
-	CHANGE_T0_S_MODE (s7)								   # Switching to S mode (s7->mepc)
-  .align 16 											   # to make the PA of vm_en misaligned 
-vm_en:	
-	LA (t0, va_data)									   # should raise fetch page fault
+	RVTEST_GOTO_LOWER_MODE	Umode		                   # Switching to U mode
+
+vm_en:
+	LA (t0, va_data)
     LI (t1, ALL_F_S)
-    SREG t1, 0(t0)
+    SREG t1, 0(t0)										   # should raise store amo fault
     LREG t1, 0(t0)
 
-	RVTEST_GOTO_MMODE		                              # Switching back to M mode
+	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)
 #endif
@@ -105,7 +108,7 @@ RVTEST_CODE_END
 RVMODEL_HALT
 
 RVTEST_DATA_BEGIN
-.align 14												  # Makes the PA Mis Aligned i.e middle 10 bits of ppn[0]!= 0 (MISALIGNED SUPERPAGE) 
+.align 12												  # Makes the PA Mis Aligned i.e middle 10 bits of ppn[0]!= 0 (MISALIGNED SUPERPAGE) 
 rvtest_data:
 .word 0xbeefcafe
 .word 0xbabecafe
