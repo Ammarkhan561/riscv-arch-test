@@ -34,11 +34,11 @@ RVTEST_SIGBASE( x13,signature_x13_1)
 main:
 # ---------------------------------------------------------------------------------------------
 
-#ifdef rvtest_mtrap_routine									// Verification of existance of rvtest_mtrap_routine
+#ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
 	RVTEST_SIGUPD(x13,a4)
 #endif
-#ifdef rvtest_strap_routine					         		// Verification of existance of rvtest_strap_routine
+#ifdef rvtest_strap_routine					        // Verification of existance of rvtest_strap_routine
 	LI a4, 0xbeed
 	RVTEST_SIGUPD(x13,a4)
 #endif
@@ -92,7 +92,7 @@ main:
 
 vm_en:
 	LA (t0, va_data)
-	LREG x2, 0(t0)
+	LREG x2, 0(t0)										   # Should raise load page fault 
 	LREG x3, 4(t0)
 
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
@@ -105,7 +105,7 @@ RVTEST_CODE_END
 RVMODEL_HALT
 
 RVTEST_DATA_BEGIN
-.align 12												  # Makes the PA Mis Aligned i.e middle 10 bits of ppn[0]!= 0 (MISALIGNED SUPERPAGE) 
+.align 12												  # Makes the PA Mis-Aligned i.e middle 10 bits of ppn[0]!= 0 (MISALIGNED SUPERPAGE) 
 rvtest_data:
 .word 0xbeefcafe
 .word 0xbabecafe
