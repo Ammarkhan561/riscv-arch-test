@@ -1,7 +1,7 @@
-# testlist generated on 2023-08-15 09:28 GMT
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage01.S:
+# testlist generated on 2023-08-16 11:19 GMT
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-01.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_Misaligned_Superpage01.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-01.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -11,10 +11,10 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage01.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage02.S:
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-01.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-02.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_Misaligned_Superpage02.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-02.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -24,10 +24,10 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage02.S
-/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage03.S:
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-02.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-03.S:
   commit_id: '-'
-  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_Misaligned_Superpage03.S
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-03.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -37,4 +37,121 @@
   coverage_labels:
   - sv32
   test_path: 
-    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_Misaligned_Superpage03.S
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-03.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-04.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-04.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-04.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-05.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-05.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-05.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-06.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-06.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-06.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-07.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-07.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-07.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-08.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-08.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-08.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-09.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-09.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-09.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-10.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-10.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-10.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-11.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-11.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-11.S
+/home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-12.S:
+  commit_id: '-'
+  work_dir: /home/ammar/Documents/riscv-arch-test/riscof_work/vm_pmp_check-12.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=32
+  isa: RV32I_Zicsr
+  coverage_labels:
+  - sv32
+  test_path: 
+    /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/vm_test/check/vm_pmp_check-12.S
