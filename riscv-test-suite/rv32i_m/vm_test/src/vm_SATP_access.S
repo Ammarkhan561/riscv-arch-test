@@ -1,15 +1,9 @@
-#################################################################################################           
+# ###############################################################################################           
+# Verification Goal: SATP is accessible only in M and S mode not in U mode						#
 #                                                                                               #
-# Verification Goal:   SATP is accessible only in M and S mode not in U mode                    #
-#                                                                                               #
-# Description:         Satp is only accessible in M and S mode and illegal instruction          #
-#                      exception is generated when accessed in lower privilege mode             #
-#                                                                                               #
-# Sub Feature:         Access permission                                                        #                
-#                                                                                               #   
-# Feature Discription: Access satp in M, S, and U mode using csrrw, csrrc, csrrs                #   
-#                                                                                               #
-#################################################################################################   
+# Description:       Satp is only accessible in M and S mode and illegal instruction          	#
+#                    exception is generated when accessed in lower privilege mode             	#
+# ###############################################################################################   
 
 #include "model_test.h"
 #include "custom_macros1.h"
@@ -42,11 +36,6 @@ main:
 	
 	ALL_MEM_PMP          								# set the PMP permissions
 	WRITE_CSR (satp,x0)  								# write satp with all zeros (bare mode)
-
-	.set va,		0x90000000
-	.set pa,		0x80000000 
-	.set va_data,	0x90011000
-
 
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
@@ -99,12 +88,12 @@ main:
 	
 
 vm_en:
-	RVTEST_GOTO_MMODE		// Switching back to M mode
+	RVTEST_GOTO_MMODE								# Switching back to M mode
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)
 mmode:
-	LI (t2, 0xabab)			// Verification if handler is returning and SIGUPD is working afer the handler
-	csrw pmpaddr1, t2		// If in M-mode, this instruction will work otherwise not.
+	LI (t2, 0xabab)									# Verification if handler is returning and SIGUPD is working afer the handler
+	csrw pmpaddr1, t2								# If in M-mode, this instruction will work otherwise not.
 	csrr a4, pmpaddr1
 	RVTEST_SIGUPD(x13,a4)
 #endif 
