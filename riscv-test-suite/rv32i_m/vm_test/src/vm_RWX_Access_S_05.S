@@ -1,19 +1,11 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Test the Write Acces in Supervisor mode for Level0 (PTE.w = 1)             #
-#                                                                                               #
-# Description:       Write access should be successful 											# 
-#                                                                                               #
-#################################################################################################
-#                                                                                               #
-# Sub Feature:         RWX access on S-mode pages in S-mode                                     #                
-#                                                                                               #   
-# Feature Discription: If PTE belongs to supervisor mode i.e. its U permission bit is clear     #
-#                      (pte.u = 0),then accessing that PTE in supervisor mode should be         #
-#                      successful if the corresponding (r,w,x) permission of PTE is granted.    #   
-#                      Otherwise raise a page fault exception of the corresponding access type  #   
-#                                                                                               #
-#################################################################################################   
+# ##############################################################################################           
+# Verification Goal: Test the Write Acces in Supervisor mode for Level0,Write access should be #
+#					 successful (PTE.w = 1 )   										           #
+# Discription: 		 If PTE belongs to supervisor mode i.e. its U permission bit is clear      #
+#                    (pte.u = 0),then accessing that PTE in supervisor mode should be          #
+#                    successful if the corresponding (r,w,x) permission of PTE is granted.     #   
+#                    Otherwise raise a page fault exception of the corresponding access type   #   
+# ##############################################################################################   
 
 #include "model_test.h"
 #include "custom_macros1.h"

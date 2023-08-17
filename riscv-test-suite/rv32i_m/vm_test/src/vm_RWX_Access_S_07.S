@@ -1,18 +1,11 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Test the Read Acces in Supervisor mode for Level1 (PTE.r = 0)              #
-#                                                                                               #
-# Description:       Read access should raise load page fault                                   # 
-#                                                                                               #
-#################################################################################################
-#                                                                                               #
-# Sub Feature:         RWX access on S-mode pages in S-mode                                     #                
-#                                                                                               #   
-# Feature Discription: When satp.mode=sv32, PTE has (r,w,x) PMP permissions, PTE has            #
-#                      non-reserved RWX encoding, pte.u=0 and pte.v=1, then test the following  #
-#                      in supervisor privilege mode level 1 PTE.                                #   
-#                                                                                               #
-#################################################################################################   
+# ############################################################################################           
+# Verification Goal: Test the Read Acces in Supervisor mode for Level1,Read access should be #
+#					 successful (PTE.r = 0 )  											     #
+# Discription: 		 If PTE belongs to supervisor mode i.e. its U permission bit is clear    #
+#                    (pte.u = 0),then accessing that PTE in supervisor mode should be        #
+#                    successful if the corresponding (r,w,x) permission of PTE is granted.   #   
+#                    Otherwise raise a page fault exception of the corresponding access type #   
+# ############################################################################################
 
 #include "model_test.h"
 #include "custom_macros1.h"

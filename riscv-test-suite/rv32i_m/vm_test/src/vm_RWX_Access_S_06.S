@@ -1,19 +1,11 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Test the Execute Acces in Supervisor mode for Level0 (PTE.x = 1)           #
-#                                                                                               #
-# Description:       Execute Access should be sucessful                                         #
-#                                                                                               #
-#################################################################################################
-#                                                                                               #
-# Sub Feature:         RWX access on S-mode pages in S-mode                                     #                
-#                                                                                               #   
-# Feature Discription: If PTE belongs to supervisor mode i.e. its U permission bit is clear     #
-#                      (pte.u = 0),then accessing that PTE in supervisor mode should be         #
-#                      successful if the corresponding (r,w,x) permission of PTE is granted.    #   
-#                      Otherwise raise a page fault exception of the corresponding access type  #   
-#                                                                                               #
-#################################################################################################   
+# ############################################################################################           
+# Verification Goal: Test the Execute Acces in Supervisor mode for Level0,Execute access     #
+#					 should besuccessful (PTE.x = 1 )  										 #
+# Discription: 		 If PTE belongs to supervisor mode i.e. its U permission bit is clear    #
+#                    (pte.u = 0),then accessing that PTE in supervisor mode should be        #
+#                    successful if the corresponding (r,w,x) permission of PTE is granted.   #   
+#                    Otherwise raise a page fault exception of the corresponding access type #   
+# ############################################################################################ 
 
 #include "model_test.h"
 #include "custom_macros1.h"
