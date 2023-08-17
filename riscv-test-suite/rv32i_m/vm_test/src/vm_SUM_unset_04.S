@@ -1,19 +1,12 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Test the Read acces in Supervisor mode for Level0 such that                #
-#                    (PTE.x = 1, PTE.r = 1, PTE.u=1 and mstatus.SUM=0)                          #
-#                                                                                               #
-# Description:       Read access to the PTE should raise load page fault for read access        #
-#                                                                                               #
-#################################################################################################
-#                                                                                               #
-# Sub Feature:         RWX access on U-mode pages in S-mode with s/mstatus.SUM set              #                
-#                                                                                               #   
-# Feature Discription: If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1) #
-#                      and m/sstatus.SUM = 0, then accessing that PTE in supervisor mode would  #
-#                      raise page fault exception of the corresponding access type.             #   
-#                                                                                               #
 #################################################################################################    
+# Verification Goal: Test the Read acces in Supervisor mode for Level0 such that    			#
+#                    (PTE.x = 1, PTE.r = 1, PTE.u=1 and mstatus.SUM=0)                          #
+#					 Read access to the PTE should raise load page fault for read access 		#
+#																								#
+# Description: 		 If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1)	#
+#              		 and m/sstatus.SUM = 0, then accessing that PTE in supervisor mode would   	#
+#					 raise page fault exception of the corresponding access type. 				#
+#################################################################################################   
 
 #include "model_test.h"
 #include "custom_macros1.h"
