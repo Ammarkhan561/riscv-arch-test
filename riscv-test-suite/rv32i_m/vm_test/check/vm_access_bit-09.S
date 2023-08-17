@@ -1,18 +1,11 @@
-#################################################################################################           
+# ###############################################################################################
+# Verification Goal: Set PTE.A = 0 for rvtest_data and test the write access for			#
+#					 level0 PTE in User mode. Should raise store/amo page fault 		#
 #                                                                                               #
-# Verification Goal: Set PTE.D = 0 and test the Write access at Supervisor Level                #
-#                                                                                               #
-# Description:       Store/AMO fault on write access                                            #
-#                                                                                               #
-#################################################################################################
-#                                                                                               #
-# Sub Feature:          Dirty Bit Implementation                                                #                
-#                                                                                               #   
-# Feature Description:  If implementation does not sets the pte.D when PTE is written,          #
-#                       and PTE has pte.D=0, then attempting to store on that PTE would         #
-#                       raise Store/AMO page fault exception.                                   #    
-#                                                                                               #                                                                                               #
-#################################################################################################   
+# Description:       If implementation does not sets the pte.A on accessing the PTE, and PTE 	#
+#					 has pte.A=0, then accessing it would raise page fault exception of the 	#
+#                    corresponding access type.   												#
+# ###############################################################################################
 
 #include "model_test.h"
 #include "custom_macros1.h"
@@ -33,7 +26,7 @@ RVTEST_SIGBASE( x13,signature_x13_1)
   	
 main:
 
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=
+# ---------------------------------------------------------------------------------------------
 
 #ifdef rvtest_mtrap_routine									// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
@@ -47,43 +40,30 @@ main:
 	ALL_MEM_PMP          								    # set the PMP permissions for the whole memory
 	WRITE_CSR (satp,x0)  								    # Bare Mode setup
 
-#-------------------Adresses--------------------#
-	.set va,		0x90000000                  #           Page table level 1  VA   
-	.set pa,		0x80000000                  #           rvtest_entry_point physical address
-	.set va_data,	0x90011000                  #           rvtest_data Virtual address set at level 0 
-#-----------------------------------------------#
 
-#-----------------------------------------------#
-#  PTE setup -- Level 0, supervisor mode		#
-#  No dirty permission						    #
-#-----------------------------------------------#
+	.set va,		0x90000000                  			# Page table level 1  VA   
+	.set pa,		0x80000000                  			# rvtest_entry_point physical address
+	.set va_data,	0x90011000                  			# rvtest_data Virtual address set at level 0 
 
-#------------------------------------------------------PTE setup--------------------------------------------------------------
-    #PTE SETUP at level 1 -- Base address of PGtable stored in the PTE
-	LA a0, rvtest_slvl1_pg_tbl
+    # PTE SETUP at level 1 -- Base address of PGtable stored in the PTE
+	LA a0, rvtest_slvl1_pg_tbl								# loads the root page table address 
     LI a1, (PTE_V)                                          # Valid permission only--> point at level 0 page table
-	PTE_SETUP_RV32(a0, a1, t0, t1, va, 1)
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, 1)				    # function to setup level1  PTE
 
-    #PTE SETUP at level 0 -- rvtest_entry_point physical address stored
-	LI a0, pa
-	LI a1, (PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R | PTE_V)  
-	PTE_SETUP_RV32(a0, a1, t0, t1, va, 0)
+    # PTE SETUP at level 0 -- rvtest_entry_point physical address stored
+	LI a0, pa												# loads the PA 
+	LI a1, (PTE_D | PTE_U | PTE_A | PTE_G | PTE_X | PTE_W | PTE_R | PTE_V)  # sets the permission bits 
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, 0)					# function to setup level0 PTE
 
-    #PTE SETUP at level 0 -- rvtest_data physical address stored
-	LA (a0, rvtest_data)
-	LI a1, (PTE_U | PTE_D | PTE_X | PTE_W | PTE_V)  #dirty bit not set
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, 0)
-#-----------------------------------------------------------------------------------------------------------------------------
+    # PTE SETUP at level 0 -- rvtest_data physical address stored
+	LA (a0, rvtest_data)									# loads the address of rvtest_data label
+	LI a1, (PTE_G | PTE_U | PTE_D | PTE_X | PTE_W | PTE_V)  		# sets the permission bits
+	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, 0)				# function to setup the level0 PTE
 
-#---------------satp mode setup-----------------#
-    LA(t6, rvtest_Sroot_pg_tbl)                 #
-    LI(t5, SATP32_MODE)                         #
-    srli t6, t6, 12                             #
-    or t6, t6, t5                               #
-    csrw satp, t6                               #
-#-----------------------------------------------#
+	SATP_SETUP_SV32											# set the SATP for virtualization
 
-#--------------------------------------------------Save area code-------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
 
@@ -110,32 +90,30 @@ main:
 	SREG t2, sig_bgn_off+2*sv_area_sz(sp) 
 
 	sfence.vma
-#-----------------------------------------------------------------------------------------------------------------------------
-
+	li t3, MSTATUS_MXR
+	csrs mstatus, t3
 	RVTEST_GOTO_LOWER_MODE	Umode		                   # Switching to S mode
 
-#-----------------------------------------------------------------------------------------------------------------------------
 vm_en:
-	LA (t0, va_data)                                    #Virtual address of rvtest_data
-	SREG x2, 0(t0)                                           #write at base address of rvtest_data
+	LA (t0, va_data)                                       # Virtual address of rvtest_data
+	SREG x2, 0(t0)                                         # write at base address of rvtest_data
 
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)
 #endif
 
-#-----------------------------------------------------------------------------------------------------------------------------
 RVTEST_CODE_END
 RVMODEL_HALT
 RVTEST_DATA_BEGIN
-#-------------------------------------------------rvtest_data section---------------------------------------------------------
+
 .align 24
 rvtest_data:
 .word 0xbeefcafe
 .word 0xbabecafe
 .word 0xbabecafe
 .word 0xbabecafe
-#-----------------------------------------------------------------------------------------------------------------------------
+
 #ifdef rvtest_strap_routine
 .align 12
 rvtest_slvl1_pg_tbl:
@@ -161,4 +139,3 @@ sig_end_canary:
 CANARY;
 rvtest_sig_end:
 RVMODEL_DATA_END
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=
