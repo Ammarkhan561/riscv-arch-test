@@ -1,20 +1,11 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the write Acces in Supervisor mode for Level1       #
-#                                                                                               #
-# Description:       Store/AMO page fault for write access.                                     #    
-#                                                                                               #
 #################################################################################################
-#                                                                                               #
-# Sub Feature:         In-Valid Permission of PTE                                               #                
-#                                                                                               #   
-# Feature Discription: If PTE does not have Valid (pte.V=0) permission, then accessing it would #
-#                      raise page fault exception of the corresponding access type.             #
-#                                                                                               #
+# Verification Goal: Set PTE.V = 0 and test the write Acces in Supervisor mode for Level1       #
+#                    Should raise a Store/AMO page fault for write access.   					#
+# 														                                        #
+# Description: 		 If PTE does not have Valid (pte.V=0) permission, then accessing it would 	#
+#                    raise page fault exception of the corresponding access type.            	#
 #################################################################################################   
   
-
-
 #include "model_test.h"
 #include "custom_macros1.h"
 #include "arch_test.h"

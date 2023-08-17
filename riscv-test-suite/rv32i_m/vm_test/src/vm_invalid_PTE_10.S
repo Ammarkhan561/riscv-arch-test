@@ -1,18 +1,10 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the Read Acces in User mode for Level0              #
-#                                                                                               #
-# Description:       load page fault for read access.                                           #    
-#                                                                                               #
 #################################################################################################
-#                                                                                               #
-# Sub Feature:         In-Valid Permission of PTE                                               #                
-#                                                                                               #   
-# Feature Discription: If PTE does not have Valid (pte.V=0) permission, then accessing it would #
-#                      raise page fault exception of the corresponding access type.             #
-#                                                                                               #
-#################################################################################################   
-
+# Verification Goal: Set PTE.V = 0 and test the Read Acces in User mode for Level0				#
+#                    Should raise a load page fault for read access.			                #
+# 														                                        #
+# Description: 		 If PTE does not have Valid (pte.V=0) permission, then accessing it would 	#
+#                    raise page fault exception of the corresponding access type.            	#
+################################################################################################# 
 
 #include "model_test.h"
 #include "custom_macros1.h"

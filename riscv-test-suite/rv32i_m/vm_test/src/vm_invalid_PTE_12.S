@@ -1,17 +1,10 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the execute Acces in User mode for Level0           #
-#                                                                                               #
-# Description:       Instruction page fault for execute access.                                 #    
-#                                                                                               #
 #################################################################################################
-#                                                                                               #
-# Sub Feature:         In-Valid Permission of PTE                                               #                
-#                                                                                               #   
-# Feature Discription: If PTE does not have Valid (pte.V=0) permission, then accessing it would #
-#                      raise page fault exception of the corresponding access type.             #
-#                                                                                               #
-#################################################################################################   
+# Verification Goal: Set PTE.V = 0 and test the execute Acces in User mode for Level0			#
+#                    Should raise a Instruction page fault for execute access.	                #
+# 														                                        #
+# Description: 		 If PTE does not have Valid (pte.V=0) permission, then accessing it would 	#
+#                    raise page fault exception of the corresponding access type.            	#
+################################################################################################# 
 
 
 #include "model_test.h"
