@@ -1,18 +1,10 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Test the Read acces in User mode for Level1                                #
-#                                                                                               #
-# Description:       Read access to the PTE should raise load page fault for read access        #
-#                                                                                               #
-#################################################################################################
-#                                                                                               #
-# Sub Feature:         Misaligned Superpage                                                     #                
-#                                                                                               #   
-# Feature Discription: If PTE at level1 is leaf PTE (superpage) and its pte.ppn[0]=0, then it   # 
-#                      is a misaligned superpage and accessing that PTE would raise page fault  # 
-#                      exception of the corresponding access type.                              #   
-#                                                                                               #
-################################################################################################# 
+# #################################################################################################           
+# Verification Goal: Test the Read acces in User mode for Level1 for Misaligned Superpage  		  #
+#                    should raise load page fault.	                        					  # 
+# Discription: 		 If PTE at level1 is leaf PTE (superpage) and its pte.ppn[0]!=0, then it is a # 
+#              		 misaligned superpage and accessing that PTE would raise page fault exception # 
+#              		 of the corresponding access type.                              			  #   
+# #################################################################################################  
 
 #include "model_test.h"
 #include "custom_macros1.h"
