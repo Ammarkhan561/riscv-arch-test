@@ -1,21 +1,13 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Test the Write Acces in Supervisor mode for Level1 such that               #
-#                    (PTE.w = 1, PTE.r = 1, PTE.u=1 and mstatus.SUM=1)                          #
-#                                                                                               #
-# Description:       Write access to the PTE should be successful. So, store works without page #
-#                    fault and expected data is stored to the memory.                           #
-#                                                                                               #         
-#################################################################################################
-#                                                                                               #
-# Sub Feature:         RWX access on U-mode pages in S-mode with s/mstatus.SUM set              #                
-#                                                                                               #   
-# Feature Discription: If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1) #
-#                      and m/sstatus.SUM = 1, then RW access to that PTE in supervisor mode     #
-#                      would be successful but eXecute access would raise instruction page      #
-#                      fault exception in s-mode.                                               #   
-#                                                                                               #
-#################################################################################################   
+# ###############################################################################################           
+# Verification Goal: Test the write acces in Supervisor mode for Level1 such that (PTE.x = 1,	#
+# 					 PTE.r = 1, PTE.u=1 and mstatus.SUM=1), write access to the PTE should be 	#
+#  					 successful                                                                 #
+#																								#		
+# Discription:       If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1)   #
+#                    and m/sstatus.SUM = 1, then RW access to that PTE in supervisor mode       #
+#                    would be successful but eXecute access would raise instruction page        #
+#                    fault exception in s-mode.                                                 #   
+# ###############################################################################################   
 
 #include "model_test.h"
 #include "custom_macros1.h"
