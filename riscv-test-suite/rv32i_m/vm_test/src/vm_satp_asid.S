@@ -1,14 +1,9 @@
 #################################################################################################           
+# Verification Goal:   Determine by writing one to every bit position in the ASID field, then   # 
+#                      reading back the value in satp to see which bit positions in the ASID 	#
+#                      field hold a one. Show that ASIDLEN is equal to the expected ASIDLEN		#
 #                                                                                               #
-# Verification Goal:   SATP is accessible only in M and S mode not in U mode                    #
-#                                                                                               #
-# Description:         Satp is only accessible in M and S mode and illegal instruction          #
-#                      exception is generated when accessed in lower privilege mode             #
-#                                                                                               #
-# Sub Feature:         Access permission                                                        #                
-#                                                                                               #   
-# Feature Discription: Access satp in M, S, and U mode using csrrw, csrrc, csrrs                #   
-#                                                                                               #
+# Description:         ASIDLEN is the number of ASID bits implemented. MAXASID bits for sv32 is #
 #################################################################################################   
 
 #include "model_test.h"
@@ -43,12 +38,12 @@ main:
 	ALL_MEM_PMP          								# set the PMP permissions
 	WRITE_CSR (satp,x0)  								# write satp with all zeros (bare mode)
 
-    li t5, EXPECTED_ASID
-    li t0, ASID_IMPLE_CVA6
-    WRITE_CSR(satp, t0)
-    READ_CSR(satp, t1)
-    and t1, t1, t5
-    beq t1, t5, done
+    li t5, EXPECTED_ASID								# ASID bits expected for CVA6
+    li t0, ASID_IMPLE_CVA6								# ASID bits implemented for CVA6	
+    WRITE_CSR(satp, t0)									# Writes the ASID bits implemented to SATP				
+    READ_CSR(satp, t1)									# READS the ASID bits from the SATP
+    and t1, t1, t5										# Checks the expected ASID bits and Implemented bits
+    beq t1, t5, done									# Jumps to done if equal 
 
 	/******* code *******/
 	/******* code *******/
@@ -68,10 +63,10 @@ main:
 
 sig_up:
 	LI (a4, 0x123)
-	RVTEST_SIGUPD(x13,a4)
+	RVTEST_SIGUPD(x13,a4)    						  
 done:
-	LI (t2, 0xabab)			// Verification if handler is returning and SIGUPD is working afer the handler
-	csrw pmpaddr1, t2		// If in M-mode, this instruction will work otherwise not.
+	LI (t2, 0xabab)								      # Verification if the ASID bits expected equals to Implemented
+	csrw pmpaddr1, t2							      # If in M-mode, this instruction will work otherwise not.
 	csrr a4, pmpaddr1
 	RVTEST_SIGUPD(x13,a4)
 #endif 
