@@ -1,17 +1,10 @@
-#################################################################################################           
-#                                                                                               #
-# Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for Level1        #
-#                                                                                               #
-# Description:       load page fault for read access.                                           #    
-#                                                                                               #
 #################################################################################################
-#                                                                                               #
-# Sub Feature:         In-Valid Permission of PTE                                               #                
-#                                                                                               #   
-# Feature Discription: If PTE does not have Valid (pte.V=0) permission, then accessing it would #
-#                      raise page fault exception of the corresponding access type.             #
-#                                                                                               #
-#################################################################################################   
+# Verification Goal: Set PTE.V = 0 and test the execute Acces in User mode for Level0			#
+#                    Should raise a Instruction page fault for execute access.	                #
+# 														                                        #
+# Description: 		 If PTE does not have Valid (pte.V=0) permission, then accessing it would 	#
+#                    raise page fault exception of the corresponding access type.            	#
+################################################################################################# 
 
 
 #include "model_test.h"
@@ -46,26 +39,31 @@ main:
 	ALL_MEM_PMP          								     # set the PMP permissions
 	WRITE_CSR (satp,x0)  								     # write satp with all zeros (bare mode)
 
-	.set va_0, 0x90000000
-	.set pa_0, 0x80000000 
-	.set va_1, 0x91000000
-                                             				 # PTE setup for Instruction memory 0x90000000 -> 0x80000000
-	LA (a0, pa_0)                                            # loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V ) # sets the permission bits
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_0, LEVEL1)             # setup the PTE for level1
-														     # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
+	.set va,		0x90000000
+	.set pa,		0x80000000 
+	.set va_data,	0x90011000                               # MSB 10 bits should be same as that of va 
+                                             			     # pgtbl1 PTE Setup to point to the pgtbl0 PTE
+	LA (a0, rvtest_slvl1_pg_tbl)                             # stores the base address of pgtbl0 address in a0
+	LI (a1, PTE_V)                                           # sets the PR bit to valid only to point to the pgtbl0 PTE
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)               # setup the PTE for level1
+     
+                                             			     # PTE setup for Instruction memory 0x90000000 -> 0x80000000
+	LA (a0, pa)                                              # loads the address in a0
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_W | PTE_R | PTE_V ) # sets the permission bits
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL0)               # setup the PTE for level1
+												             # PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	LA (a0, rvtest_data)                                     # loads the address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R )         # sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV32(a0, a1, t0, t1, va_1, LEVEL1)             # setup the PTE for level1
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R ) # sets the permission bits (PTE_V == 0)
+	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL0)          # setup the PTE for level1
 
     SATP_SETUP_SV32                                          # set the SATP for virtualization
-
+    
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
 
 	/****** code ******/
-	LI (t0, va_0)
-	LA (t1, pa_0)
+	LI (t0, va)
+	LA (t1, pa)
 	sub t0, t0, t1 // (VA-PA) Note: VA > PA 
 	csrr sp, mscratch
 	add t1,sp,t0
@@ -74,23 +72,26 @@ main:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)
+    SREG t2, code_bgn_off+2*sv_area_sz(sp)
 
 	/******* data *******/
 	// update save area
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)
 	add  t2, t1,t0
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)
+    SREG t2, data_bgn_off+2*sv_area_sz(sp)
 	//signature
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp) 
-
+    SREG t2, sig_bgn_off+2*sv_area_sz(sp) 
 	sfence.vma
-	RVTEST_GOTO_LOWER_MODE	Smode		                   # Switching to S mode
+	RVTEST_GOTO_LOWER_MODE	Umode		                   # Switching to U mode
 
 vm_en:
-	LA (t0, 0x91000000)
-	LREG x2, 0(t0)
+	LA (t0, va_data)
+    LI (t1, ALL_F_S)
+    SREG t1, 0(t0)
 
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)
