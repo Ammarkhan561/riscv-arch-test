@@ -31,7 +31,7 @@ RVTEST_CODE_BEGIN
 #ifdef TEST_CASE_1
     RVTEST_CASE(1,"//check ISA:=regex(.*32.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def TEST_CASE_1=True",sv32)
 RVTEST_SIGBASE( x13,signature_x13_1)
-  	
+
 main:
 # ---------------------------------------------------------------------------------------------
 
@@ -79,7 +79,7 @@ main:
 	la s11,signature_x13_1
 
 
-    SATP_SETUP_SV32                                          # set the SATP for virtualization
+    SATP_SETUP_SV32                                                             # set the SATP for virtualization
 
 
 	/* Save Virtual addresses in of Code and Data 
@@ -137,6 +137,7 @@ vm_en:
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)
+
 #endif
 
  # ---------------------------------------------------------------------------------------------
@@ -150,6 +151,7 @@ rvtest_data:
 .word 0xbabecafe
 .word 0xbabecafe
 .word 0xbabecafe
+
 #ifdef rvtest_strap_routine
 .align 12
 rvtest_slvl1_pg_tbl:
