@@ -41,6 +41,9 @@ main:
 	in their respective S-mode save area */
 
 	/****** code ******/
+	.set va,      0x90000000
+	.set pa,      0x80000000 
+	.set va_data, 0x91000000
 
 	LI (t0, va)
 	LI (t1, pa)

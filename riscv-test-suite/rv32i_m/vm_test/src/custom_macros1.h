@@ -197,5 +197,19 @@
     SET_PMP_W(REG, TMP, PMPADDR)                                   ;\
     SET_PMP_TOR(REG, TMP, PMPADDR)                                 ;
 
+#define CHANGE_T0_S_MODE(MEPC_ADDR)                                ;\
+    li        t0, MSTATUS_MPP                                      ;\
+    CLEAR_CSR (mstatus, t0)                                        ;\
+    li  t1, MSTATUS_MPP & ( MSTATUS_MPP >> 1)                      ;\
+    SET_CSR   (mstatus,t1)                                         ;\
+    WRITE_CSR (mepc,MEPC_ADDR)                                     ;\
+    mret                                                           ;
+
+#define CHANGE_T0_U_MODE(MEPC_ADDR)                                ;\
+    li        t0, MSTATUS_SPP                                      ;\
+    CLEAR_CSR (mstatus,t0)                                         ;\
+    WRITE_CSR (mepc,MEPC_ADDR)                                     ;\
+    mret                                                           ;
+
 
 
