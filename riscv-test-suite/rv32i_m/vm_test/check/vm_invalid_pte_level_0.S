@@ -33,6 +33,7 @@ RVTEST_CODE_BEGIN
 RVTEST_SIGBASE( x13,signature_x13_1)
 
 main:
+
 # ---------------------------------------------------------------------------------------------
 
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
@@ -51,36 +52,29 @@ main:
 	.set pa,       0x80000000 
 	.set va_data,  0x91000000
         .set sig_data, 0x93003114  
-	                                         				# PTE setup for Instruction memory 0x90000000 -> 0x80000000
+
+	la a0, rvtest_slvl1_pg_tbl   		                                # loads the base address of the pg_tbl0        				
+	li a1, (PTE_V)                                                          # sets the permissions bits                
+	PTE_SETUP_RV32(a0, a1, t0, t1, sig_data, LEVEL1)	                # setup the PTE for level1 
+                                                 				# PTE setup for 0x90000000 -> 0x80000000
 	LA (a0, pa)								# loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V ) 	        # sets the permission bits
 	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)				# setup the PTE for level1
-										# PTE setup for rvtest_data 0x91000000 -> rvtest_data	
+	li s10,0x69									# PTE setup 0x91000000 -> rvtest_data	
 	LA (a0, rvtest_data)                                    	        # loads the address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  )        	        # sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R  )        	                # sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)                         # setup the PTE for level1
 
-	la a0, rvtest_slvl1_pg_tbl   						
-	li a1, (PTE_V)                                                          
-	PTE_SETUP_RV32(a0, a1, t0, t1, sig_data, LEVEL1) 			
-
-
 	la a0, signature_x13_1   						# Physical address of signature area
-	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V)
-	PTE_SETUP_RV32(a0, a1, t0, t1, sig_data, LEVEL0) 			# PTE Setup for signature area address
+	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V)                 # sets the permissions bits 
+	PTE_SETUP_RV32(a0, a1, t0, t1, sig_data, LEVEL0) 			# PTE Setup for signature area address at pgtbl0
 
-	LI (t0, sig_data)
+	LI (t0, sig_data)                                                       
 	LA (t1, signature_x13_1)                                                      
 	sub t0, t0, t1 					        		# (VA-PA) Note: VA > PA 
-	add x14, x13, t0				        		# Translation of Signature reg
-	
+	add s11, x13, t0				        		# Translation of Signature reg
 
-	li s10,34
-	la s11,signature_x13_1
-
-
-    SATP_SETUP_SV32                                                             # set the SATP for virtualization
-
+        SATP_SETUP_SV32                                                         # set the SATP for virtualization
 
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
@@ -119,23 +113,24 @@ main:
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)
 	add t2, t1, t0
 	SREG t2, vmem_bgn_off+1*sv_area_sz(sp) 
-	
-	
+
 	sfence.vma
 	RVTEST_GOTO_LOWER_MODE	Smode		                   # Switching to S mode
 
 vm_en:
-	li s10,10
-	RVTEST_SIGUPD(x14,s10)  // Now x13 will have VA and it will do the signature update.
 
 	LA (t0, va_data)
 	LREG x2, 0(t0)
 	nop
-	li s10,0x34
-	RVTEST_SIGUPD(x14,s10)  // Now x13 will have VA and it will do the signature update.
+
+	SREG x2, 0(t0)
+        nop
+
+        li s10,0xbeef
+	RVTEST_SIGUPD(s11,s10)  // Now x13 will have VA and it will do the signature update.
 
 	RVTEST_GOTO_MMODE		                               # Switching back to M mode
-	LI (a4, 0x123)
+	LI (a4, 0xdeadbeef)
 	RVTEST_SIGUPD(x13,a4)
 
 #endif

@@ -24,4 +24,3 @@
     li t2, 0x0F	                                               ;\
     csrw pmpcfg0, t2                                               ;\
     sfence.vma                                                     ;
-
