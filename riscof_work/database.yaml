@@ -1,392 +1,142 @@
-# database generated on 2023-09-07 12:08 GMT
+# database generated on 2023-09-13 10:43 GMT
 !!omap
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_NLeaf_PTE_01.S:
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/div-01.S:
     commit_id: '-'
     isa:
-    - RV32I_Zicsr
+    - RV32IM
     parts: !!omap
+    - '0':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*M.*)
+        define:
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - div
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/divu-01.S:
+    commit_id: '-'
+    isa:
+    - RV32IM
+    parts: !!omap
+    - '0':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*M.*)
+        define:
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - divu
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mul-01.S:
+    commit_id: '-'
+    isa:
+    - RV32IM
+    - RV32IZmmul
+    parts: !!omap
+    - '0':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*M.*)
+        define:
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - mul
     - '1':
         check:
         - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
+        - check ISA:=regex(.*I.*Zmmul.*)
         define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
         - def TEST_CASE_1=True
         coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_NLeaf_PTE_02.S:
+        - mul
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulh-01.S:
     commit_id: '-'
     isa:
-    - RV32I_Zicsr
+    - RV32IM
+    - RV32IZmmul
     parts: !!omap
+    - '0':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*M.*)
+        define:
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - mulh
     - '1':
         check:
         - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
+        - check ISA:=regex(.*I.*Zmmul.*)
         define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
         - def TEST_CASE_1=True
         coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_NLeaf_PTE_03.S:
+        - mulh
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhsu-01.S:
     commit_id: '-'
     isa:
-    - RV32I_Zicsr
+    - RV32IM
+    - RV32IZmmul
     parts: !!omap
+    - '0':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*M.*)
+        define:
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - mulhsu
     - '1':
         check:
         - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
+        - check ISA:=regex(.*I.*Zmmul.*)
         define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
         - def TEST_CASE_1=True
         coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_NLeaf_PTE_04.S:
+        - mulhsu
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhu-01.S:
     commit_id: '-'
     isa:
-    - RV32I_Zicsr
+    - RV32IM
+    - RV32IZmmul
     parts: !!omap
+    - '0':
+        check:
+        - check ISA:=regex(.*32.*)
+        - check ISA:=regex(.*I.*M.*)
+        define:
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - mulhu
     - '1':
         check:
         - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
+        - check ISA:=regex(.*I.*Zmmul.*)
         define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
         - def TEST_CASE_1=True
         coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_NLeaf_PTE_05.S:
+        - mulhu
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/rem-01.S:
     commit_id: '-'
     isa:
-    - RV32I_Zicsr
+    - RV32IM
     parts: !!omap
-    - '1':
+    - '0':
         check:
         - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
+        - check ISA:=regex(.*I.*M.*)
         define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
         - def TEST_CASE_1=True
         coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_NLeaf_PTE_06.S:
+        - rem
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/remu-01.S:
     commit_id: '-'
     isa:
-    - RV32I_Zicsr
+    - RV32IM
     parts: !!omap
-    - '1':
+    - '0':
         check:
         - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
+        - check ISA:=regex(.*I.*M.*)
         define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
         - def TEST_CASE_1=True
         coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_01.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_02.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_03.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_04.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_05.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_06.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_07.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_08.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_09.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_10.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_11.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_RWX_reserved_12.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_invalid_pte_01.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_mstatus_tvm_01.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_mstatus_tvm_02.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_mstatus_tvm_03.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_mstatus_tvm_04.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_mstatus_tvm_05.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_mstatus_tvm_06.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/check/vm_satp_mode_set.S:
-    commit_id: '-'
-    isa:
-    - RV32I_Zicsr
-    parts: !!omap
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zicsr.*)
-        define:
-        - def rvtest_mtrap_routine=True
-        - def rvtest_strap_routine=True
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - sv32
+        - remu
