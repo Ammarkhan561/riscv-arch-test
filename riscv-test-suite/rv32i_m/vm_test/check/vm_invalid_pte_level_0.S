@@ -58,9 +58,9 @@ main:
 	PTE_SETUP_RV32(a0, a1, t0, t1, sig_data, LEVEL1)	                # setup the PTE for level1 
                                                  				# PTE setup for 0x90000000 -> 0x80000000
 	LA (a0, pa)								# loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V ) 	        # sets the permission bits
-	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)				# setup the PTE for level1
-	li s10,0x69									# PTE setup 0x91000000 -> rvtest_data	
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_R | PTE_V ) 	                # sets the permission bits
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)				# setup the PTE for level1      
+        									# PTE setup 0x91000000 -> rvtest_data	
 	LA (a0, rvtest_data)                                    	        # loads the address of label rvtest_data in a0
 	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R  )        	                # sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV32(a0, a1, t0, t1, va_data, LEVEL1)                         # setup the PTE for level1
@@ -126,12 +126,34 @@ vm_en:
 	SREG x2, 0(t0)
         nop
 
-        li s10,0xbeef
+    li s10,0xbeef
 	RVTEST_SIGUPD(s11,s10)  // Now x13 will have VA and it will do the signature update.
 
-	RVTEST_GOTO_MMODE		                               # Switching back to M mode
-	LI (a4, 0xdeadbeef)
-	RVTEST_SIGUPD(x13,a4)
+	RVTEST_GOTO_MMODE		                                # Switching back to M mode
+	
+	LA (a0, pa)							# loads the address in a0
+	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R | PTE_V ) 	        # sets the permission bits
+	PTE_SETUP_RV32(a0, a1, t0, t1, va, LEVEL1)			# setup the PTE for level1        
+	sfence.vma
+        
+        li s9,34
+        la s8,check_execute
+		la s8, next
+		.align 21
+
+	RVTEST_GOTO_LOWER_MODE	Smode		                   # Switching to S mode
+check_execute:
+        
+        li t1,0x37
+next:
+	nop
+        nop
+        RVTEST_GOTO_MMODE		                               # Switching back to M mode
+        nop
+        nop
+        LI (a4, 0xdeadbeef)
+	RVTEST_SIGUPD(s11,a4)
+	
 
 #endif
 
