@@ -64,7 +64,7 @@ main:
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_V)                	// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                         // setup the PTE for level1
         
-	SATP_SETUP_SV64                                                         // set the SATP for virtualization
+	SATP_SETUP_RV64 (sv32)                                                        // set the SATP for virtualization
 
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */

@@ -326,15 +326,25 @@
     LI(t5, SATP32_MODE) ;\
     srli t6, t6, 12 ;\
     or t6, t6, t5  ;\
-    csrw satp, t6   ;\
-
-#define SATP_SETUP_SV64 ;\
-    LA(t6, rvtest_Sroot_pg_tbl) ;\
-    LI(t5, (SATP64_MODE << 3)) ;\
-    srli t6, t6, 12 ;\
-    or t6, t6, t5  ;\
     csrw satp, t6   ;
 
+#define SATP_SETUP_RV64(MODE)                                   ;\
+    LA(t6, rvtest_Sroot_pg_tbl)                                 ;\
+    .if (MODE == sv39)                                          ;\
+    LI(t5, (SATP64_MODE) & (SATP_MODE_SV39 << 60))              ;\
+    .endif                                                      ;\
+    .if (MODE == sv48)                                          ;\
+    LI(t5, (SATP64_MODE) & (SATP_MODE_SV48 << 60))              ;\
+    .endif                                                      ;\
+    .if (MODE == sv57)                                          ;\
+    LI(t5, (SATP64_MODE) & (SATP_MODE_SV57 << 60))              ;\
+    .endif                                                      ;\
+    .if (MODE == sv64)                                          ;\
+    LI(t5, (SATP64_MODE) & (SATP_MODE_SV64 << 60))              ;\
+    .endif                                                      ;\
+    srli t6, t6, 12                                             ;\
+    or t6, t6, t5                                               ;\
+    csrw satp, t6                                               ;
 
 #define NAN_BOXED(__val__,__width__,__max__)	;\
     .if __width__ == 32				;\
