@@ -1,142 +1,17 @@
-# database generated on 2023-09-13 10:43 GMT
+# database generated on 2023-09-14 05:59 GMT
 !!omap
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/div-01.S:
+- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv39_tests/check.S:
     commit_id: '-'
     isa:
-    - RV32IM
+    - RV64I_Zicsr
     parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - div
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/divu-01.S:
-    commit_id: '-'
-    isa:
-    - RV32IM
-    parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - divu
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mul-01.S:
-    commit_id: '-'
-    isa:
-    - RV32IM
-    - RV32IZmmul
-    parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - mul
     - '1':
         check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zmmul.*)
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
         define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
         - def TEST_CASE_1=True
         coverage_labels:
-        - mul
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulh-01.S:
-    commit_id: '-'
-    isa:
-    - RV32IM
-    - RV32IZmmul
-    parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - mulh
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zmmul.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - mulh
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhsu-01.S:
-    commit_id: '-'
-    isa:
-    - RV32IM
-    - RV32IZmmul
-    parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - mulhsu
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zmmul.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - mulhsu
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/mulhu-01.S:
-    commit_id: '-'
-    isa:
-    - RV32IM
-    - RV32IZmmul
-    parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - mulhu
-    - '1':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*Zmmul.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - mulhu
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/rem-01.S:
-    commit_id: '-'
-    isa:
-    - RV32IM
-    parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - rem
-- /home/ammar/Documents/riscv-arch-test/riscv-test-suite/rv32i_m/M/src/remu-01.S:
-    commit_id: '-'
-    isa:
-    - RV32IM
-    parts: !!omap
-    - '0':
-        check:
-        - check ISA:=regex(.*32.*)
-        - check ISA:=regex(.*I.*M.*)
-        define:
-        - def TEST_CASE_1=True
-        coverage_labels:
-        - remu
+        - sv64

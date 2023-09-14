@@ -26,6 +26,7 @@
 
 #define LEVEL0 0x00
 #define LEVEL1 0x01
+#define LEVEL2 0x02
 
 #define ACCESS_BIT_TEST        0x01
 #define VM_PMP_TEST            0x02
@@ -241,8 +242,8 @@
     add _TR1, _TR1, _TR0                                        ;\
     SREG _PAR, 0(_TR1);                                          
 
-
-#define PTE_SETUP_RV64(_PAR, _PR, _TR0, _TR1, VA, level)  	;\
+// rename the macro
+#define PTE_SETUP_RV64(_PAR, _PR, _TR0, _TR1, VA, level)  	    ;\
     srli _PAR, _PAR, 12                                         ;\
     slli _PAR, _PAR, 10                                         ;\
     or _PAR, _PAR, _PR                                          ;\
@@ -278,7 +279,7 @@
     srli _TR0, _TR0, 10                                         ;\
     slli _TR0, _TR0, 10                                         ;\
     or _TR0, _TR0, _PR                                          ;\
-    SREG _TR0, 0(_TR1)                                          ;\   
+    SREG _TR0, 0(_TR1)                                          ;   
 
 #define SATP_SETUP_SV32 ;\
     LA(t6, rvtest_Sroot_pg_tbl) ;\
@@ -289,10 +290,10 @@
 
 #define SATP_SETUP_SV64 ;\
     LA(t6, rvtest_Sroot_pg_tbl) ;\
-    LI(t5, SATP64_MODE) ;\
+    LI(t5, (SATP64_MODE << 3)) ;\
     srli t6, t6, 12 ;\
     or t6, t6, t5  ;\
-    csrw satp, t6   ;\
+    csrw satp, t6   ;
 
 
 #define NAN_BOXED(__val__,__width__,__max__)	;\
