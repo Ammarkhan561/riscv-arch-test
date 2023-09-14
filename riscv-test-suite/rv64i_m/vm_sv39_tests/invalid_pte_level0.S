@@ -22,7 +22,7 @@ RVTEST_CODE_BEGIN
     RVTEST_CASE(1,"//check ISA:=regex(.*64.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def TEST_CASE_1=True",sv64)
 
 RVTEST_SIGBASE( x13,signature_x13_1)
-
+  	
 main:
 # ---------------------------------------------------------------------------------------------
 
@@ -44,25 +44,33 @@ main:
         # .set sig_data, 0x93003110                                               // virtual address of signature_x13_1
 
 
-	.set va,       	 0x0900000000
-	.set pa,       	 0x80000000 
-	.set va_data,  	 0x0980000000
+	.set va,       0x0900000000
+	.set pa,       0x80000000 
+	.set va_data,  0x0900002000
 
         # .set va,       0x90000000
         # .set pa,       0x80000000 
 	# .set va_data,  0xE1000000
 
 	la s11,0x34
+
+	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )           					        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2)                              // setup the PTE for level1
+								                // PTE setup for rvtest_data 0x91000000 -> rvtest_data	
+	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )           					        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1)                              // setup the PTE for level1
 								                // PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 
 	LI (a0, pa)                                                             // loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2)                              // setup the PTE for level1
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0)                              // setup the PTE for level1
 								                // PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	la s11,0x37
 	LA (a0, rvtest_data)                                                    // loads the address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_V)                	// sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2)                         // setup the PTE for level1
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R |PTE_V  )                       // sets the permission bits (PTE_V == 0)
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0)                         // setup the PTE for level1
         
 	SATP_SETUP_SV64                                                         // set the SATP for virtualization
 
