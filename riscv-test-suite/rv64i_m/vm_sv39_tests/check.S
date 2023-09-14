@@ -57,12 +57,12 @@ main:
 
 	LI (a0, pa)                                                             // loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2)                              // setup the PTE for level1
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                              // setup the PTE for level1
 								                // PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	la s11,0x37
 	LA (a0, rvtest_data)                                                    // loads the address of label rvtest_data in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_V)                	// sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2)                         // setup the PTE for level1
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                         // setup the PTE for level1
         
 	SATP_SETUP_SV64                                                         // set the SATP for virtualization
 
