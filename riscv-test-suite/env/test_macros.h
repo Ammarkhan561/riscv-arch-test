@@ -242,26 +242,67 @@
     add _TR1, _TR1, _TR0                                        ;\
     SREG _PAR, 0(_TR1);                                          
 
-// rename the macro
-#define PTE_SETUP_RV64(_PAR, _PR, _TR0, _TR1, VA, level)  	    ;\
-    srli _PAR, _PAR, 12                                         ;\
-    slli _PAR, _PAR, 10                                         ;\
-    or _PAR, _PAR, _PR                                          ;\
-    .if (level==2)                                              ;\
-        LA(_TR1, rvtest_Sroot_pg_tbl)                           ;\
-        .set vpn, ((VA>>30)&0x1FF)<<3                           ;\
-    .endif                                                      ;\
-    .if (level==1)                                              ;\
-        LA(_TR1, rvtest_slvl1_pg_tbl)                           ;\
-        .set vpn, ((VA>>21)&0x1FF)<<3                           ;\
-    .endif                                                      ;\
-    .if (level==0)                                              ;\
-        LA(_TR1, rvtest_slvl2_pg_tbl)                           ;\
-        .set vpn, ((VA>>12)&0x1FF)<<3                           ;\
-    .endif                                                      ;\
-    LI(_TR0, vpn)                                               ;\
-    add _TR1, _TR1, _TR0                                        ;\
-    SREG _PAR, 0(_TR1);                                          
+#define PTE_SETUP_RV64(_PAR, _PR, _TR0, _TR1, VA, level, mode)      ;\
+    srli _PAR, _PAR, 12                                             ;\
+    slli _PAR, _PAR, 10                                             ;\
+    or _PAR, _PAR, _PR                                              ;\
+    .if (mode == sv39)                                              ;\
+        .if (level == 2)                                            ;\
+            LA(_TR1, rvtest_Sroot_pg_tbl)                           ;\
+            .set vpn, ((VA >> 30) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 1)                                            ;\
+            LA(_TR1, rvtest_slvl1_pg_tbl)                           ;\
+            .set vpn, ((VA >> 21) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 0)                                            ;\
+            LA(_TR1, rvtest_slvl2_pg_tbl)                           ;\
+            .set vpn, ((VA >> 12) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+    .endif                                                          ;\
+    .if (mode == sv48)                                              ;\
+        .if (level == 3)                                            ;\
+            LA(_TR1, rvtest_Sroot_pg_tbl)                           ;\
+            .set vpn, ((VA >> 39) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 2)                                            ;\
+            LA(_TR1, rvtest_slvl1_pg_tbl)                           ;\
+            .set vpn, ((VA >> 30) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 1)                                            ;\
+            LA(_TR1, rvtest_slvl2_pg_tbl)                           ;\
+            .set vpn, ((VA >> 21) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 0)                                            ;\
+            LA(_TR1, rvtest_slvl3_pg_tbl)                           ;\
+            .set vpn, ((VA >> 12) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+    .endif                                                          ;\
+    .if (mode == sv57)                                              ;\
+        .if (level == 4)                                            ;\
+            LA(_TR1, rvtest_Sroot_pg_tbl)                           ;\
+            .set vpn, ((VA >> 48) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 3)                                            ;\
+            LA(_TR1, rvtest_slvl1_pg_tbl)                           ;\
+            .set vpn, ((VA >> 39) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 2)                                            ;\
+            LA(_TR1, rvtest_slvl2_pg_tbl)                           ;\
+            .set vpn, ((VA >> 30) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 1)                                            ;\
+            LA(_TR1, rvtest_slvl3_pg_tbl)                           ;\
+            .set vpn, ((VA >> 21) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+        .if (level == 0)                                            ;\
+            LA(_TR1, rvtest_slvl3_pg_tbl)                           ;\
+            .set vpn, ((VA >> 12) & 0x1FF) << 3                     ;\
+        .endif                                                      ;\
+    .endif                                                          ;\
+    LI(_TR0, vpn)                                                   ;\
+    add _TR1, _TR1, _TR0                                            ;\
+    SREG _PAR, 0(_TR1)                                              ;
 
 
 #define PTE_PERMUPD_RV32(_PR, _TR0, _TR1, VA, level)          	;\
