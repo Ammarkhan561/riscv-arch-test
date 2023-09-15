@@ -22,7 +22,7 @@ RVTEST_CODE_BEGIN
     RVTEST_CASE(1,"//check ISA:=regex(.*64.*); check ISA:=regex(.*I.*Zicsr.*); def rvtest_mtrap_routine=True; def rvtest_strap_routine=True; def TEST_CASE_1=True",sv64)
 
 RVTEST_SIGBASE( x13,signature_x13_1)
-
+  	
 main:
 # ---------------------------------------------------------------------------------------------
 
@@ -44,27 +44,47 @@ main:
         # .set sig_data, 0x93003110                                               // virtual address of signature_x13_1
 
 
-	.set va,       	 0x0900000000
-	.set pa,       	 0x80000000 
-	.set va_data,  	 0x0980000000
+	.set va,       0x0900000000
+	.set pa,       0x80000000 
+	.set va_data,  0x0900002000
+	.set sig_data, 0x0900008000
 
         # .set va,       0x90000000
         # .set pa,       0x80000000 
 	# .set va_data,  0xE1000000
 
 	la s11,0x34
+
+	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )           					        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                              // setup the PTE for level1
+								                // PTE setup for rvtest_data 0x91000000 -> rvtest_data	
+	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )           					        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv39)                              // setup the PTE for level1
 								                // PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 
 	LI (a0, pa)                                                             // loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                              // setup the PTE for level1
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                              // setup the PTE for level1
 								                // PTE setup for rvtest_data 0x91000000 -> rvtest_data	
 	la s11,0x37
 	LA (a0, rvtest_data)                                                    // loads the address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_V)                	// sets the permission bits (PTE_V == 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                         // setup the PTE for level1
-        
-	SATP_SETUP_RV64 (sv32)                                                        // set the SATP for virtualization
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R |PTE_V  )                 // sets the permission bits (PTE_V == 0)
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level1
+
+	la a0, rvtest_sig_begin   						// Physical address of signature area
+	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V)                 // sets the permissions bits 
+	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL0,sv39) 			// PTE Setup for signature area address at pgtbl0
+
+	LI (t0, sig_data)                                                       
+	LA (t1, rvtest_sig_begin)                                                      
+	sub t0, t0, t1 					        		// (VA-PA) Note: VA > PA 
+	add s11, x13, t0				        		// Translation of Signature reg
+
+
+
+	SATP_SETUP_RV64  (sv39)                                                       // set the SATP for virtualization
 
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
@@ -89,13 +109,13 @@ main:
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
-	# //signature
-	# LI (t0, sig_data)                                                       // load the virtual address of signature_x13_1 in t0
-	# LA (t1, signature_x13_1)                                                // load the physical address of signature_x13_1 in t1
-	# sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
-	# LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
-	# add t2, t1, t0                                                          // add the offset to the base address of save area
-	# SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
+	//signature
+	LI (t0, sig_data)                                                       // load the virtual address of signature_x13_1 in t0
+	LA (t1, signature_x13_1)                                                // load the physical address of signature_x13_1 in t1
+	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
+	LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
+	add t2, t1, t0                                                          // add the offset to the base address of save area
+	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
 	// vmem
 	LI (t0, va_data)                                                        // load the virtual address of rvtest_data in t0
 	LA (t1, rvtest_data)                                                    // load the physical address of rvtest_data in t1
@@ -109,19 +129,20 @@ main:
 
 vm_en:
 	LI (a4, 0xdead)
-        
+	RVTEST_SIGUPD(s11,a4)                                                   // Verification of virtualization enabeled
+
 	LI (t0, va_data)                                                        
 	LREG x2, 0(t0)                                                          // test the load access (should raise an exception)
         nop                                             
-        
+
 	LI (a4, 0xbeef)                                                         // Verification of coming back from trap handler 
+	RVTEST_SIGUPD(s11,a4)
 
 	RVTEST_GOTO_MMODE		                                        // Switching back to M mode
-        
+
         nop
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
-
 #endif
 
  # ---------------------------------------------------------------------------------------------
