@@ -1,9 +1,6 @@
 # ######################################################################################################
-#  Verification Goal: Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for  #
-#                     Level2 PTE Should raise a load page fault for read access.                       #                        
-#                                                                                                      #
-# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
-#                    raise page fault exception of the corresponding access type.           	       #
+#  Verification Goal: Set PTE.V = 1 and test the Read Acces in Supervisor mode for Level2 PTE the read #
+# 		      access should be successful.	 		                               #                        
 # ######################################################################################################
 
 #include "model_test.h"
@@ -23,8 +20,19 @@ RVTEST_CODE_BEGIN
 
 RVTEST_SIGBASE( x13,signature_x13_1)
 
+
 main:
-# ---------------------------------------------------------------------------------------------
+
+j main1
+
+rvtest_data:
+.word 0xbeefcafe
+.word 0xbabecafe
+
+
+# -------------------------------------------------------------------------
+main1:
+
 
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
@@ -35,37 +43,41 @@ main:
 	RVTEST_SIGUPD(x13,a4)
 #endif
 
-# -------------------------Set the all mem PMP----------------------------------------------
+# -------------------------Set the all mem PMP-----------------------------
 	
     	li t2, -1                                     			                
     	csrw pmpaddr0, t2                                             
     	li t2, 0x0F	                                                  
     	csrw pmpcfg0, t2                                               
     	sfence.vma    
-# ---------------------------------------------------------------------------------------------	
+# -------------------------------------------------------------------------
 	csrw satp, zero								// write zero to the satp (bare mode)
 
 	.set va,       	 0x0900000000						
 	.set pa,       	 0x80000000 
 	.set va_data,  	 0x0980000000
+	.set rand,  	 0x0910000000
 
-# -------------------------Set the PTE for level2 for sv39----------------------------------
+# -------------------------Set the PTE for level2 for sv39-----------------
 								                // level2 PTE setup for pa (0x0900000000 -> 0x80000000)	
 	LI (a0, pa)                                                             // loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2 for sv39
-								                // level2 PTE setup for pa (0x0980000000 -> rvtest_data)	
+
+
+	# LI( a0,rand)
+	# SREG a0,0(a0)							                # // level2 PTE setup for pa (0x0980000000 -> rvtest_data)	
 	LA (a0, rvtest_data)                                                    // loads the physical address of label rvtest_data in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V  ) 	        // sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                    // setup the PTE for level2 for sv39
 
-# -------------------------Set the SATP for virtulization----------------------------------
+# -------------------------Set the SATP for virtulization------------------
         
 	SATP_SETUP_RV64 (sv39)                                                  // set the SATP for virtualization
 
+# -------------------------Save area logic----------------------------------
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
-
 	/****** code ******/
 	LI (t0, va)                                                             // load the virtual address of vm_en in t0
 	LI (t1, pa)                                                             // load the physical address of vm_en in t1
@@ -95,18 +107,13 @@ main:
 	
 	RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
 
+# -------------------------virtulization enabled----------------------------------
 vm_en:
-	LI (a4, 0xdead)
-        
 	LI (t0, va_data)                                                        
-	LREG x2, 0(t0)                                                          // test the load access (should raise an exception)
+	LREG x2, 0(t0)                                                          // test the load access (should be successful)
         nop                                             
-        
-	LI (a4, 0xbeef)                                                         // Verification of coming back from trap handler 
-
 	RVTEST_GOTO_MMODE		                                        // Switching back to M mode
         
-        nop
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
 
@@ -118,12 +125,12 @@ RVTEST_CODE_END
 RVMODEL_HALT
 
 RVTEST_DATA_BEGIN
- .align 24
-rvtest_data:
-.word 0xbeefcafe
-.word 0xbabecafe
-.word 0xbabecafe
-.word 0xbabecafe
+#  .align 24
+# rvtest_data:
+# .word 0xbeefcafe
+# .word 0xbabecafe
+# .word 0xbabecafe
+# .word 0xbabecafe
 
 #ifdef rvtest_strap_routine
 .align 12
