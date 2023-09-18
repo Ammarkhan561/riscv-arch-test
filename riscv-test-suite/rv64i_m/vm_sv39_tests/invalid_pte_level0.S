@@ -81,8 +81,6 @@ main:
 	sub t0, t0, t1 					        		// (VA-PA) Note: VA > PA 
 	add s11, x13, t0				        		// Translation of Signature reg
 
-        SATP_SETUP_SV32                                                         // set the SATP for virtualization
-
 # -------------------------Set the SATP for virtulization------------------
 
 	SATP_SETUP_RV64 (sv39)                                                  // set the SATP for virtualization
