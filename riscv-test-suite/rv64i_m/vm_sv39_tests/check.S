@@ -35,29 +35,30 @@ main:
 	RVTEST_SIGUPD(x13,a4)
 #endif
 # -------------------------Set the all mem PMP-----------------------------	
-	ALL_MEM_PMP
-# -------------------------------------------------------------------------
-	csrw satp, zero								// write zero to the satp (bare mode)
 
-	.set va,       	 0x0900000000						
-	.set pa,       	 0x80000000000000 
-	.set va_data,  	 0x0980000000
-	.set rand,  	 0x82000000000000
+	ALL_MEM_PMP							        // set the permissions of all memory 
+	csrw satp, zero								// write zero to the satp (bare mode)
+	
+# -------------------------------------------------------------------------
+
+	.set va,       	 0x0900000000						// 39 bits of VA address
+	.set pa,       	 0x80000000000000 					// 56 bits of PA address
+	.set va_data,  	 0x0980000000						// 39 bits of VA address
+	.set pa_data,  	 0x82000000000000					// 56 bits of PA address
 
 # -------------------------Set the PTE for level2 for sv39-----------------
-								                // level2 PTE setup for pa (0x0900000000 -> 0x80000000)	
-	LI (a0, pa)                                                             // loads the address in a0
+								                // level2 PTE setup for pa (0x0900000000 -> 0x80000000000000)	
+	LI (a0, pa)                                                             // loads the PA address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2 for sv39
-
-	LI( a0,rand)
-	SREG a0,0(a0)							                # // level2 PTE setup for pa (0x0980000000 -> rvtest_data)	
-	# LA (a0, rvtest_data)                                                    // loads the physical address of label rvtest_data in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V  ) 	        // sets the permission bits (PTE_V == 0)
+ 										// level2 PTE setup for pa (0x0980000000 -> pa_data)
+	LI( a0,pa_data)								// loads the PA address in a0 
+	SREG a0,0(a0)							        // stores the random value in a0      
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 		        // sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                    // setup the PTE for level2 for sv39
 
 # -------------------------Set the SATP for virtulization------------------
-        
+
 	SATP_SETUP_RV64 (sv39)                                                  // set the SATP for virtualization
 
 # -------------------------Save area logic----------------------------------
@@ -76,14 +77,14 @@ main:
 	/******* data *******/
 	// update save area
 	LI (t0, va_data)                                                        // load the virtual address of rvtest_data in t0
-	LI (t1, rand)                                                    // load the physical address of rvtest_data in t1
+	LI (t1, pa_data)                                                    	// load the physical address of rvtest_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
 	// vmem
 	LI (t0, va_data)                                                        // load the virtual address of rvtest_data in t0
-	LI (t1, rand)                                                    // load the physical address of rvtest_data in t1
+	LI (t1, pa_data)                                                   	// load the physical address of rvtest_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
