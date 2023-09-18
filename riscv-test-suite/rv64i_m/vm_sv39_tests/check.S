@@ -54,9 +54,9 @@ main1:
 	csrw satp, zero								// write zero to the satp (bare mode)
 
 	.set va,       	 0x0900000000						
-	.set pa,       	 0x80000000 
+	.set pa,       	 0x80000000000000 
 	.set va_data,  	 0x0980000000
-	.set rand,  	 0x0910000000
+	.set rand,  	 0x8000000000
 
 # -------------------------Set the PTE for level2 for sv39-----------------
 								                // level2 PTE setup for pa (0x0900000000 -> 0x80000000)	
@@ -65,9 +65,9 @@ main1:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2 for sv39
 
 
-	# LI( a0,rand)
-	# SREG a0,0(a0)							                # // level2 PTE setup for pa (0x0980000000 -> rvtest_data)	
-	LA (a0, rvtest_data)                                                    // loads the physical address of label rvtest_data in a0
+	LI( a0,rand)
+	SREG a0,0(a0)							                # // level2 PTE setup for pa (0x0980000000 -> rvtest_data)	
+	# LA (a0, rvtest_data)                                                    // loads the physical address of label rvtest_data in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V  ) 	        // sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                    // setup the PTE for level2 for sv39
 
