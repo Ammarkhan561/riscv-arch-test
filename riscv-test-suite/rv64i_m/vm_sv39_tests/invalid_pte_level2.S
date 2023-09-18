@@ -42,9 +42,9 @@ main:
 # -------------------------------------------------------------------------
 
 	.set va,       	 0x0900000000						// 39 bits of VA address
-	.set pa,       	 0x80000000000000 					// 56 bits of PA address (such that ppn0!=0 and ppn1!=0)
-	.set va_data,  	 0x0980000000						// 39 bits of VA address 
-	.set pa_data,  	 0x82000000000000					// 56 bits of PA address (such that ppn0!=0 and ppn1!=0)
+	.set pa,       	 0x80000000000000 					// 56 bits of PA address (such that ppn0==0 and ppn1==0)
+	.set va_data,  	 0x0900020000						// 39 bits of VA address 
+	.set pa_data,  	 0x82000000020000					// 56 bits of PA address 
 
 # -------------------------Storing 0XCAFEBEEF at pa_data-----------------
 
