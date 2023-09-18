@@ -1,6 +1,9 @@
 # ######################################################################################################
-#  Verification Goal: Set PTE.V = 1 and test the Read Acces in Supervisor mode for Level2 PTE the read #
-# 		      access should be successful.	 		                               #                        
+#  Verification Goal: Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for  #
+#                    Level1 Should raise a load page fault for read access.                            #                        
+#                                                                                                      #
+# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
+#                    raise page fault exception of the corresponding access type.           	       #
 # ######################################################################################################
 
 #include "model_test.h"
@@ -22,18 +25,7 @@ RVTEST_SIGBASE( x13,signature_x13_1)
 
 
 main:
-
-j main1
-
-rvtest_data:
-.word 0xbeefcafe
-.word 0xbabecafe
-
-
 # -------------------------------------------------------------------------
-main1:
-
-
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
 	RVTEST_SIGUPD(x13,a4)
@@ -42,28 +34,21 @@ main1:
 	LI a4, 0xbeed
 	RVTEST_SIGUPD(x13,a4)
 #endif
-
-# -------------------------Set the all mem PMP-----------------------------
-	
-    	li t2, -1                                     			                
-    	csrw pmpaddr0, t2                                             
-    	li t2, 0x0F	                                                  
-    	csrw pmpcfg0, t2                                               
-    	sfence.vma    
+# -------------------------Set the all mem PMP-----------------------------	
+	ALL_MEM_PMP
 # -------------------------------------------------------------------------
 	csrw satp, zero								// write zero to the satp (bare mode)
 
 	.set va,       	 0x0900000000						
 	.set pa,       	 0x80000000000000 
 	.set va_data,  	 0x0980000000
-	.set rand,  	 0x8000000000
+	.set rand,  	 0x82000000000000
 
 # -------------------------Set the PTE for level2 for sv39-----------------
 								                // level2 PTE setup for pa (0x0900000000 -> 0x80000000)	
 	LI (a0, pa)                                                             // loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2 for sv39
-
 
 	LI( a0,rand)
 	SREG a0,0(a0)							                # // level2 PTE setup for pa (0x0980000000 -> rvtest_data)	
@@ -91,14 +76,14 @@ main1:
 	/******* data *******/
 	// update save area
 	LI (t0, va_data)                                                        // load the virtual address of rvtest_data in t0
-	LA (t1, rvtest_data)                                                    // load the physical address of rvtest_data in t1
+	LI (t1, rand)                                                    // load the physical address of rvtest_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
 	// vmem
 	LI (t0, va_data)                                                        // load the virtual address of rvtest_data in t0
-	LA (t1, rvtest_data)                                                    // load the physical address of rvtest_data in t1
+	LI (t1, rand)                                                    // load the physical address of rvtest_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
@@ -118,19 +103,12 @@ vm_en:
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
 
 #endif
-
  # ---------------------------------------------------------------------------------------------
 
 RVTEST_CODE_END
 RVMODEL_HALT
 
 RVTEST_DATA_BEGIN
-#  .align 24
-# rvtest_data:
-# .word 0xbeefcafe
-# .word 0xbabecafe
-# .word 0xbabecafe
-# .word 0xbabecafe
 
 #ifdef rvtest_strap_routine
 .align 12
