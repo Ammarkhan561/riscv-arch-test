@@ -45,7 +45,13 @@ main:
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address 
 	.set va_data,  	 0x0902000000						// 39 bits of VA address
 	.set pa_data,  	 0x82000000000000					// 56 bits of PA address
+	
+# -------------------------Storing 0XCAFEBEEF at pa_data-----------------
 
+        LI( a0,pa_data)                                                         // Loads the address of phyical address of the pa_data
+        LI(a1,0xBEEFDEADCAFEBEEF)                                               // Loads 0xCAFEBEEF in a1
+        SREG a1,0(a0)                                                           // Stores a1 at pa_data
+	
 # -------------------------Set the PTE for level2 for sv39-----------------
 
 	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
