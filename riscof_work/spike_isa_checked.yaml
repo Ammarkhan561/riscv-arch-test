@@ -1,12 +1,12 @@
 hart_ids: [0]
 hart0:
-    ISA: RV64IMCZicsr_Zifencei
+    ISA: RV64IMAFDCZicsr_Zifencei
     physical_addr_sz: 56
     User_Spec_Version: '2.3'
     supported_xlen:
       - 64
     misa:
-        reset-val: 0x40001104
+        reset-val: 0x800000000000112D
         rv64:
             accessible: true
             mxl:
@@ -15,7 +15,7 @@ hart0:
                     warl:
                         dependency_fields: []
                         legal:
-                          - mxl[1:0] in [0x1]
+                          - mxl[1:0] in [0x2]
                         wr_illegal:
                           - Unchanged
                 description: Encodes the native base integer ISA width.
@@ -29,7 +29,7 @@ hart0:
                     warl:
                         dependency_fields: []
                         legal:
-                          - extensions[25:0] bitmask [0x0001104, 0x0000000]
+                          - extensions[25:0] bitmask [0x000112D, 0x0000000]
                         wr_illegal:
                           - Unchanged
 
@@ -170,13 +170,20 @@ hart0:
                 lsb: 11
                 type: {ro_constant: 0}
             fs:
-                implemented: false
+                implemented: true
                 description: Encodes the status of the floating-point unit, including
                     the CSR fcsr and floating-point data registers.
                 shadow:
                 shadow_type: rw
                 msb: 14
                 lsb: 13
+                type:
+                    warl:
+                        dependency_fields: []
+                        legal:
+                          - fs[1:0] in [0x0:0x3]
+                        wr_illegal:
+                          - unchanged
             xs:
                 implemented: false
                 description: Encodes the status of additional user-mode extensions
@@ -264,13 +271,16 @@ hart0:
                 msb: 39
                 lsb: 39
             sd:
-                implemented: false
+                implemented: true
                 description: Read-only bit that summarizes whether either the FS field
                     or XS field signals the presence of some dirty state.
                 shadow:
                 shadow_type: rw
                 msb: 63
                 lsb: 63
+                type:
+                    wlrl:
+                      - 0:1
         description: The mstatus register keeps track of and controls the hart’s current
             operating state.
         address: 768
@@ -2788,7 +2798,12 @@ hart0:
         rv32:
             accessible: false
         rv64:
-            accessible: false
+            accessible: true
+            fields: []
+            shadow: fcsr.fflags
+            shadow_type: rw
+            msb: 4
+            lsb: 0
         description: 32-bit register to hold floating point accrued exceptions.
         address: 001
         priv_mode: U
@@ -2797,7 +2812,12 @@ hart0:
         rv32:
             accessible: false
         rv64:
-            accessible: false
+            accessible: true
+            fields: []
+            shadow: fcsr.frm
+            shadow_type: rw
+            msb: 2
+            lsb: 0
         description: 32-bit register to hold Floating-Point Dynamic Rounding Mode.
         address: 002
         priv_mode: U
@@ -2806,7 +2826,42 @@ hart0:
         rv32:
             accessible: false
         rv64:
-            accessible: false
+            accessible: true
+            fields:
+              - fflags
+              - frm
+              -
+                  -
+                      - 8
+                      - 63
+            frm:
+                implemented: true
+                description: Stores Floating-Point Dynamic Rounding Mode.
+                shadow:
+                shadow_type: rw
+                msb: 7
+                lsb: 5
+                type:
+                    warl:
+                        dependency_fields: []
+                        legal:
+                          - frm[2:0] in [0x0:0x7]
+                        wr_illegal:
+                          - Unchanged
+            fflags:
+                implemented: true
+                description: Stores floating point accrued exceptions.
+                shadow:
+                shadow_type: rw
+                msb: 4
+                lsb: 0
+                type:
+                    warl:
+                        dependency_fields: []
+                        legal:
+                          - fflags[4:0] in [0x0:0x1F]
+                        wr_illegal:
+                          - Unchanged
         description: 32-bit register to hold Floating-Point Control and Status Register.
         address: 003
         priv_mode: U

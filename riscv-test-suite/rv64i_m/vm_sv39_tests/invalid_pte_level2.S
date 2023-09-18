@@ -127,12 +127,12 @@ CANARY;
 
 // test signatures initialization
 signature_x13_1:
-    .fill 64*(XLEN/32),8,0xcafebeef
+    .fill 64*(XLEN/64),8,0xcafebeef
 
 // trap signatures initialization
 #ifdef rvtest_mtrap_routine
 mtrap_sigptr:
-    .fill 64*(XLEN/32),8,0xdeadbeef
+    .fill 64*(XLEN/64),8,0xdeadbeef
 #endif
 
 sig_end_canary:
