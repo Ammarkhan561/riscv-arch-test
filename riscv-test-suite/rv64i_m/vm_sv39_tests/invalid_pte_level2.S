@@ -45,7 +45,10 @@ main:
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address (such that ppn0!=0 and ppn1!=0)
 	.set va_data,  	 0x0980000000						// 39 bits of VA address 
 	.set pa_data,  	 0x82000000000000					// 56 bits of PA address (such that ppn0!=0 and ppn1!=0)
-
+# -------------------------Storing 0XCAFEBEEF at pa_data-----------------
+        LI( a0,pa_data)                                                         // Loads the address of phyical address of the pa_data
+        LI(a1,0xBEEFDEADCAFEBEEF)                                               // Loads 0xCAFEBEEF in a1
+        SREG a1,0(a0)                                                           // Stores a1 at pa_data
 # -------------------------Set the PTE for level2 for sv39-----------------
 								                // level2 PTE setup for pa (0x0900000000 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the PA address in a0
@@ -53,8 +56,7 @@ main:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2 for sv39
  										// level2 PTE setup for pa (0x0980000000 -> pa_data)
 	LI( a0,pa_data)								// loads the PA address in a0 
-	SREG a0,0(a0)							        // stores the random value in a0      
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 		        // sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R |PTE_V ) 		// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                    // setup the PTE for level2 for sv39
 
 # -------------------------Set the SATP for virtulization------------------

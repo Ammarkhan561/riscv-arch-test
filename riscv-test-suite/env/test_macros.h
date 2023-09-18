@@ -20,6 +20,8 @@
 #define LEVEL0 0x00
 #define LEVEL1 0x01
 #define LEVEL2 0x02
+#define LEVEL3 0x03
+#define LEVEL4 0x04
 
 #define sv39 0x00
 #define sv48 0x01
