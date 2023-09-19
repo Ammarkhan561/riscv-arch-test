@@ -1299,6 +1299,8 @@ vmem_adj_\__MODE__\()tval:         /* T4 still points to sv area of trapping mod
         LREG    T3, vmem_bgn_off(T4)            // fetch sig_begin addr
         LREG    T6, vmem_seg_siz(T4)
         add     T6, T6, T3                      // construct vmem seg end
+       	la s11,0x34
+
         bgeu    T2, T6,  sig_adj_\__MODE__\()tval// tval > rvtest_sig_end, chk code seg
         bgeu    T2, T3,      adj_\__MODE__\()tval// tval >=rvtest_sig_begin, adj & save
 
@@ -1684,9 +1686,9 @@ rvtest_\__MODE__\()end:
 \__MODE__\()sig_seg_sz:
         .dword rvtest_sig_end-rvtest_sig_begin           // code seg size in any mode trampsvend+5*8
 \__MODE__\()vmem_bgn_ptr:
-        .dword rvtest_data_begin// pointer to vmem bgn area using this mode's mapping trampsvend+6*8
+        .dword rvtest_code_begin// pointer to vmem bgn area using this mode's mapping trampsvend+6*8
 \__MODE__\()vmem_seg_sz:
-        .dword rvtest_data_end-rvtest_data_begin         // vmem seg size in any mode trampsvend+7*8
+        .dword rvtest_code_end-rvtest_code_begin         // vmem seg size in any mode trampsvend+7*8
 
 \__MODE__\()trap_sig:
         .dword  mtrap_sigptr    // pointer to next trapsig  (only Mmode version used) trampsvend+8*8

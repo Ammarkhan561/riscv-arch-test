@@ -44,18 +44,18 @@ main:
 
 	.set va,       	 0x0900000000						// 39 bits of VA address
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address 
-	.set va_data,  	 0x0900020000						// 39 bits of VA address
-	.set pa_data,  	 0x88000000000000					// 56 bits of PA address
+	.set va_data,  	 0x0900001000						// 39 bits of VA address
+	# .set pa_data,  	 0x80000000000bb8					// 56 bits of PA address
+	
 	.set sig_data,   0x0900080118						// 39 bits of VA address
 
 # -------------------------Storing 0XCAFEBEEF at pa_data-----------------
 
-        LI( a0,pa_data)                                                         // Loads the address of phyical address of the pa_data
-        LI(a1,0xBEEFDEADCAFEBEEF)                                               // Loads 0xCAFEBEEF in a1
-        SREG a1,0(a0)                                                           // Stores a1 at pa_data
+        # LI( a0,pa_data)                                                         // Loads the address of phyical address of the pa_data
+        # LI(a1,0xBEEFDEADCAFEBEEF)                                               // Loads 0xCAFEBEEF in a1
+        # SREG a1,0(a0)                                                           // Stores a1 at pa_data
 
 # -------------------------Set the PTE for level2 for sv39-----------------
-
 
 
 	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
@@ -70,8 +70,8 @@ main:
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0980000000 -> pa_data)
-	LI( a0,pa_data)								// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  ) 			// sets the permission bits (PTE_V == 0)
+	LA( a0,rvtest_data)								// loads the PA address in a0 
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R    ) 			// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
@@ -83,7 +83,7 @@ main:
 	LI (t0, sig_data)                                                       
 	LA (t1, rvtest_sig_begin)                                                      
 	sub t0, t0, t1 					        		// (VA-PA) Note: VA > PA 
-	add s11, x13, t0				        		// Translation of Signature reg
+	add x13, x13, t0				        		// Translation of Signature reg
 
 # -------------------------Set the SATP for virtulization------------------
 
@@ -108,7 +108,7 @@ main:
 	/******* data *******/
 	// update save area
 	LI (t0, va_data)                                                        // load the virtual address of pa_data in t0
-	LI (t1, pa_data)                                                        // load the physical address of pa_data in t1
+	LA (t1, rvtest_data)                                                        // load the physical address of pa_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
@@ -121,8 +121,8 @@ main:
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
 	// vmem
-	LI (t0, va_data)                                                        // load the virtual address of pa_data in t0
-	LI (t1, pa_data)                                                        // load the physical address of pa_data in t1
+	LI (t0, va_data)                	                                        // load the virtual address of pa_data in t0
+	LA (t1, rvtest_data)                                                        // load the physical address of pa_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
@@ -134,26 +134,39 @@ main:
 # -------------------------virtulization enabled----------------------------------
 vm_en:
 	LI (a4, 0xdead)
-	RVTEST_SIGUPD(s11,a4)                                                   // Verification of virtualization enabeled
+	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
 
 	LI (t0, va_data)                                                        
 	LREG x2, 0(t0)                                                          // test the load access (should be successful)
         nop                                             
 	
 	LI (a4, 0xbeef)
-	RVTEST_SIGUPD(s11,a4)                                                   // Verification of virtualization enabeled
+	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
         nop
 
 	RVTEST_GOTO_MMODE		                                        // Switching back to M mode
-        
+
+	LI (t0, sig_data)                                                       
+	LA (t1, rvtest_sig_begin)                                                      
+	sub t0, t0, t1 					        		// (VA-PA) Note: VA > PA 
+	sub x13, x13, t0				        		// Translation of Signature reg
+	addi x13,x13,REGWIDTH
 	nop
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
+
+	j exit
+
+rvtest_data:
+
+	.word 0xdeadbeef
+exit:
 
 #endif
  # ------------------------------------------------------------------------------
 
 RVTEST_CODE_END
+
 RVMODEL_HALT
 
 RVTEST_DATA_BEGIN
@@ -166,8 +179,15 @@ rvtest_slvl2_pg_tbl:
         RVTEST_PTE_IDENT_MAP        
 #endif
 
+
+# rvtest_data:
+
+# 	.word 0xdeadbeef
+
 RVTEST_DATA_END
+
 RVMODEL_DATA_BEGIN
+
 rvtest_sig_begin:
 sig_begin_canary:
 CANARY;
