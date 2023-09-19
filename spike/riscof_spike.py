@@ -140,6 +140,7 @@ class spike(pluginTemplate):
           # be named as DUT-<dut-name>.signature. The below variable creates an absolute path of
           # signature file.
           sig_file = os.path.join(test_dir, self.name[:-1] + ".signature")
+          log_file = os.path.join(test_dir, self.name[:-1] + ".log")
 
           # for each test there are specific compile macros that need to be enabled. The macros in
           # the testList node only contain the macros/values. For the gcc toolchain we need to
@@ -155,7 +156,8 @@ class spike(pluginTemplate):
 	  # echo statement.
           if self.target_run:
             # set up the simulation command. Template is for spike. Please change.
-            simcmd = self.dut_exe + ' -m8796093022208 --isa={0} +signature={1} +signature-granularity=4 {2}'.format(self.isa, sig_file, elf)
+            simcmd = self.dut_exe + ' -m8796093022208 --isa={0} +signature={1} +signature-granularity=8 {2}'.format(self.isa, sig_file, elf)
+            simcmd = simcmd + ';' + self.dut_exe + ' -m8796093022208 --isa={0} --log-commits my.elf 2> {1}'.format(self.isa, log_file)
           else:
             simcmd = 'echo "NO RUN"'
 

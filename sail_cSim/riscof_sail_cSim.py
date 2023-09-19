@@ -101,7 +101,7 @@ class sail_cSim(pluginTemplate):
             execute += self.objdump_cmd.format(elf, self.xlen, 'ref.disass')
             sig_file = os.path.join(test_dir, self.name[:-1] + ".signature")
 # here 8796093022208 is 8 exabytes 
-            execute += self.sail_exe[self.xlen] + ' --ram-size=8796093022208 --enable-pmp --test-signature={0} {1} > {2}.log 2>&1;'.format(sig_file, elf, test_name)
+            execute += self.sail_exe[self.xlen] + ' --ram-size=8796093022208 --signature-granularity=8 --enable-pmp --test-signature={0} {1} > {2}.log 2>&1;'.format(sig_file, elf, test_name)
 
             cov_str = ' '
             for label in testentry['coverage_labels']:

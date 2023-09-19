@@ -70,6 +70,7 @@ main:
 	LI( a0,pa_data)								// loads the PA address in a0 
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  ) 			// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
+	
 # -------------------------Set the PTE for signature update-----------------
                                                                                 // PTE setup for 0x0900080000 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
@@ -145,7 +146,7 @@ vm_en:
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
 
 #endif
- # ---------------------------------------------------------------------------------------------
+ # ------------------------------------------------------------------------------
 
 RVTEST_CODE_END
 RVMODEL_HALT
