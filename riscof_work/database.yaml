@@ -1,5 +1,125 @@
-# database generated on 2023-09-20 11:21 GMT
+# database generated on 2023-09-20 11:52 GMT
 !!omap
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_01.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_02.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_03.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_04.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_05.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_06.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_07.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/bare_mode_tests/bare_mode_08.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
 - /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_01.S:
     commit_id: '-'
     isa:
