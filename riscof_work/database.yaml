@@ -1,6 +1,6 @@
-# database generated on 2023-09-20 09:12 GMT
+# database generated on 2023-09-20 11:21 GMT
 !!omap
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/check.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_01.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -15,7 +15,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_02.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -30,7 +30,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_03.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -45,7 +45,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_x_s.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_04.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -60,7 +60,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_x_s_1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_05.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -75,7 +75,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_06.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -90,7 +90,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_07.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -105,7 +105,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_x_s.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/dirty_bit_tests/dirty_bit_08.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -120,7 +120,142 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_x_s_1.S:
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_01.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_02.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_03.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_04.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_05.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_06.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_10.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_11.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- ? /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_12.S
+  : commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_7.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -135,7 +270,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_8.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -150,7 +285,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/misaligned_superpage/misaligned_superpage_9.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -165,7 +300,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_x_s.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_01.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -180,7 +315,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_x_s_1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_02.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -195,7 +330,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_03.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -210,7 +345,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_04.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -225,7 +360,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_x_s.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_05.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -240,7 +375,157 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_x_s_1.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_06.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_07.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_08.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_09.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_10.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_11.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_12.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_13.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_14.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_15.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/valid_bit_tests/invalid_pte_16.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
