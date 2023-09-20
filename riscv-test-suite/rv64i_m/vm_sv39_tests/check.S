@@ -137,9 +137,11 @@ vm_en:
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
 
 	LI (t0, va_data)                                                        
-	LREG x2, 0(t0)                                                          // test the load access (should be successful)
+	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
         nop                                             
-	
+	SREG x2, 0(t0)                                                          // test the store access (should raise an exception)
+	nop
+
 	LI (a4, 0xbeef)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
         nop

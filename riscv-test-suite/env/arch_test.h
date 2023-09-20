@@ -1299,10 +1299,8 @@ vmem_adj_\__MODE__\()tval:         /* T4 still points to sv area of trapping mod
         LREG    T3, vmem_bgn_off(T4)            // fetch sig_begin addr
         LREG    T6, vmem_seg_siz(T4)
         add     T6, T6, T3                      // construct vmem seg end
-       	la s11,0x34
-
-        bgeu    T2, T6,  sig_adj_\__MODE__\()tval// tval > rvtest_sig_end, chk code seg
-        bgeu    T2, T3,      adj_\__MODE__\()tval// tval >=rvtest_sig_begin, adj & save
+        bgeu    T2, T6, sig_adj_\__MODE__\()tval// tval > rvtest_sig_end, chk code seg
+        bgeu    T2, T3, adj_\__MODE__\()tval// tval >=rvtest_sig_begin, adj & save
 
 sig_adj_\__MODE__\()tval:
         LREG    T3, sig_bgn_off(T4)            // fetch sig_begin addr
