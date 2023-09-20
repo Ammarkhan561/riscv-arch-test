@@ -179,11 +179,6 @@ rvtest_slvl2_pg_tbl:
         RVTEST_PTE_IDENT_MAP        
 #endif
 
-
-# rvtest_data:
-
-# 	.word 0xdeadbeef
-
 RVTEST_DATA_END
 
 RVMODEL_DATA_BEGIN
@@ -197,6 +192,7 @@ signature_x13_1:
     .fill 64*(XLEN/64),4,0xdeadbeef
 
 // trap signatures initialization
+
 #ifdef rvtest_mtrap_routine
 mtrap_sigptr:
     .fill 64*(XLEN/64),4,0xcafebeef
