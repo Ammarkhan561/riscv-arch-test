@@ -137,13 +137,12 @@ _start:
 vm_en:
 	LI (a4, 0xdead)
 	RVTEST_SIGUPD(s11,a4)                                                   // Verification of virtualization enabeled
-
+	nop
 	LI (t0, va_data)                                                        
 	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
         nop                                             
 	SREG x2, 0(t0)                                                          // test the store access (should raise an exception)
 	nop
-
 	LI (a4, 0xbeef)
 	RVTEST_SIGUPD(s11,a4)                                                   // Verification of virtualization enabeled
         nop
