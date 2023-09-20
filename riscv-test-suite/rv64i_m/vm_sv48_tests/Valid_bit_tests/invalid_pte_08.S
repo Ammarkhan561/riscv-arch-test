@@ -1,6 +1,6 @@
-# #################################################################################################### #
-#  Verification Goal: Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for  #
-#                    Level1 Should raise a load page fault for read access.                            #                        
+# ######################################################################################################
+#  Verification Goal: Set PTE.V = 0 and test the Execute Access in Supervisor mode for                 #
+#                     Level 3 Should raise a Fetch Access Fault  for execute access.                   #
 #                                                                                                      #
 # Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
 #                    raise page fault exception of the corresponding access type.           	       #
@@ -55,7 +55,7 @@ _start:
 	// level 3 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 
 	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 	                // sets the permission bits(PTE.V = 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL3,sv48)                         // setup the PTE for level 3 for sv48
 							        
 	// level 3 PTE setup for rvtest_data (0x210000000000 -> rvtest_data)

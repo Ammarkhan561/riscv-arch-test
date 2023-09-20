@@ -1,10 +1,11 @@
-# #################################################################################################### #
-#  Verification Goal: Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for  #
-#                    Level1 Should raise a load page fault for read access.                            #                        
+# ######################################################################################################
+#  Verification Goal: Set PTE.V = 0 and test the Execute Access in Supervisor mode for                 #
+#                     Level 0 Should raise a Fetch Access Fault  for execute access.                   #
 #                                                                                                      #
 # Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
 #                    raise page fault exception of the corresponding access type.           	       #
 # #################################################################################################### #
+
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -31,7 +32,6 @@ j _start
 rvtest_data:
 	.word 0xdeadbeef
 _start:
-
 # -------------------------------------------------------------------------
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
@@ -48,20 +48,36 @@ _start:
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x270000100000                                         // 48 bits virtual address of data
+	.set va_data,  	 0x200000100000                                         // 48 bits virtual address of data
 	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
 
-	// level 3 PTE setup for pa (0x900000000000 -> 0x80000000000000)	
-	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
+	// level 3 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl1_pg_tbl)	
+	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL3,sv48)                         // setup the PTE for level 3 for sv48
+
+        // level 2 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl2_pg_tbl)	
+	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )                                                        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
+
+        // level 1 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl3_pg_tbl)	
+	LA (a0, rvtest_slvl3_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )                                                        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
+
+	// level 0 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
+	LI (a0, pa)                                                             // loads the address in a0
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 	                // sets the permission bits(PTE.V = 0)
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv48)                         // setup the PTE for level 0 for sv48
 							        
-	// level 3 PTE setup for pa (0x980000000000 -> 0x82000000000000)
+	// level 0 PTE setup for rvtest_data (0x200000100000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R) 	        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL3,sv48)                    // setup the PTE for level 3 for sv48
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 	                // sets the permission bits(PTE.V = 0)
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv48)                    // setup the PTE for level 0 for sv48
+
 
 # -------------------------Set the PTE for signature update-----------------
 
@@ -194,15 +210,16 @@ CANARY;
 
 // test signatures initialization
 signature_x13_1:
-    .fill 64*(XLEN/32),8,0xcafebeef
+    .fill 64*(XLEN/64),4,0xcafebeef
 
 // trap signatures initialization
 #ifdef rvtest_mtrap_routine
 mtrap_sigptr:
-    .fill 64*(XLEN/32),8,0xdeadbeef
+    .fill 64*(XLEN/64),4,0xdeadbeef
 #endif
 
 sig_end_canary:
 CANARY;
 rvtest_sig_end:
 RVMODEL_DATA_END
+

@@ -1,7 +1,7 @@
-# testlist generated on 2023-09-20 08:03 GMT
-/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/check.S:
+# testlist generated on 2023-09-20 09:12 GMT
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/check.S:
   commit_id: '-'
-  work_dir: /home/hamza/Documents/riscv-arch-test/riscof_work/check.S
+  work_dir: /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/check.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -11,10 +11,11 @@
   coverage_labels:
   - sv64
   test_path: 
-    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/check.S
-/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level0.S:
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/check.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0.S:
   commit_id: '-'
-  work_dir: /home/hamza/Documents/riscv-arch-test/riscof_work/invalid_pte_level0.S
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level0.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -24,10 +25,11 @@
   coverage_labels:
   - sv64
   test_path: 
-    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level0.S
-/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level1.S:
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_1.S:
   commit_id: '-'
-  work_dir: /home/hamza/Documents/riscv-arch-test/riscof_work/invalid_pte_level1.S
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level0_1.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -37,10 +39,11 @@
   coverage_labels:
   - sv64
   test_path: 
-    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level1.S
-/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level2.S:
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_x_s.S:
   commit_id: '-'
-  work_dir: /home/hamza/Documents/riscv-arch-test/riscof_work/invalid_pte_level2.S
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level0_x_s.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -50,10 +53,11 @@
   coverage_labels:
   - sv64
   test_path: 
-    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level2.S
-/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level3.S:
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_x_s.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_x_s_1.S:
   commit_id: '-'
-  work_dir: /home/hamza/Documents/riscv-arch-test/riscof_work/invalid_pte_level3.S
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level0_x_s_1.S
   macros:
   - rvtest_mtrap_routine=True
   - rvtest_strap_routine=True
@@ -63,4 +67,172 @@
   coverage_labels:
   - sv64
   test_path: 
-    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/invalid_pte_level3.S
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level0_x_s_1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level1.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_1.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level1_1.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_x_s.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level1_x_s.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_x_s.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_x_s_1.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level1_x_s_1.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level1_x_s_1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level2.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_1.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level2_1.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_x_s.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level2_x_s.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_x_s.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_x_s_1.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level2_x_s_1.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level2_x_s_1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level3.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_1.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level3_1.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_1.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_x_s.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level3_x_s.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_x_s.S
+/home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_x_s_1.S:
+  commit_id: '-'
+  work_dir: 
+    /home/hamza/Documents/riscv-arch-test/riscof_work/Valid_bit_tests/invalid_pte_level3_x_s_1.S
+  macros:
+  - rvtest_mtrap_routine=True
+  - rvtest_strap_routine=True
+  - TEST_CASE_1=True
+  - XLEN=64
+  isa: RV64I_Zicsr
+  coverage_labels:
+  - sv64
+  test_path: 
+    /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/Valid_bit_tests/invalid_pte_level3_x_s_1.S

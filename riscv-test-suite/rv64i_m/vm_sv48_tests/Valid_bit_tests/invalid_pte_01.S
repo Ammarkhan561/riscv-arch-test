@@ -1,10 +1,11 @@
 # ######################################################################################################
-#  Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for Level0 Should raise #
-# 		      a load page fault for read access. 			                       #                        
+#  Verification Goal: Set PTE.V = 0 and test the Read Acces and Write Access in Supervisor mode for    #
+#                     Level 0 Should raise a load page fault for read access and Store AMO fault       #
+#                     for write access                                                                 #
 #                                                                                                      #
 # Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
 #                    raise page fault exception of the corresponding access type.           	       #
-# ######################################################################################################
+# #################################################################################################### #
 
 
 #include "model_test.h"
