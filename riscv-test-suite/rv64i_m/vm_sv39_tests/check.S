@@ -1,6 +1,6 @@
 # ######################################################################################################
 #  Verification Goal: Set PTE.V = 0 and test the Read Acces in Supervisor mode for Level0 Should raise #
-# 		      a load page fault for read access. 			                       #                        
+# 		      a load page fault for read access and store amo fault for store access. 	       #                        
 #                                                                                                      #
 # Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
 #                    raise page fault exception of the corresponding access type.           	       #
@@ -26,7 +26,14 @@ RVTEST_SIGBASE( x13,signature_x13_1)
 
 main:
 
+j _start
+
+rvtest_data:
+	.word 0xdeadbeef
+_start:
+
 # -------------------------------------------------------------------------
+
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
 	RVTEST_SIGUPD(x13,a4)
@@ -35,6 +42,7 @@ main:
 	LI a4, 0xbeed
 	RVTEST_SIGUPD(x13,a4)
 #endif
+
 # -------------------------Set the all mem PMP-----------------------------	
 
 	ALL_MEM_PMP							        // set the permissions of all memory 
@@ -44,19 +52,10 @@ main:
 
 	.set va,       	 0x0900000000						// 39 bits of VA address
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address 
-	.set va_data,  	 0x0900001000						// 39 bits of VA address
-	# .set pa_data,  	 0x80000000000bb8					// 56 bits of PA address
-	
+	.set va_data,  	 0x0900001000						// 39 bits of VA address	
 	.set sig_data,   0x0900080118						// 39 bits of VA address
 
-# -------------------------Storing 0XCAFEBEEF at pa_data-----------------
-
-        # LI( a0,pa_data)                                                         // Loads the address of phyical address of the pa_data
-        # LI(a1,0xBEEFDEADCAFEBEEF)                                               // Loads 0xCAFEBEEF in a1
-        # SREG a1,0(a0)                                                           // Stores a1 at pa_data
-
 # -------------------------Set the PTE for level2 for sv39-----------------
-
 
 	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )           					        // sets the permission bits
@@ -70,7 +69,7 @@ main:
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0980000000 -> pa_data)
-	LA( a0,rvtest_data)								// loads the PA address in a0 
+	LA( a0,rvtest_data)							// loads the PA address in a0 
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R    ) 			// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
 	
@@ -90,6 +89,7 @@ main:
 	SATP_SETUP_RV64 (sv39)                                                  // set the SATP for virtualization
 
 # -------------------------Save area logic----------------------------------
+
 	/* Save Virtual addresses in of Code and Data 
 	in their respective S-mode save area */
 
@@ -108,21 +108,21 @@ main:
 	/******* data *******/
 	// update save area
 	LI (t0, va_data)                                                        // load the virtual address of pa_data in t0
-	LA (t1, rvtest_data)                                                        // load the physical address of pa_data in t1
+	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
 	//signature
 	LI (t0, sig_data)                                                       // load the virtual address of rvtest_sig_begin in t0
-	LA (t1, signature_x13_1)                                               // load the physical address of rvtest_sig_begin in t1
+	LA (t1, signature_x13_1)                                                // load the physical address of rvtest_sig_begin in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
 	// vmem
-	LI (t0, va_data)                	                                        // load the virtual address of pa_data in t0
-	LA (t1, rvtest_data)                                                        // load the physical address of pa_data in t1
+	LI (t0, va_data)                	                                // load the virtual address of pa_data in t0
+	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
@@ -132,6 +132,7 @@ main:
 	RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
 
 # -------------------------virtulization enabled----------------------------------
+
 vm_en:
 	LI (a4, 0xdead)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
@@ -146,6 +147,8 @@ vm_en:
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
         nop
 
+# -------------------------virtulization disabled----------------------------------
+
 	RVTEST_GOTO_MMODE		                                        // Switching back to M mode
 
 	LI (t0, sig_data)                                                       
@@ -154,18 +157,13 @@ vm_en:
 	sub x13, x13, t0				        		// Translation of Signature reg
 	addi x13,x13,REGWIDTH
 	nop
+
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
 
-	j exit
-
-rvtest_data:
-
-	.word 0xdeadbeef
-exit:
-
 #endif
- # ------------------------------------------------------------------------------
+
+ # -----------------------------------------------------------------------------
 
 RVTEST_CODE_END
 
