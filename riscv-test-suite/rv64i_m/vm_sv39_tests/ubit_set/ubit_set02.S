@@ -1,7 +1,6 @@
 # ########################################################################################################
-#  Verification Goal: Set PTE.U = 1 and PTE.WR=0 and test the Read Acces and Write Access in User mode   #
-#                     for Level 0 PTE Should raise a load page fault for read access and Store AMO fault #
-#                     for write access                                                                   #
+#  Verification Goal: Set PTE.U = 1 and PTE.WR=1 and test the Read Acces and Write Access in User mode   #
+#                     for Level 0 PTE Should be successful                                               #
 #                                                                                                        #   
 # Description:        If PTE have U bit and does not Read Write (pte.WR=0) permission,                   #
 #                     then accessing it in User mode would raise page fault exception of the             #
@@ -71,7 +70,7 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0900001000 -> rvtest_data)
 	LA( a0,rvtest_data)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_V ) 	                // sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R | PTE_V ) 	// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
