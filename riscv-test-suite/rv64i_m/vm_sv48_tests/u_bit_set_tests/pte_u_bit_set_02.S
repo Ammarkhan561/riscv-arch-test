@@ -1,11 +1,10 @@
 # ######################################################################################################
-#  Verification Goal: Set PTE.V = 0 and test the Execute Access in User mode for                       #
-#                     Level 0 Should raise a Fetch Access Fault  for execute access.                   #
+#  Verification Goal: Set PTE.U = 1 and test the RWX in User mode for Level 1 PTE                      #
+#                     There should be no fault.                                                	       #	
 #                                                                                                      #
-# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
-#                    raise page fault exception of the corresponding access type.           	       #
+# Description:        If PTE have U bit (pte.U=1) permission, then it should be accessable in  	       #
+#                     U mode           	       							       #
 # #################################################################################################### #
-
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -48,8 +47,8 @@ _start:
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x200000100000                                         // 48 bits virtual address of data
-	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
+	.set va_data,  	 0x200000800000	                                        // 48 bits virtual address of data
+	.set sig_data,   0x2812003F0118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
 
@@ -63,21 +62,15 @@ _start:
 	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
 
-        // level 1 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl3_pg_tbl)	
-	LA (a0, rvtest_slvl3_pg_tbl)                                            // loads the address in a0
-	LI a1, ( PTE_V )                                                        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
-
-	// level 0 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
+	// level 1 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.V = 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv48)                         // setup the PTE for level 0 for sv48
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V | PTE_U )        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
 							        
-	// level 0 PTE setup for rvtest_data (0x200000100000 -> rvtest_data)
+	// level 1 PTE setup for rvtest_data (0x2000000800000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.V = 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv48)                    // setup the PTE for level 0 for sv48
-
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V | PTE_U )        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv48)                    // setup the PTE for level 1 for sv48
 
 # -------------------------Set the PTE for signature update-----------------
 
@@ -167,9 +160,9 @@ vm_en:
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
 
 	LI (t0, va_data)                                                        
-	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
+	LREG x2, 0(t0)                                                          // test the load access  
         nop                                             
-	SREG x2, 0(t0)                                                          // test the store access (should raise an exception)
+	SREG x2, 0(t0)                                                          // test the store access 
 	nop
 
 	LI (a4, 0xbeef)
@@ -227,4 +220,3 @@ sig_end_canary:
 CANARY;
 rvtest_sig_end:
 RVMODEL_DATA_END
-

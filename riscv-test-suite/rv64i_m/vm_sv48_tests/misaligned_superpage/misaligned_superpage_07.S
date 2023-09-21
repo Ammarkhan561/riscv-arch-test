@@ -1,11 +1,11 @@
-# ######################################################################################################
-#  Verification Goal: Set PTE.U = 1 and PTE.X=0 and test the Execute Access in User mode for           #
-#                     Level 1 Should raise a Fetch Access Fault  for execute access.                   #
-#                                                                                                      #
-# Description:        If PTE have U bit and does not have Execute Acesss (pte.X=0) permission, 	       #
-#                     then accessing it in User mode would raise page fault exception of the           #
-#                     corresponding access type.                                                       #
-# #################################################################################################### #
+# #################################################################################################
+# Verification Goal: Test the Read and write acces in User mode for Level 1 PTE                   #
+#                    for  Misaligned Superpage should raise load page fault for read access and   #
+#                    store amo fault for store access.                                            #
+# Discription:       If PTE at level1 PTE (superpage) and its pte.ppn[0]!=0, then it is a         #
+#                    misaligned superpage and accessing that PTE would raise page fault exception #
+#                    of the corresponding access type.                                            #
+# #################################################################################################
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -27,11 +27,6 @@ RVTEST_SIGBASE( x13,signature_x13_1)
 
 main:
 
-j _start
-
-rvtest_data:
-	.word 0xdeadbeef
-_start:
 # -------------------------------------------------------------------------
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
 	LI a4, 0xceed
@@ -65,12 +60,12 @@ _start:
 
 	// level 1 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_V | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.X = 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V | PTE_U )        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
 							        
 	// level 1 PTE setup for rvtest_data (0x2000000800000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_V | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.X = 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V | PTE_U )        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv48)                    // setup the PTE for level 1 for sv48
 
 # -------------------------Set the PTE for signature update-----------------
@@ -185,6 +180,12 @@ vm_en:
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
 
 #endif
+
+j _start
+.align 12                                                                       // Inorder to Misaligned rvtest_data
+rvtest_data:
+	.word 0xdeadbeef
+_start:
 
  # ----------------------------------------------------------------------------
 

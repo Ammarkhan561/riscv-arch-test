@@ -1,10 +1,9 @@
 # ######################################################################################################
-#  Verification Goal: Set PTE.V = 0 and test the Read Acces and Write Access in User mode for          #
-#                     Level 0 Should raise a load page fault for read access and Store AMO fault       #
-#                     for write access                                                                 #
+#  Verification Goal: Set PTE.U = 1 and test the RWX in User mode for Level 0 PTE                      #
+#                     There should be no fault.                                                	       #	
 #                                                                                                      #
-# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
-#                    raise page fault exception of the corresponding access type.           	       #
+# Description:        If PTE have U bit (pte.U=1) permission, then it should be accessable in  	       #
+#                     U mode           	       							       #
 # #################################################################################################### #
 
 
@@ -48,7 +47,7 @@ _start:
 	csrw satp, zero								// write zero to the satp (bare mode)
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
-	.set pa,       	 0x80000000000000                                       // 56 bits physical address
+	.set pa,       	 0x80000000000000                                       // 56 bits	.set pa,       	 0x80000000000000                                       // 56 bits physical address physical address
 	.set va_data,  	 0x200000100000                                         // 48 bits virtual address of data
 	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
 
@@ -76,7 +75,7 @@ _start:
 							        
 	// level 0 PTE setup for rvtest_data (0x200000100000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_U ) 	        // sets the permission bits(PTE.V = 0)
+	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V |PTE_U )         // sets the permissions bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv48)                    // setup the PTE for level 0 for sv48
 
 
@@ -168,9 +167,9 @@ vm_en:
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
 
 	LI (t0, va_data)                                                        
-	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
+	LREG x2, 0(t0)                                                          // test the load access  
         nop                                             
-	SREG x2, 0(t0)                                                          // test the store access (should raise an exception)
+	SREG x2, 0(t0)                                                          // test the store access
 	nop
 
 	LI (a4, 0xbeef)

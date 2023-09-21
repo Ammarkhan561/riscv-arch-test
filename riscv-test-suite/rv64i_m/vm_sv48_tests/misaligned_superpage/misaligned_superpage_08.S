@@ -1,11 +1,11 @@
-# ######################################################################################################
-#  Verification Goal: Set PTE.U = 1 and PTE.X=0 and test the Execute Access in User mode for           #
-#                     Level 1 Should raise a Fetch Access Fault  for execute access.                   #
-#                                                                                                      #
-# Description:        If PTE have U bit and does not have Execute Acesss (pte.X=0) permission, 	       #
-#                     then accessing it in User mode would raise page fault exception of the           #
-#                     corresponding access type.                                                       #
-# #################################################################################################### #
+# #################################################################################################
+# Verification Goal: Test the Eexeute Access in user mode for Level 1 PTE                         #
+#                    for  Misaligned Superpage should raise fetch access fault for execute access #
+#                                                                                                 #
+# Discription:       If PTE at level1 PTE (superpage) and its pte.ppn[0]!=0, then it is a         #
+#                    misaligned superpage and accessing that PTE would raise page fault exception #
+#                    of the corresponding access type.                                            #
+# #################################################################################################
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -47,7 +47,6 @@ _start:
 	csrw satp, zero								// write zero to the satp (bare mode)
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
-	.set pa,       	 0x80000000000000                                       // 56 bits physical address
 	.set va_data,  	 0x200000800000	                                        // 48 bits virtual address of data
 	.set sig_data,   0x2812003F0118						// 48 bits of VA address of signature
 
@@ -63,14 +62,14 @@ _start:
 	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
 
-	// level 1 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
-	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_V | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.X = 0)
+	// level 1 PTE setup for vm_en (0x200000000000 -> vm_en)	
+	LA (a0, vm_en)                                                          // loads the address in a0
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V | PTE_U )        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
 							        
 	// level 1 PTE setup for rvtest_data (0x2000000800000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_V | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.X = 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V | PTE_U )        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv48)                    // setup the PTE for level 1 for sv48
 
 # -------------------------Set the PTE for signature update-----------------
@@ -114,7 +113,7 @@ _start:
 
 	/****** code ******/
 	LI (t0, va)                                                             // load the virtual address of vm_en in t0
-	LI (t1, pa)                                                             // load the physical address of vm_en in t1
+	LA (a0, vm_en)                                                          // load the physical address of vm_en in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 	csrr sp, mscratch                                                       // load the value of mscratch in sp
 	add t1,sp,t0                                                            // add the offset to the base address of save area
@@ -156,6 +155,8 @@ _start:
 
 # -------------------------virtulization enabled----------------------------------
 
+j vm_en
+.align 12
 vm_en:
 	LI (a4, 0xdead)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled

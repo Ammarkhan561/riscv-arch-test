@@ -47,7 +47,7 @@ _start:
 	csrw satp, zero								// write zero to the satp (bare mode)
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
-	.set va_data,  	 0x2000000800000                                        // 48 bits virtual address of data
+	.set va_data,  	 0x200000800000	                                        // 48 bits virtual address of data
 	.set sig_data,   0x2812003F0118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------

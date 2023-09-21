@@ -1,6 +1,6 @@
 # ######################################################################################################
 #  Verification Goal: Set PTE.U = 1 and PTE.X=0 and test the Execute Access in User mode for           #
-#                     Level 1 Should raise a Fetch Access Fault  for execute access.                   #
+#                     Level 2 Should raise a Fetch Access Fault  for execute access.                   #
 #                                                                                                      #
 # Description:        If PTE have U bit and does not have Execute Acesss (pte.X=0) permission, 	       #
 #                     then accessing it in User mode would raise page fault exception of the           #
@@ -48,30 +48,25 @@ _start:
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x200000800000	                                        // 48 bits virtual address of data
-	.set sig_data,   0x2812003F0118						// 48 bits of VA address of signature
+	.set va_data,  	 0x201000000000                                         // 48 bits virtual address of data
+	.set sig_data,   0x283000180118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
 
-	// level 3 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl1_pg_tbl)	
+	// level 3 PTE setup for rvtest_slvl1_pg_tbl (0x900000000000 -> 0x80000000000000)	
 	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL3,sv48)                         // setup the PTE for level 3 for sv48
 
-        // level 2 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl2_pg_tbl)	
-	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
-	LI a1, ( PTE_V )                                                        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
-
-	// level 1 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
+	// level 2 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_V | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.X = 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
 							        
-	// level 1 PTE setup for rvtest_data (0x2000000800000 -> rvtest_data)
+	// level 2 PTE setup for rvtest_data (0x201000000000 -> rvtest_data)
 	LA (a0, rvtest_data)	
 	LI a1, ( PTE_D | PTE_A | PTE_V | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.X = 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv48)                    // setup the PTE for level 1 for sv48
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv48)                    // setup the PTE for level 2 for sv48
 
 # -------------------------Set the PTE for signature update-----------------
 
@@ -187,7 +182,6 @@ vm_en:
 #endif
 
  # ----------------------------------------------------------------------------
-
 RVTEST_CODE_END
 RVMODEL_HALT
 
