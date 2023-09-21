@@ -1,15 +1,11 @@
-# ###############################################################################################           
-# Verification Goal: Test the Read and write acces in Supervisor mode for Level0 PTE such that   #
-#                    (PTE.u=1 and mstatus.SUM=0), Read access and write access to the PTE should #
-#                     raise an exception.                                                        #
-#												 #													
-# Discription:       If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1)    #
-#                    and m/sstatus.SUM = 1, then RW access to that PTE in supervisor mode        #
-#                    would be successful but eXecute access would raise instruction page         #
-#                    fault exception in s-mode.                                                  #   
-# ###############################################################################################  
-
-   
+# ######################################################################################################
+#  Verification Goal: Set PTE.U = 0 and test the Read Acces and Write Access in User mode for          #
+#                     Level 0 Should raise a load page fault for read access and Store AMO fault       #
+#                     for write access                                                                 #
+#                                                                                                      #
+# Description:       If PTE does not have U bit (pte.U=0) permission, then accessing it in User mode   #
+#                    would raise page fault exception of the corresponding access type.                #
+# #################################################################################################### #
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -70,17 +66,17 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv39)                         // setup the PTE for level1
 								                // level0 PTE setup for pa (0x0900001688 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the PA address in a0
-	LI a1, ( PTE_D | PTE_A| PTE_X | PTE_W | PTE_R | PTE_V )                 // sets the permission bits
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_V )                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0900001000 -> rvtest_data)
 	LA( a0,rvtest_data)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R | PTE_V ) 	// sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V ) 	        // sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
                                                                                 // PTE setup for 0x0900020118 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
-	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V )        	// sets the permissions bits 
+	li a1, ( PTE_D | PTE_A | PTE_U | PTE_R | PTE_W | PTE_X | PTE_V )        // sets the permissions bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL0,sv39) 			// PTE Setup for signature area address at pgtbl0
 	
 	LI (t0, sig_data)                                                       // loads the value of the sig_data
@@ -108,6 +104,7 @@ _start:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
+	SREG t2, code_bgn_off+2*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
 
 	/******* data *******/
 	// update save area
@@ -117,6 +114,7 @@ _start:
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
+	SREG t2, data_bgn_off+2*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch	
 	//signature
 	LI (t0, sig_data)                                                       // load the virtual address of rvtest_sig_begin in t0
 	LA (t1, signature_x13_1)                                                // load the physical address of rvtest_sig_begin in t1
@@ -124,6 +122,7 @@ _start:
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
+	SREG t2, sig_bgn_off+2*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
 	// vmem
 	LI (t0, va_data)                	                                // load the virtual address of pa_data in t0
 	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
@@ -131,11 +130,10 @@ _start:
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, vmem_bgn_off+1*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
+	SREG t2, vmem_bgn_off+2*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
 
 	sfence.vma                                                              // flush the TLB
-        LI (s7, MSTATUS_SUM)                                                    // loads the value of MSTATUS_SUM
-        csrc mstatus,s7                                                         // set the mstatus.SUM = 0         
-	RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
+	RVTEST_GOTO_LOWER_MODE	Umode		                                // Switching to U mode
 
 # -------------------------virtulization enabled----------------------------------
 
