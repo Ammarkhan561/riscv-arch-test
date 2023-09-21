@@ -2,7 +2,7 @@
 # Verification Goal: Test the Read and write acces in Supervisor mode for Level1 PTE such that   #
 #                    (PTE.u=1 and mstatus.SUM=1), Read access and write access to the PTE should #
 #                     be successful.                                                             #
-#												 #												#		
+#												 #													
 # Discription:       If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1)    #
 #                    and m/sstatus.SUM = 1, then RW access to that PTE in supervisor mode        #
 #                    would be successful but eXecute access would raise instruction page         #
