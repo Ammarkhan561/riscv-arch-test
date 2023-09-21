@@ -27,9 +27,9 @@ RVTEST_SIGBASE( x13,signature_x13_1)
 main:
 
 j _start
-
+.align 3									// to align for 64 bit 
 rvtest_data:									// rvtest_data region for RWX access(ppn1==0 and ppn0==0)
-	.word 0xdeadbeef
+	.dword 0xFACECAFEBEEDCAFE
 _start:
 
 # -------------------------------------------------------------------------
@@ -52,17 +52,17 @@ _start:
 
 	.set va,       	 0x0900000000						// 39 bits of VA address
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address 
-	.set va_data,  	 0x0980000000						// 39 bits of VA address	
+	.set va_data,  	 0x0980000688						// 39 bits of VA address	
 	.set sig_data,   0x0A00000118						// 39 bits of VA address (offset bits should be same as that of rvtest_sig_begin)
 
 # -------------------------Set the PTE for level2 for sv39-----------------
-								                // level0 PTE setup for pa (0x0900000000 -> 0x80000000000000)	
+								                // level0 PTE setup for pa (0x0900000688 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the PA address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R )                // sets the permission bits
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X ) 		                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0900001000 -> rvtest_data)
 	LA( a0,rvtest_data)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R    ) 		// sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R) 		// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                    // setup the PTE for level2 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
