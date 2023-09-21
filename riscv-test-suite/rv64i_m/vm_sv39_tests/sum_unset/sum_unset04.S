@@ -1,15 +1,12 @@
-# ###############################################################################################           
-# Verification Goal: Test the Read and write acces in Supervisor mode for Level0 PTE such that   #
-#                    (PTE.u=1 and mstatus.SUM=0), Read access and write access to the PTE should #
-#                     be successful.                                                             #
-#												 #												#		
-# Discription:       If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1)    #
-#                    and m/sstatus.SUM = 1, then RW access to that PTE in supervisor mode        #
-#                    would be successful but eXecute access would raise instruction page         #
-#                    fault exception in s-mode.                                                  #   
-# ###############################################################################################  
-
-   
+# #######################################################################################################           
+# Verification Goal: Test the Execute acces in Supervisor mode for Level0 PTE such that (PTE.u=1        #
+#                    and mstatus.SUM=1), execute access to the PTE should raise page fault exception    #
+#												        #												#		
+# Discription:       If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1)           #
+#                    and m/sstatus.SUM = 1, then RW access to that PTE in supervisor mode               #
+#                    would be successful but eXecute access would raise instruction page                #
+#                    fault exception in s-mode.                                                         #   
+# #######################################################################################################  
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -70,7 +67,7 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv39)                         // setup the PTE for level1
 								                // level0 PTE setup for pa (0x0900001688 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the PA address in a0
-	LI a1, ( PTE_D | PTE_A| PTE_X | PTE_W | PTE_R | PTE_V )                 // sets the permission bits
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_W | PTE_R | PTE_V )        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0900001000 -> rvtest_data)
 	LA( a0,rvtest_data)							// loads the PA address in a0 
