@@ -1,11 +1,10 @@
 # ######################################################################################################
-#  Verification Goal: Set PTE.U = 0 and test the Read Acces and Write Access in User mode for          #
-#                     Level 0 Should raise a load page fault for read access and Store AMO fault       #
-#                     for write access                                                                 #
+#  Verification Goal: Set PTE.U = 0 and test the Execute Access in User mode for Level 2 Should raise  #
+#                     a fetch page fault for execute access                                            #
 #                                                                                                      #
 # Description:       If PTE does not have U bit (pte.U=0) permission, then accessing it in User mode   #
 #                    would raise page fault exception of the corresponding access type.                #
-# #################################################################################################### #
+# ######################################################################################################
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -24,6 +23,7 @@ RVTEST_CODE_BEGIN
 
 RVTEST_SIGBASE( x13,signature_x13_1)
 
+
 main:
 
 j _start
@@ -31,6 +31,7 @@ j _start
 rvtest_data:									// rvtest_data region for RWX access(ppn1==0 and ppn0==0)
 	.dword 0xFACECAFEBEEDCAFE
 _start:
+
 
 # -------------------------------------------------------------------------
 
@@ -52,28 +53,28 @@ _start:
 
 	.set va,       	 0x0900000000						// 39 bits of VA address
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address 
-	.set va_data,  	 0x0900001688						// 39 bits of VA address	
-	.set sig_data,   0x0900020118						// 39 bits of VA address (offset bits should be same as that of rvtest_sig_begin)
+	.set va_data,  	 0x0980000688						// 39 bits of VA address	
+	.set sig_data,   0x0A00000118						// 39 bits of VA address (offset bits should be same as that of rvtest_sig_begin)
 
 # -------------------------Set the PTE for level2 for sv39-----------------
+								                // level0 PTE setup for pa (0x0900000688 -> 0x80000000000000)	
+	LI (a0, pa)                                                             // loads the PA address in a0
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_V )                                // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level0 for sv39
+ 										// level2 PTE setup for pa (0x0900001000 -> rvtest_data)
+	LA( a0,rvtest_data)							// loads the PA address in a0 
+	LI a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V)                 // sets the permission bits 
+        PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv39)                    // setup the PTE for level2 for sv39
+	
+# -------------------------Set the PTE for signature update-----------------
 
 	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )           					        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2
-	
+	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL2,sv39)                   // setup the PTE for level2
+
 	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )           					        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv39)                         // setup the PTE for level1
-								                // level0 PTE setup for pa (0x0900001688 -> 0x80000000000000)	
-	LI (a0, pa)                                                             // loads the PA address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_V )                        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
- 										// level2 PTE setup for pa (0x0900001000 -> rvtest_data)
-	LA( a0,rvtest_data)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V ) 	        // sets the permission bits 
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
-	
-# -------------------------Set the PTE for signature update-----------------
+	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL1,sv39)                   // setup the PTE for level1 
                                                                                 // PTE setup for 0x0900020118 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
 	li a1, ( PTE_D | PTE_A | PTE_U | PTE_R | PTE_W | PTE_X | PTE_V )        // sets the permissions bits 
