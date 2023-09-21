@@ -1,7 +1,7 @@
 # #######################################################################################################           
 # Verification Goal: Test the Execute acces in Supervisor mode for Level2 PTE such that (PTE.u=1        #
 #                    and mstatus.SUM=1), execute access to the PTE should raise page fault exception    #
-#												        #												#		
+#												        #													
 # Discription:       If PTE belongs to user mode i.e. its U permission bit is set (pte.u = 1)           #
 #                    and m/sstatus.SUM = 1, then RW access to that PTE in supervisor mode               #
 #                    would be successful but eXecute access would raise instruction page                #
@@ -131,6 +131,8 @@ _start:
 	SREG t2, vmem_bgn_off+1*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
 
 	sfence.vma                                                              // flush the TLB
+        LI (s7, MSTATUS_SUM)                                                    // loads the value of MSTATUS_SUM
+        csrc mstatus,s7                                                         // set the mstatus.SUM = 0         
 	RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
 
 # -------------------------virtulization enabled----------------------------------
