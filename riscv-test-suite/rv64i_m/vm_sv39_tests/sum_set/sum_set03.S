@@ -59,7 +59,7 @@ _start:
 	.set sig_data,   0x0A00000118						// 39 bits of VA address (offset bits should be same as that of rvtest_sig_begin)
 
 # -------------------------Set the PTE for level2 for sv39-----------------
-								                // level0 PTE setup for pa (0x0900000000 -> 0x80000000000000)	
+								                // level0 PTE setup for pa (0x0900000688 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the PA address in a0
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )        	// sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level0 for sv39
