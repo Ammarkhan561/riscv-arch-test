@@ -76,7 +76,7 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL1,sv39)                   // setup the PTE for level1 
                                                                                 // PTE setup for 0x0900020118 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
-	li a1, ( PTE_D | PTE_A | PTE_U | PTE_R | PTE_W | PTE_X | PTE_V )        // sets the permissions bits 
+	li a1, ( PTE_D | PTE_A | PTE_U | PTE_R | PTE_W | PTE_V )                // sets the permissions bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL0,sv39) 			// PTE Setup for signature area address at pgtbl0
 
 	LI (t0, sig_data)                                                       // loads the value of the sig_data
