@@ -1,10 +1,9 @@
-# ######################################################################################################
-#  Verification Goal: Set PTE.V = 0 and test the Read Acces and Write Access in Supervisor mode for    #
-#                     Level 2 Should raise a Fetch Access Fault  for execute access.                   #
-#                                                                                                      #
-# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
-#                    raise page fault exception of the corresponding access type.           	       #
-# #################################################################################################### #
+# ###############################################################################################
+# Verification Goal: Execute Access for the reserved RWX permission of level 2 PTE in   	#
+#                    Supervisor mode should raise a fetch page fault exception.                 #
+# Description:       If PTE has reserved RWX encodings (pte.w=1 & pte.r=0), then accessing   	#
+#                    it would raise page fault exception of the corresponding access type.   	#
+# ############################################################################################### 
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -59,12 +58,12 @@ _start:
 
 	// level 2 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 	                // sets the permission bits(PTE.V = 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W ) 	                	// sets the permission bits(PTE.R = 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
 							        
 	// level 2 PTE setup for rvtest_data (0x201000000000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 	                // sets the permission bits(PTE.V = 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W ) 	                	// sets the permission bits(PTE.R = 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv48)                    // setup the PTE for level 2 for sv48
 
 # -------------------------Set the PTE for signature update-----------------

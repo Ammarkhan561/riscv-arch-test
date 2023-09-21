@@ -2,7 +2,7 @@
 #  Verification Goal: Set PTE.U = 0 and test the Execute Access in User mode for          	       #
 #                     Level 0 Should raise a fetch page fault for execute access       		       #
 #                                                                                                      #
-# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it in User mode   #
+# Description:       If PTE does not have U bit (pte.U=0) permission, then accessing it in User mode   #
 #                    would raise page fault exception of the corresponding access type.                #
 # #################################################################################################### #
 

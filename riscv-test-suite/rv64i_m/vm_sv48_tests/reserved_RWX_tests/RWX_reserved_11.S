@@ -1,11 +1,10 @@
-# ######################################################################################################
-#  Verification Goal: Set PTE.V = 0 and test the Read Acces and Write Access in Supervisor mode for    #
-#                     Level 3 Should raise a load page fault for read access and Store AMO fault       #
-#                     for write access                                                                 #
-#                                                                                                      #
-# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
-#                    raise page fault exception of the corresponding access type.           	       #
-# #################################################################################################### #
+# ###############################################################################################
+# Verification Goal: Read and Write Access for the reserved RWX permission of level 1 PTE in    #
+#                    User mode should raise a load page fault for read access and         	#
+#                    Store AMO fault for write access                                           #
+# Description:       If PTE has reserved RWX encodings (pte.w=1 & pte.r=0), then accessing   	#
+#                    it would raise page fault exception of the corresponding access type.   	#
+# ############################################################################################### 
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -48,22 +47,30 @@ _start:
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x210000000000                                         // 48 bits virtual address of data
-	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
+	.set va_data,  	 0x200000800000	                                        // 48 bits virtual address of data
+	.set sig_data,   0x2812003F0118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
 
-	// level 3 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
-
-	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
+	// level 3 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl1_pg_tbl)	
+	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL3,sv48)                         // setup the PTE for level 3 for sv48
-							        
-	// level 3 PTE setup for rvtest_data (0x210000000000 -> rvtest_data)
 
+        // level 2 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl2_pg_tbl)	
+	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )                                                        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
+
+	// level 1 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
+	LI (a0, pa)                                                             // loads the address in a0
+	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V |PTE_U )         // sets the permissions bits 
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
+							        
+	// level 1 PTE setup for rvtest_data (0x2000000800000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R ) 	                // sets the permission bits(PTE.V = 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL3,sv48)                    // setup the PTE for level 3 for sv48
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_U ) 	        	// sets the permission bits(PTE.R = 0)
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv48)                    // setup the PTE for level 1 for sv48
 
 # -------------------------Set the PTE for signature update-----------------
 
@@ -84,11 +91,9 @@ _start:
 	LA (a0, rvtest_slvl3_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL1,sv48)                   // setup the PTE for level 1 for sv48
-
-        // PTE setup for 0x0900080000 -> rvtest_sig_begin
-
+                                                                                // PTE setup for 0x0900080000 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
-	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V )                // sets the permissions bits 
+	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V |PTE_U )         // sets the permissions bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL0,sv48) 			// PTE Setup for signature area address at pgtbl0
 	
 	LI (t0, sig_data)                                                       
@@ -99,6 +104,7 @@ _start:
 # -------------------------Set the SATP for virtulization------------------
         
 	SATP_SETUP_RV64 (sv48)                                                  // set the SATP for virtualization
+
 
 # -------------------------Save area logic----------------------------------
 
@@ -116,6 +122,7 @@ _start:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
+	SREG t2, code_bgn_off+2*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
 
 	/******* data *******/
 	// update save area
@@ -125,6 +132,7 @@ _start:
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
+	SREG t2, data_bgn_off+2*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
 	//signature
 	LI (t0, sig_data)                                                       // load the virtual address of rvtest_sig_begin in t0
 	LA (t1, signature_x13_1)                                                // load the physical address of rvtest_sig_begin in t1
@@ -132,6 +140,7 @@ _start:
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
+	SREG t2, sig_bgn_off+2*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
 	// vmem
 	LI (t0, va_data)                	                                // load the virtual address of pa_data in t0
 	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
@@ -139,16 +148,17 @@ _start:
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, vmem_bgn_off+1*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
+	SREG t2, vmem_bgn_off+2*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
 
 	sfence.vma                                                              // flush the TLB
-	RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
+	RVTEST_GOTO_LOWER_MODE	Umode		                                // Switching to U mode
 
 # -------------------------virtulization enabled----------------------------------
 
 vm_en:
-	LI (a4, 0xdead)                                                         // Loads 0xdead in a4
+	LI (a4, 0xdead)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
-        nop                                                                     
+
 	LI (t0, va_data)                                                        
 	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
         nop                                             
@@ -168,7 +178,7 @@ vm_en:
 	sub t0, t0, t1 					        		// (VA-PA) Note: VA > PA 
 	sub x13, x13, t0				        		// Translation of Signature reg
 	addi x13,x13,REGWIDTH
-	nop                                                                 
+	nop
 
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled

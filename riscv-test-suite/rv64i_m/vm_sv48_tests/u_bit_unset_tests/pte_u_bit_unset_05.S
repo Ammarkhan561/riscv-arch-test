@@ -3,7 +3,7 @@
 #                     Level 2 Should raise a load page fault for read access and Store AMO fault       #
 #                     for write access                                                                 #
 #                                                                                                      #
-# Description:       If PTE does not have Valid (pte.V=0) permission, then accessing it in User mode   #
+# Description:       If PTE does not have U bit (pte.U=0) permission, then accessing it in User mode   #
 #                    would raise page fault exception of the corresponding access type.                #
 # #################################################################################################### #
 

@@ -1,11 +1,9 @@
-# ######################################################################################################
-#  Verification Goal: Set PTE.U = 0 and test the Read Acces and Write Access in User mode for          #
-#                     Level 1 Should raise a load page fault for read access and Store AMO fault       #
-#                     for write access                                                                 #
-#                                                                                                      #
-# Description:       If PTE does not have U bit (pte.U=0) permission, then accessing it in User mode   #
-#                    would raise page fault exception of the corresponding access type.                #
-# #################################################################################################### #
+# ###############################################################################################
+# Verification Goal: Execute Access for the reserved RWX permission of level 3 PTE in   	#
+#                    User mode should raise a fetch page fault exception.                     	#
+# Description:       If PTE has reserved RWX encodings (pte.w=1 & pte.r=0), then accessing   	#
+#                    it would raise page fault exception of the corresponding access type.   	#
+# ############################################################################################### 
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -48,30 +46,22 @@ _start:
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x200000080000                                        // 48 bits virtual address of data
-	.set sig_data,   0x2812003F0118						// 48 bits of VA address of signature
+	.set va_data,  	 0x210000000000                                         // 48 bits virtual address of data
+	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
 
-	// level 3 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl1_pg_tbl)	
-	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
-	LI a1, ( PTE_V )                                                        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL3,sv48)                         // setup the PTE for level 3 for sv48
+	// level 3 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 
-        // level 2 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl2_pg_tbl)	
-	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
-	LI a1, ( PTE_V )                                                        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
-
-	// level 1 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V | PTE_U )        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv48)                         // setup the PTE for level 1 for sv48
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_U  ) 	                // sets the permission bits(PTE.R = 0) 
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL3,sv48)                         // setup the PTE for level 3 for sv48
 							        
-	// level 1 PTE setup for rvtest_data (0x2000000800000 -> rvtest_data)
+	// level 3 PTE setup for rvtest_data (0x210000000000 -> rvtest_data)
+
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_V ) 	        // sets the permission bits(PTE.U = 0)
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv48)                    // setup the PTE for level 1 for sv48
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_U ) 	        	// sets the permission bits(PTE.R = 0)
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL3,sv48)                    // setup the PTE for level 3 for sv48
 
 # -------------------------Set the PTE for signature update-----------------
 
@@ -92,9 +82,11 @@ _start:
 	LA (a0, rvtest_slvl3_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL1,sv48)                   // setup the PTE for level 1 for sv48
-                                                                                // PTE setup for 0x0900080000 -> rvtest_sig_begin
+
+        // PTE setup for 0x0900080000 -> rvtest_sig_begin
+
 	la a0, rvtest_sig_begin   						// Physical address of signature area
-	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V |PTE_U )         // sets the permissions bits 
+	LI a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V |PTE_U )         // sets the permissions bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL0,sv48) 			// PTE Setup for signature area address at pgtbl0
 	
 	LI (t0, sig_data)                                                       
@@ -157,9 +149,9 @@ _start:
 # -------------------------virtulization enabled----------------------------------
 
 vm_en:
-	LI (a4, 0xdead)
+	LI (a4, 0xdead)                                                         // Loads 0xdead in a4
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization enabeled
-
+        nop                                                                     
 	LI (t0, va_data)                                                        
 	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
         nop                                             
@@ -179,7 +171,7 @@ vm_en:
 	sub t0, t0, t1 					        		// (VA-PA) Note: VA > PA 
 	sub x13, x13, t0				        		// Translation of Signature reg
 	addi x13,x13,REGWIDTH
-	nop
+	nop                                                                 
 
 	LI (a4, 0x123)
 	RVTEST_SIGUPD(x13,a4)                                                   // Verification of virtualization disabled
