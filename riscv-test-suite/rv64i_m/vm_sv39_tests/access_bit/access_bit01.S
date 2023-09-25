@@ -1,11 +1,11 @@
 # ######################################################################################################
-#  Verification Goal: Set PTE.V = 0 and test the Read and write Access in Supervisor mode for Level0   # 
-# 		      should raise a load page fault for read access and store amo fault for store     #	
-# 		      access. 									       #                        
+#  Verification Goal: Set PTE.A = 0 and test the Read Acces and Write Access in Supervisor mode for    #
+#                     Level 0 Should raise a load page fault for read access and Store AMO fault       #
+#                     for write access                                                                 #
 #                                                                                                      #
-# Description:        If PTE does not have Valid (pte.V=0) permission, then accessing it would	       #
-#                     raise page fault exception of the corresponding access type.           	       #
-# ######################################################################################################
+# Description:       If PTE does not have Access (pte.A=0) permission, then accessing it would	       #
+#                    raise page fault exception of the corresponding access type.           	       #
+# #################################################################################################### #
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -71,7 +71,7 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0900001688 -> rvtest_data)
 	LA( a0,rvtest_data)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R ) 				// sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_W | PTE_R | PTE_V ) 		        	// sets the permission bits (PTE_A == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
