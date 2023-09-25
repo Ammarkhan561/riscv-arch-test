@@ -65,7 +65,7 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv39)                         // setup the PTE for level0 for sv39
  										// level2 PTE setup for pa (0x0901000688 -> rvtest_data)
 	LA( a0,rvtest_data)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_W | PTE_R ) 			// sets the permission bits (PTE_V == 0)
+	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R ) 				// sets the permission bits (PTE_V == 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv39)                    // setup the PTE for level2 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
