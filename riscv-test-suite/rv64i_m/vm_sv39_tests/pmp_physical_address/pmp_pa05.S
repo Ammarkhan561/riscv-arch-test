@@ -1,8 +1,8 @@
 # ###############################################################################################
 # Verification Goal: Remove execute PMP permission of translated Physical Address in pmpcfg     #
-#                    and test the Read Acces and Write Access in Supervisor mode for            #
-#                    Level 0 Should raise a load page fault for read access and Store AMO fault #
-#                    for write access                                                           #
+#                    and test the Read Acces and Write Access in User mode for Level 1 Should	#
+# 		     raise a load page fault for read access and Store AMO fault for write	# 
+# 		     access       	                                                        #
 #                                                                                               #
 # Description:       If PTE has valid and non-reserved RWX permissions, but the translated      #
 #                    Physical address (pte.ppn of leaf PTE + offset) does not have (r,w,x) PMP  #
@@ -50,7 +50,7 @@ _start:
 # -------------------------Set the PMP Permissions-----------------------------	
       
         LA( t1,rvtest_data)
-        srli t1,t1,2		
+        srli t1,t1,2
         srli t1,t1,1
         slli t1,t1,1            // range for 8 bytes
         csrw pmpaddr0,t1
@@ -70,33 +70,33 @@ _start:
 
 	.set va,       	 0x0900000000						// 39 bits of VA address
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address 
-	.set va_data,  	 0x0900001688						// 39 bits of VA address	
-	.set sig_data,   0x0900020118						// 39 bits of VA address (offset bits should be same as that of rvtest_sig_begin)
+	.set va_data,  	 0x0901000688						// 39 bits of VA address	
+	.set sig_data,   0x0902000118						// 39 bits of VA address (offset bits should be same as that of rvtest_sig_begin)
 
 # -------------------------Set the PTE for level2 for sv39-----------------
 
 	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )           					        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2
-	
-	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
-	LI a1, ( PTE_V )           					        // sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv39)                         // setup the PTE for level1
-								                // level0 PTE setup for pa (0x0900000000 -> 0x80000000000000)	
+								                // level0 PTE setup for pa (0x0900000688 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the PA address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_V )               			// sets the permission bits
-	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv39)                         // setup the PTE for level0 for sv39
- 										// level2 PTE setup for pa (0x0900001688 -> rvtest_data)
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_X | PTE_V )  		        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL1,sv39)                         // setup the PTE for level0 for sv39
+ 										// level2 PTE setup for pa (0x0901000688 -> rvtest_data)
 	LA( a0,rvtest_data)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_W | PTE_R | PTE_V ) 			// sets the permission bits 
-	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level2 for sv39
+	LI a1, ( PTE_D | PTE_A | PTE_U | PTE_W | PTE_R | PTE_V ) 		// sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL1,sv39)                    // setup the PTE for level2 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
+
+	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )           					        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL1,sv39)                   // setup the PTE for level1 
                                                                                 // PTE setup for 0x0900020118 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
-	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_V )                	// sets the permissions bits 
+	li a1, ( PTE_D | PTE_A | PTE_U | PTE_R | PTE_W | PTE_V )                // sets the permissions bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL0,sv39) 			// PTE Setup for signature area address at pgtbl0
-	
+
 	LI (t0, sig_data)                                                       // loads the value of the sig_data
 	LA (t1, rvtest_sig_begin)                                               // loads the address of the rvtest_sig_begin       
 	sub t0, t0, t1 					        		// (VA-PA) Note: VA > PA 
@@ -122,6 +122,7 @@ _start:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
+	SREG t2, code_bgn_off+2*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
 
 	/******* data *******/
 	// update save area
@@ -131,6 +132,7 @@ _start:
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
+	SREG t2, data_bgn_off+2*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch	
 	//signature
 	LI (t0, sig_data)                                                       // load the virtual address of rvtest_sig_begin in t0
 	LA (t1, signature_x13_1)                                                // load the physical address of rvtest_sig_begin in t1
@@ -138,6 +140,7 @@ _start:
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
+	SREG t2, sig_bgn_off+2*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
 	// vmem
 	LI (t0, va_data)                	                                // load the virtual address of pa_data in t0
 	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
@@ -145,9 +148,10 @@ _start:
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, vmem_bgn_off+1*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
+	SREG t2, vmem_bgn_off+2*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
 
 	sfence.vma                                                              // flush the TLB
-	RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
+	RVTEST_GOTO_LOWER_MODE	Umode		                                // Switching to U mode
 
 # -------------------------virtulization enabled----------------------------------
 
@@ -156,7 +160,7 @@ vm_en:
 	RVTEST_SIGUPD(s11,a4)                                                   // Verification of virtualization enabeled
 	nop
 	LI (t0, va_data)                                                        
-	LREG t0, 0(t0)                                                          // test the load access  (should raise an exception)
+	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
         nop                                             
 	SREG x2, 0(t0)                                                          // test the store access (should raise an exception)
 	nop
