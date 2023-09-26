@@ -48,24 +48,27 @@ _start:
 #endif
 
 # -------------------------Set the PMP Permissions-----------------------------	
-      
-        LA( t1,rvtest_data)
-        srli t1,t1,2
-        srli t1,t1,1
-        slli t1,t1,1            // range for 8 bytes
-        csrw pmpaddr0,t1
 
-        LA( t3,vm_en ) 
-        srli t3,t3,2
-        LI (t4,0x1FFF)
-        or t4,t4,t3
-        csrw pmpaddr1,t4
-        
-        LI (t2,0x1F18)          // loads the permission
-        csrw pmpcfg0,t2
+	csrw pmpcfg0, zero							// clear the pmpcfg0 register
 
-	csrw satp, zero								// write zero to the satp (bare mode)
+        LA (t1,rvtest_data)							// loads the address of the label rvtest_data
+        LA (t2, _start)								// loads the address of the label _start
+	srli t1,t1,PMP_SHIFT							// shift the address by PMP_SHIFT (2)
+	srli t2,t2,PMP_SHIFT							// shift the address by PMP_SHIFT (2)	
 
+	csrw pmpaddr0,t1							// write t1 to the pmpaddr0
+	csrw pmpaddr1,t2							// write t1 to the pmpaddr1
+
+        LA ( t1,vm_en)								// loads the address of the label vm_en
+        LA ( t2, sig_end_canary)						// loads the address of the sig_end_canary
+	srli t1,t1,PMP_SHIFT							// shift the address by PMP_SHIFT (2)
+	srli t2,t2,PMP_SHIFT							// shift the address by PMP_SHIFT (2)	
+
+	csrw pmpaddr2,t1							// write t1 to the pmpaddr2
+	csrw pmpaddr3,t2							// write t1 to the pmpaddr3
+
+	LI ( t4,( (PMP_TOR | PMP_X | PMP_W | PMP_R) << 24) | (PMP_TOR <<8) )	// sets the permission bits
+	csrw pmpcfg0,t4								// write to the pmpcfg0
 # -------------------------------------------------------------------------
 
 	.set va,       	 0x0900000000						// 39 bits of VA address
@@ -154,13 +157,16 @@ _start:
 	RVTEST_GOTO_LOWER_MODE	Umode		                                // Switching to U mode
 
 # -------------------------virtulization enabled----------------------------------
+check_execute:
 
+	add t1, t1, 0x123 							// dummy instr 
+	nop	
 vm_en:
 	LI (a4, 0xdead)
 	RVTEST_SIGUPD(s11,a4)                                                   // Verification of virtualization enabeled
 	nop
 	LI (t0, va_data)                                                        
-	LREG x2, 0(t0)                                                          // test the load access  (should raise an exception)
+	LREG t0, 0(t0)                                                          // test the load access  (should raise an exception)
         nop                                             
 	SREG x2, 0(t0)                                                          // test the store access (should raise an exception)
 	nop
