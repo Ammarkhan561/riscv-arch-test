@@ -1,8 +1,7 @@
 # ###############################################################################################
 # Verification Goal: Remove execute PMP permission of translated Physical Address in pmpcfg     #
-#                    and test the Read Acces and Write Access in Supervisor mode for            #
-#                    Level 0 Should raise a load page fault for read access and Store AMO fault #
-#                    for write access                                                           #
+#                    and test the Execute Access in Supervisor mode for Level 0 Should raise a  #
+#                    load page fault for read access and Store AMO fault for write access       #
 #                                                                                               #
 # Description:       If PTE has valid and non-reserved RWX permissions, but the translated      #
 #                    Physical address (pte.ppn of leaf PTE + offset) does not have (r,w,x) PMP  #
@@ -61,7 +60,7 @@ _start:
         or t4,t4,t3
         csrw pmpaddr1,t4
         
-        LI (t2,0x1F18)          // loads the permission
+        LI (t2,0x1B18)          // loads the permission
         csrw pmpcfg0,t2
 
 	csrw satp, zero								// write zero to the satp (bare mode)
