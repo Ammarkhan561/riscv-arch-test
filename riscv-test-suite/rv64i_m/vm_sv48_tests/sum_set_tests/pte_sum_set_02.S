@@ -117,43 +117,10 @@ _start:
 
 # -------------------------Save area logic----------------------------------
 
-	/* Save Virtual addresses in of Code and Data 
-	in their respective S-mode save area */
-
-	/****** code ******/
-	LI (t0, va)                                                             // load the virtual address of vm_en in t0
-	LI (t1, pa)                                                             // load the physical address of vm_en in t1
-	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
-	csrr sp, mscratch                                                       // load the value of mscratch in sp
-	add t1,sp,t0                                                            // add the offset to the base address of save area
-	csrw sscratch, t1                                                       // write the address of save area in sscratch
-
-	LREG t1, code_bgn_off+0*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
-	add t2, t1, t0                                                          // add the offset to the base address of save area
-	SREG t2, code_bgn_off+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
-
-	/******* data *******/
-	// update save area
-	LI (t0, va_data)                                                        // load the virtual address of pa_data in t0
-	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
-	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
-	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
-	add  t2, t1,t0                                                          // add the offset to the base address of save area
-	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
-	//signature
-	LI (t0, sig_data)                                                       // load the virtual address of rvtest_sig_begin in t0
-	LA (t1, signature_x13_1)                                                // load the physical address of rvtest_sig_begin in t1
-	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
-	LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
-	add t2, t1, t0                                                          // add the offset to the base address of save area
-	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
-	// vmem
-	LI (t0, va_data)                	                                // load the virtual address of pa_data in t0
-	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
-	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA
-	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
-	add t2, t1, t0                                                          // add the offset to the base address of save area
-	SREG t2, vmem_bgn_off+1*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
+	SIGNATURE_AREA (CODE, va, pa)						// signature area for code 
+	SIGNATURE_AREA (DATA, va_data,rvtest_data)				// signature area for data 
+	SIGNATURE_AREA (SIG, sig_data, signature_x13_1)				// signature area for signature 
+	SIGNATURE_AREA (VMEM, va_data, rvtest_data)				// signature area for vmem
 
         LI (s7, MSTATUS_SUM)                                                    // loads the value of MSTATUS_SUM
         csrs mstatus,s7                                                         // set the mstatus.SUM = 1  
