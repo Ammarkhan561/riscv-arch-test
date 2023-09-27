@@ -1,13 +1,15 @@
 #################################################################################################
 # Verification Goal: Remove execute PMP permission of translated Physical Address in pmpcfg 	#
-#		     and test the Execute Access in User mode for                       	#
-#                    Level 0 Should raise a Fetch Access Fault  for execute access.      	#
+#		     and test the Read Acces and Write Access in Supervisor mode for    	#
+#                    Level 0 Should raise a load page fault for read access and Store AMO fault #
+#                    for write access                                                           #
 #                                                                                               #
 # Description:       If PTE has valid and non-reserved RWX permissions, but the translated	#
 #                    Physical address (pte.ppn of leaf PTE + offset) does not have (r,w,x) PMP	#
 #                    permissions, then accessing the translated Physical address would raise	#
 #                    access fault exception of the corresponding access type.                   #
-#################################################################################################
+################################################################################################# 
+
 
 
 #include "model_test.h"
@@ -31,9 +33,9 @@ RVTEST_SIGBASE( x13,signature_x13_1)
 main:
 
 j _start
-
+.align 3
 rvtest_data:
-	.word 0xdeadbeef
+	.dword 0xdeadbeefdeadbeef
 _start:
 # -------------------------------------------------------------------------
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
@@ -44,16 +46,58 @@ _start:
 	LI a4, 0xbeed
 	RVTEST_SIGUPD(x13,a4)
 #endif
-# -------------------------Set the all mem PMP-----------------------------	
-	ALL_MEM_PMP
-# -------------------------------------------------------------------------
-	csrw satp, zero								// write zero to the satp (bare mode)
+# # -------------------------Setting PMP permissions-----------------------------	
+	LA(t2, vm_en)								// Loads the address of PA                
+	srli t2, t2, PMP_SHIFT							// Right shift the PA by PMP_Shift(2) 
+	ori t2, t2, 0x3F							// Selects the range of 512B    
+	csrw pmpaddr0, t2							// Region 1 for the pmp permissions  
+
+	LA(t2, rvtest_slvl1_pg_tbl )						// loads the base address of level1 4kbpage table                 
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 1 page table  by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
+	csrw pmpaddr1, t2							// Region 2 for the pmp permission 
+
+	LA(t2, rvtest_slvl2_pg_tbl )						// loads the base address of level1 4kbpage table                 
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 1 page table  by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
+	csrw pmpaddr1, t2							// Region 2 for the pmp permission  
+
+	LA(t2, rvtest_slvl3_pg_tbl )						// loads the base address of level1 4kbpage table                 
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 1 page table  by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
+	csrw pmpaddr1, t2							// Region 2 for the pmp permission 
+
+	LA(t2, rvtest_slvl3_pg_tbl )						// loads the base address of level1 4kbpage table                 
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 1 page table  by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
+	csrw pmpaddr1, t2							// Region 2 for the pmp permission 
+
+	LA( t2, rvtest_Sroot_pg_tbl)						// loads the base address of root page table               
+	srli t2, t2, PMP_SHIFT							// Right shift the address of root page table by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4kB
+	csrw pmpaddr2, t2							// Region 3 for the pmp permission   
+
+	LA( t2, rvtest_data )							// loads the base address of rvtest_data label        
+	srli t2, t2, PMP_SHIFT							// Right shift the address of rvtest_data label by PMP_Shift(2)
+	ori t2, t2, 3                                                           // select the range of 32B
+	csrw pmpaddr3, t2							// Region 4 for the pmp permission
+
+	LA( t2, rvtest_sig_begin )						// loads the base address of rvtest_sig_begin label        
+	srli t2, t2, PMP_SHIFT							// Right shift the address of rvtest_sig_begin label by PMP_Shift(2)
+	ori t2, t2, 0xF								// Selects the range of 128B
+	csrw pmpaddr4, t2							// Region 5 for the pmp permission
+
+	LI(t2, 0x1F1F1F181F1F1F)						// Region 1: NAPOT with RWX PMP Permissions, Region 2, 3 4: NAPOT with no RWX PMP Permissions
+	csrw pmpcfg0, t2							// Write PMP Regions Configration  
+
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x200000100000                                         // 48 bits virtual address of data
+	.set va_data,  	 0x200000100688                                         // 48 bits virtual address of data
 	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
 
+# -------------------------------------------------------------------------
+	csrw satp,x0								// SATP bare mode configuration
 # -------------------------Set the PTE for level3 for sv48-----------------
 
 	// level 3 PTE setup for rvtest_slvl1_pg_tbl (0x200000000000 -> rvtest_slvl1_pg_tbl)	
@@ -73,12 +117,12 @@ _start:
 
 	// level 0 PTE setup for pa (0x200000000000 -> 0x80000000000000)	
 	LI (a0, pa)                                                             // loads the address in a0
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.V = 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL0,sv48)                         // setup the PTE for level 0 for sv48
 							        
 	// level 0 PTE setup for rvtest_data (0x200000100000 -> rvtest_data)
 	LA (a0, rvtest_data)	
-	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_U ) 	        // sets the permission bits(PTE.V = 0)
+	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv48)                    // setup the PTE for level 0 for sv48
 
 
@@ -103,7 +147,7 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL1,sv48)                   // setup the PTE for level 1 for sv48
                                                                                 // PTE setup for 0x0900080000 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
-	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V |PTE_U )         // sets the permissions bits 
+	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V )                // sets the permissions bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL0,sv48) 			// PTE Setup for signature area address at pgtbl0
 	
 	LI (t0, sig_data)                                                       
@@ -114,7 +158,6 @@ _start:
 # -------------------------Set the SATP for virtulization------------------
         
 	SATP_SETUP_RV64 (sv48)                                                  // set the SATP for virtualization
-
 
 # -------------------------Save area logic----------------------------------
 
@@ -132,7 +175,6 @@ _start:
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
-	SREG t2, code_bgn_off+2*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
 
 	/******* data *******/
 	// update save area
@@ -142,7 +184,6 @@ _start:
 	LREG t1, data_bgn_off+0*sv_area_sz(sp)                                  // load the address of data_bgn_off in t1
 	add  t2, t1,t0                                                          // add the offset to the base address of save area
 	SREG t2, data_bgn_off+1*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
-	SREG t2, data_bgn_off+2*sv_area_sz(sp)                                  // write the address of data_bgn_off in sscratch
 	//signature
 	LI (t0, sig_data)                                                       // load the virtual address of rvtest_sig_begin in t0
 	LA (t1, signature_x13_1)                                                // load the physical address of rvtest_sig_begin in t1
@@ -150,7 +191,6 @@ _start:
 	LREG t1, sig_bgn_off+0*sv_area_sz(sp)                                   // load the address of sig_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, sig_bgn_off+1*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
-	SREG t2, sig_bgn_off+2*sv_area_sz(sp)                                   // write the address of sig_bgn_off in sscratch
 	// vmem
 	LI (t0, va_data)                	                                // load the virtual address of pa_data in t0
 	LA (t1, rvtest_data)                                                    // load the physical address of pa_data in t1
@@ -158,10 +198,9 @@ _start:
 	LREG t1, vmem_bgn_off+0*sv_area_sz(sp)                                  // load the address of vmem_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, vmem_bgn_off+1*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
-	SREG t2, vmem_bgn_off+2*sv_area_sz(sp)                                  // write the address of vmem_bgn_off in sscratch
 
 	sfence.vma                                                              // flush the TLB
-	RVTEST_GOTO_LOWER_MODE	Umode		                                // Switching to U mode
+	RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
 
 # -------------------------virtulization enabled----------------------------------
 
