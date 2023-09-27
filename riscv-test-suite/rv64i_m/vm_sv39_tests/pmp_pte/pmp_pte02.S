@@ -126,11 +126,11 @@ _start:
 	# add t2, t1, t0                                                          // add the offset to the base address of save area
 	# SREG t2, code_bgn_off+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
 	# SREG t2, code_bgn_off+2*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
-        
-	SIGNATURE_AREA (CODE, va, pa,user)
-	SIGNATURE_AREA (DATA, va_data,rvtest_data,user)
-	SIGNATURE_AREA (SIG, sig_data, signature_x13_1,user)
-	SIGNATURE_AREA (VMEM, va_data, rvtest_data,user)
+
+	SIGNATURE_AREA (CODE, va, pa,user)                                      // signature area for code 
+	SIGNATURE_AREA (DATA, va_data,rvtest_data,user)                         // signature area for data 
+	SIGNATURE_AREA (SIG, sig_data, signature_x13_1,user)                    // signature area for signature
+	SIGNATURE_AREA (VMEM, va_data, rvtest_data,user)                        // signature area for vmem 
         
 
 	# /******* data *******/
