@@ -15,8 +15,6 @@
         1: Superpage
 */
 
-
-
 #define LEVEL0 0x00
 #define LEVEL1 0x01
 #define LEVEL2 0x02
@@ -27,17 +25,41 @@
 #define sv48 0x01
 #define sv57 0x02
 
+#define CODE code_bgn_off
+#define DATA data_bgn_off
+#define SIG  sig_bgn_off
+#define VMEM vmem_bgn_off
+
 #define ALL_MEM_PMP                                               ;\
     	li t2, -1                                                 ;\
     	csrw pmpaddr0, t2                                         ;\
-    	li t2, 0x0F	                                              ;\
+    	li t2, 0x0F	                                          ;\
     	csrw pmpcfg0, t2                                          ;\
     	sfence.vma                                                ;
+
+#define SIGNATURE_AREA(TYPE,ARG1,ARG2, ...)                       ;\
+	LI (t0, ARG1)                                             ;\
+	.if(TYPE == CODE)                                         ;\
+        LI (t1, ARG2)                                             ;\
+	    sub t0, t0, t1                                        ;\
+            csrr sp, mscratch                                     ;\
+	    add t1,sp,t0                                          ;\
+	    csrw sscratch, t1                                     ;\
+    .else                                                         ;\
+        LA (t1, ARG2)                                             ;\
+	    sub t0, t0, t1                                        ;\
+    .endif                                                        ;\
+	LREG t1, TYPE+0*sv_area_sz(sp)                            ;\
+	add t2, t1, t0                                            ;\
+	SREG t2, TYPE+1*sv_area_sz(sp)                            ;\
+	.if NARG(__VA_ARGS__) == 1                                ;\
+        SREG t2, TYPE+2*sv_area_sz(sp)                            ;\
+    .endif                                                        ;
 
 //****NOTE: label `rvtest_Sroot_pg_tbl` must be declared after RVTEST_DATA_END
 //          in the test aligned at 4kiB (use .align 12)
 
-#define PTE_SETUP_RV32(_PAR, _PR, _TR0, _TR1, VA, level)  	    ;\
+#define PTE_SETUP_RV32(_PAR, _PR, _TR0, _TR1, VA, level)  	;\
     srli _PAR, _PAR, 12                                         ;\
     slli _PAR, _PAR, 10                                         ;\
     or _PAR, _PAR, _PR                                          ;\
