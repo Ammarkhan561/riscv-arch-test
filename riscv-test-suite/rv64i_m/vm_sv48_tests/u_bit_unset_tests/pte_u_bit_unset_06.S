@@ -29,8 +29,9 @@ main:
 
 j _start
 
+.align 3
 rvtest_data:
-	.word 0xdeadbeef
+	.dword 0xdeadbeefdeadbeef
 _start:
 # -------------------------------------------------------------------------
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
@@ -48,7 +49,7 @@ _start:
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x201000000000                                         // 48 bits virtual address of data
+	.set va_data,  	 0x201000000688                                         // 48 bits virtual address of data
 	.set sig_data,   0x283000180118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
@@ -63,7 +64,7 @@ _start:
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_V ) 	        // sets the permission bits(PTE.U = 0) 
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv48)                         // setup the PTE for level 2 for sv48
 							        
-	// level 2 PTE setup for rvtest_data (0x201000000000 -> rvtest_data)
+	// level 2 PTE setup for rvtest_data (0x201000000688 -> rvtest_data)
 	LA (a0, rvtest_data)	
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R  | PTE_V ) 	        // sets the permission bits(PTE.U = 0)
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL2,sv48)                    // setup the PTE for level 2 for sv48

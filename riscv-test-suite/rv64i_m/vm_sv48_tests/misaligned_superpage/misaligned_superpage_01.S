@@ -42,7 +42,7 @@ main:
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x200000800000	                                        // 48 bits virtual address of data
+	.set va_data,  	 0x200000800688	                                        // 48 bits virtual address of data
 	.set sig_data,   0x2812003F0118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
@@ -177,8 +177,9 @@ vm_en:
 
 j _start
 .align 12                                                                       // Inorder to Misaligned rvtest_data
+.align 3
 rvtest_data:
-	.word 0xdeadbeef
+	.dword 0xdeadbeefdeadbeef
 _start:
 
  # ----------------------------------------------------------------------------

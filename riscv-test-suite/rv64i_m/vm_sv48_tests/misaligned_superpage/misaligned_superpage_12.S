@@ -29,8 +29,9 @@ main:
 
 j _start
 
+.align 3
 rvtest_data:
-	.word 0xdeadbeef
+	.dword 0xdeadbeefdeadbeef
 _start:
 # -------------------------------------------------------------------------
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
@@ -47,7 +48,7 @@ _start:
 	csrw satp, zero								// write zero to the satp (bare mode)
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
-	.set va_data,  	 0x210000000000                                         // 48 bits virtual address of data
+	.set va_data,  	 0x210000000688                                         // 48 bits virtual address of data
 	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
