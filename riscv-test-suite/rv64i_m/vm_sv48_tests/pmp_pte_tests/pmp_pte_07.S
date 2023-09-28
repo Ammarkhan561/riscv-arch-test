@@ -50,35 +50,50 @@ _start:
 	ori t2, t2, 0x3F							// Selects the range of 512B    
 	csrw pmpaddr0, t2							// Region 1 for the pmp permissions  
 
-	LA(t2, rvtest_slvl1_pg_tbl )						// loads the base address of level1 4kbpage table                 
+	LA(t2, rvtest_slvl1_pg_tbl )						// loads the base address of level 2 4kbpage table                 
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 2 page table  by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4KB								 	 										
+	csrw pmpaddr1, t2							// Region 2 for the pmp permission 
+
+	LA(t2, rvtest_slvl2_pg_tbl )						// loads the base address of level 1 4kbpage table                 
 	srli t2, t2, PMP_SHIFT							// Right shift the address of level 1 page table  by PMP_Shift(2)
-	li t3 , 0x7FF		
-	or t2, t2, t3								// Selects the range of 12kB								 	 										
-	csrw pmpaddr1, t2							// Region 2 for the pmp permission  
+	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
+	csrw pmpaddr2, t2							// Region 3 for the pmp permission  
 
-	LA( t2, rvtest_Sroot_pg_tbl)						// loads the base address of root page table               
-	srli t2, t2, PMP_SHIFT							// Right shift the address of root page table by PMP_Shift(2)
-	ori t2, t2, 0x1FF							// Selects the range of 4kB
-	csrw pmpaddr2, t2							// Region 3 for the pmp permission   
+	LA(t2, rvtest_slvl3_pg_tbl )						// loads the base address of level 0 4kbpage table                 
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 0 page table  by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
+	csrw pmpaddr3, t2							// Region 4 for the pmp permission  
 
+	LA( t2, rvtest_Sroot_pg_tbl)						// loads the base address of level 3 table               
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 3 table by PMP_Shift(2)
+	ori t2, t2, 0x0								// Selects the range of 8 B
+	csrw pmpaddr4, t2							// Region 5 for the pmp permission   
+
+	LA(t2, rvtest_Sroot_pg_tbl)						// loads the base address of level 3 4kbpage table 
+	addi t2,t2,8                                                            // Add 8B to the base address of level 3 4kbpage table
+	srli t2, t2, PMP_SHIFT							// Right shift the address of level 3 page table  by PMP_Shift(2)
+	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
+	csrw pmpaddr5, t2							// Region 6 for the pmp permission
+	
 	LA( t2, rvtest_data )							// loads the base address of rvtest_data label        
 	srli t2, t2, PMP_SHIFT							// Right shift the address of rvtest_data label by PMP_Shift(2)
 	ori t2, t2, 3                                                           // select the range of 32B
-	csrw pmpaddr3, t2							// Region 4 for the pmp permission
+	csrw pmpaddr6, t2							// Region 7 for the pmp permission
 
 	LA( t2, rvtest_sig_begin )						// loads the base address of rvtest_sig_begin label        
 	srli t2, t2, PMP_SHIFT							// Right shift the address of rvtest_sig_begin label by PMP_Shift(2)
-	ori t2, t2, 0xF								// Selects the range of 128B
-	csrw pmpaddr4, t2							// Region 5 for the pmp permission
+	ori t2, t2, 0x1FF							// Selects the range of 128B
+	csrw pmpaddr7, t2							// Region 8 for the pmp permission
 
-	LI(t2, 0x1F181F1F1F)							// Region 1: NAPOT with RWX PMP Permissions, Region 2, 3 4: NAPOT with RWX PMP Permissions
-	csrw pmpcfg0, t2							// Write PMP Regions Configration  
+	LI(t2, 0x1F1F1F181F1F1F1F)						// Region 5: NAPOT with no RWX PMP Permissions
+	csrw pmpcfg0, t2							// Write PMP Regions Configration
 # -------------------------------------------------------------------------
 	csrw satp, zero								// write zero to the satp (bare mode)
 # --------------------------Setting Addresses-------------------------------
 	.set va,       	 0x200000000000                                         // 48 bits virtual address						
 	.set pa,       	 0x80000000000000                                       // 56 bits physical address
-	.set va_data,  	 0x210000000688                                         // 48 bits virtual address of data
+	.set va_data,  	 0x000000000688                                         // 48 bits virtual address of data
 	.set sig_data,   0x280000180118						// 48 bits of VA address of signature
 
 # -------------------------Set the PTE for level3 for sv48-----------------
@@ -89,7 +104,7 @@ _start:
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL3,sv48)                         // setup the PTE for level 3 for sv48
 							        
-	// level 3 PTE setup for rvtest_data (0x210000000000 -> rvtest_data)
+	// level 3 PTE setup for rvtest_data (0x000000000688 -> rvtest_data)
 
 	LA (a0, rvtest_data)	
 	LI a1, ( PTE_D | PTE_A | PTE_X | PTE_W | PTE_R | PTE_V )                // sets the permission bits
@@ -115,7 +130,7 @@ _start:
 	LI a1, ( PTE_V )                                                        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, sig_data, LEVEL1,sv48)                   // setup the PTE for level 1 for sv48
 
-        // PTE setup for 0x0900080000 -> rvtest_sig_begin
+        // PTE setup for 0x280000180118 -> rvtest_sig_begin
 
 	la a0, rvtest_sig_begin   						// Physical address of signature area
 	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_X | PTE_V )                // sets the permissions bits 

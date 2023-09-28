@@ -1,6 +1,6 @@
-# database generated on 2023-09-27 07:53 GMT
+# database generated on 2023-09-28 08:12 GMT
 !!omap
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_01.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_01.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -15,7 +15,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_02.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_02.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -30,7 +30,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_03.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_03.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -45,7 +45,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_04.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_04.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -60,7 +60,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_05.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_05.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -75,7 +75,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_06.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_06.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -90,7 +90,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_07.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_07.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -105,7 +105,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_08.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_08.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -120,7 +120,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_09.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_09.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -135,7 +135,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_10.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_10.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -150,7 +150,7 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_11.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_11.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
@@ -165,7 +165,67 @@
         - def TEST_CASE_1=True
         coverage_labels:
         - sv64
-- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/u_bit_set_tests/pte_u_bit_set_12.S:
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_12.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_13.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_14.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_15.S:
+    commit_id: '-'
+    isa:
+    - RV64I_Zicsr
+    parts: !!omap
+    - '1':
+        check:
+        - check ISA:=regex(.*64.*)
+        - check ISA:=regex(.*I.*Zicsr.*)
+        define:
+        - def rvtest_mtrap_routine=True
+        - def rvtest_strap_routine=True
+        - def TEST_CASE_1=True
+        coverage_labels:
+        - sv64
+- /home/hamza/Documents/riscv-arch-test/riscv-test-suite/rv64i_m/vm_sv48_tests/pmp_pte_tests/pmp_pte_16.S:
     commit_id: '-'
     isa:
     - RV64I_Zicsr
