@@ -1,8 +1,7 @@
 # #################################################################################################
-# Verification Goal: Remove read and write PMP permission of PTE address in pmpcfg and test the   #
-# 		     Read Acces and Write Access in User mode for Level 1 PTE Should	          #	
-# 		     raise a load page fault for read access and Store AMO fault for write access #
-#                    		                                                                  #
+# Verification Goal: Remove execute PMP permission of PTE address in pmpcfg and test the execute  #
+# 		     Access in User mode for Level 1 PTE Should raise an exception.	 	  #
+# 												  #	
 # Description:       If PTE does not have (r,w,x) PMP permissions, then accessing it would        #
 # 		     raise access fault exception of the corresponding access type.               #
 # #################################################################################################
@@ -63,7 +62,7 @@ _start:
 
         LA( t1, rvtest_slvl1_pg_tbl )                                           // loads the base address of rvtest_slvl1_pg_tbl label        
         srli t1, t1, PMP_SHIFT                                                  // Right shift the address of rvtest_slvl1_pg_tbl label by PMP_Shift(2)
-        ori t1, t1, 0                                                       	// 8-byte of NAPOT range
+        ori t1, t1, 0x1FF                                                       // 4KB of NAPOT range
         csrw pmpaddr2, t1                                                       // write t1 to the pmpaddr2
        	LI ( t2,( (PMP_NAPOT ) << 16 ))				                // sets the permission bits
 	csrs pmpcfg0,t2								// write to the pmpcfg0
@@ -89,16 +88,8 @@ _start:
        	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R) << 40 ))	                // sets the permission bits
 	csrs pmpcfg0,t2								// set the permissions of all memory 
 
-      	LA( t1, rvtest_slvl1_pg_tbl )                                           // loads the base address of rvtest_slvl1_pg_tbl label        
-        addi t1,t1,8								// adding 8 byte to the base address of rvtest_slvl1_pg_tbl
-	srli t1, t1, PMP_SHIFT                                                  // Right shift the address of rvtest_slvl1_pg_tbl label by PMP_Shift(2)
-        ori t1, t1, 0x1FF                                                       // 4KB of NAPOT range
-        csrw pmpaddr6, t1                                                       // write t1 to the pmpaddr6
-       	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R ) << 48 ))	                // sets the permission bits
-	csrs pmpcfg0,t2								// write to the pmpcfg0
-
 	csrw satp, zero								// write zero to the satp (bare mode)
-	
+
 # -------------------------------------------------------------------------
 
 	.set va,       	 0x090A000000						// 39 bits of VA address

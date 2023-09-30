@@ -89,7 +89,6 @@ _start:
         csrw pmpaddr5, t1                                                       // write t1 to the pmpaddr5
        	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R) << 40 ))	                // sets the permission bits
 	csrs pmpcfg0,t2								// set the permissions of all memory 
-	csrw satp, zero								// write zero to the satp (bare mode)
 
       	LA( t1, rvtest_Sroot_pg_tbl )                                           // loads the base address of rvtest_Sroot_pg_tbl label        
         addi t1,t1,8								// adding 8 byte to the base address of rvtest_Sroot_pg_tbl
