@@ -1,13 +1,10 @@
-#################################################################################################
-# Verification Goal: Remove execute PMP permission of translated Physical Address in pmpcfg 	#
-#		     and test the Execute Access in User mode for                       	#
-#                    Level 2 Should raise a Fetch Access Fault  for execute access.      	#
-#                                                                                               #
-# Description:       If PTE has valid and non-reserved RWX permissions, but the translated	#
-#                    Physical address (pte.ppn of leaf PTE + offset) does not have (r,w,x) PMP	#
-#                    permissions, then accessing the translated Physical address would raise	#
-#                    access fault exception of the corresponding access type.                   #
-#################################################################################################
+# #################################################################################################
+# Verification Goal: Remove execute PMP permission of PTE address in pmpcfg and test the execute  #
+# 		     Access in User mode for Level 2 PTE Should raise an exception.     	  #
+# 												  #	
+# Description:       If PTE does not have (r,w,x) PMP permissions, then accessing it would        #
+# 		     raise access fault exception of the corresponding access type.               #
+# #################################################################################################
 
 #include "model_test.h"
 #include "arch_test.h"
@@ -48,39 +45,50 @@ _start:
 	srli t2, t2, PMP_SHIFT							// Right shift the PA by PMP_Shift(2) 
 	ori t2, t2, 0x3F							// Selects the range of 512B    
 	csrw pmpaddr0, t2							// Region 1 for the pmp permissions  
+       	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R)))		                // sets the permission bits
+	csrs pmpcfg0,t2								// write to the pmpcfg0
 
 	LA(t2, rvtest_slvl1_pg_tbl )						// loads the base address of level 2 4kbpage table                 
 	srli t2, t2, PMP_SHIFT							// Right shift the address of level 2 page table  by PMP_Shift(2)
 	ori t2, t2, 0x1FF							// Selects the range of 4KB								 	 										
 	csrw pmpaddr1, t2							// Region 2 for the pmp permission 
+       	LI ( t2,( (PMP_NAPOT) << 8 ))				                // sets the permission bits
+	csrs pmpcfg0,t2								// write to the pmpcfg0
 
 	LA(t2, rvtest_slvl2_pg_tbl )						// loads the base address of level 1 4kbpage table                 
 	srli t2, t2, PMP_SHIFT							// Right shift the address of level 1 page table  by PMP_Shift(2)
 	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
 	csrw pmpaddr2, t2							// Region 3 for the pmp permission  
+       	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R) << 16 ))	                // sets the permission bits
+	csrs pmpcfg0,t2								// write to the pmpcfg0
 
 	LA(t2, rvtest_slvl3_pg_tbl )						// loads the base address of level 0 4kbpage table                 
 	srli t2, t2, PMP_SHIFT							// Right shift the address of level 0 page table  by PMP_Shift(2)
 	ori t2, t2, 0x1FF							// Selects the range of 4kB								 	 										
 	csrw pmpaddr3, t2							// Region 4 for the pmp permission  
+       	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R) << 24 ))	                // sets the permission bits
+	csrs pmpcfg0,t2								// write to the pmpcfg0
 
 	LA( t2, rvtest_Sroot_pg_tbl)						// loads the base address of root page table               
 	srli t2, t2, PMP_SHIFT							// Right shift the address of root page table by PMP_Shift(2)
 	ori t2, t2, 0x1FF							// Selects the range of 4kB
 	csrw pmpaddr4, t2							// Region 5 for the pmp permission   
+       	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R) << 32 ))	                // sets the permission bits
+	csrs pmpcfg0,t2								// write to the pmpcfg0
 
 	LA( t2, rvtest_data )							// loads the base address of rvtest_data label        
 	srli t2, t2, PMP_SHIFT							// Right shift the address of rvtest_data label by PMP_Shift(2)
 	ori t2, t2, 3                                                           // select the range of 32B
 	csrw pmpaddr5, t2							// Region 6 for the pmp permission
-
+       	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R) << 40 ))	                // sets the permission bits
+	csrs pmpcfg0,t2								// write to the pmpcfg0
+	
 	LA( t2, rvtest_sig_begin )						// loads the base address of rvtest_sig_begin label        
 	srli t2, t2, PMP_SHIFT							// Right shift the address of rvtest_sig_begin label by PMP_Shift(2)
 	ori t2, t2, 0x1FF							// Selects the range of 128B
 	csrw pmpaddr6, t2							// Region 7 for the pmp permission
-
-	LI(t2, 0x1F1F1F1F1F181F)						// Region 2: NAPOT with no RWX PMP Permissions
-	csrw pmpcfg0, t2							// Write PMP Regions Configration  
+       	LI ( t2,( (PMP_NAPOT | PMP_X | PMP_W | PMP_R) << 48 ))	                // sets the permission bits
+	csrs pmpcfg0,t2								// write to the pmpcfg0 
 # -------------------------------------------------------------------------
 	csrw satp, zero								// write zero to the satp (bare mode)
 # --------------------------Setting Addresses-------------------------------
