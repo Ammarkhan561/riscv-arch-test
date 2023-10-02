@@ -1695,7 +1695,7 @@ rvtest_\__MODE__\()end:
 \__MODE__\()trampend_sv:
         .dword  0               // save location of end of saved trampoline           trampsvend+10*8
 \__MODE__\()tentry_sv:
-        .dword  0               // save location of end of orig. trampoline           trampsvend+11*8
+        .dword  common_\__MODE__\()entry               // save location of end of orig. trampoline           trampsvend+11*8
 \__MODE__\()edeleg_sv:
         .dword  0               // save location for edeleg CSR                       trampsvend+12*8
 \__MODE__\()tvec_new:
