@@ -55,14 +55,20 @@ _start:
 	.set pa,       	 0x80000000000000 					// 56 bits of PA address 
 	.set va_data,  	 0x0900001688						// 39 bits of VA address	
 	.set sig_data,   0x0900020118						// 39 bits of VA address (offset bits should be same as that of rvtest_sig_begin)
-	.set trampoline, 0x0900030780						// 39 bits of VA address (offset bits should be same as that of Strampoline)
-	.set save_area,  0x0900004298						// 39 bits of VA address (offset bits should be same as that of Strampoline)
+	.set trampoline, 0x09000307c0						// 39 bits of VA address (offset bits should be same as that of Strampoline)
+	.set save_area,  0x0900004298						// 39 bits of VA address (offset bits should be same as that of save_area)
+	.set sentry,	 0x0900005994
+	.set pointer, 	 0x0000000000
 
 # -------------------------Set the PTE for level2 for sv39-----------------
 
 	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )           					        // sets the permission bits
 	PTE_SETUP_RV64(a0, a1, t0, t1, va, LEVEL2,sv39)                         // setup the PTE for level2
+
+	LA (a0, rvtest_slvl1_pg_tbl)                                            // loads the address in a0
+	LI a1, ( PTE_V )           					        // sets the permission bits
+	PTE_SETUP_RV64(a0, a1, t0, t1, pointer, LEVEL2,sv39)                         // setup the PTE for level2
 	
 	LA (a0, rvtest_slvl2_pg_tbl)                                            // loads the address in a0
 	LI a1, ( PTE_V )           					        // sets the permission bits
@@ -77,19 +83,18 @@ _start:
 	PTE_SETUP_RV64(a0, a1, t0, t1, va_data, LEVEL0,sv39)                    // setup the PTE for level0 for sv39
 	
 # -------------------------Set the PTE for signature update-----------------
-        #  									// level0 PTE setup for pa (0x0900030118 -> rvtest_data)
+	  									// level0 PTE setup for pa (0x0900030118 -> rvtest_data)
+	LA( a0,common_Sentry)							// loads the PA address in a0 
+	LI a1, ( PTE_D | PTE_A | PTE_X| PTE_W | PTE_R | PTE_V ) 		// sets the permission bits 
+	PTE_SETUP_RV64(a0, a1, t0, t1, sentry, LEVEL0,sv39)                 // setup the PTE for level0 for sv39
+          									// level0 PTE setup for pa (0x0900030118 -> rvtest_data)
 	LA( a0,Strampoline)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_X| PTE_W | PTE_R | PTE_V ) 			// sets the permission bits 
+	LI a1, ( PTE_D | PTE_A | PTE_X| PTE_W | PTE_R | PTE_V ) 		// sets the permission bits 
 	PTE_SETUP_RV64(a0, a1, t0, t1, trampoline, LEVEL0,sv39)                 // setup the PTE for level0 for sv39
-
-
-           #  									// level0 PTE setup for pa (0x0900030118 -> rvtest_data)
+         									// level0 PTE setup for pa (0x0900030118 -> rvtest_data)
 	LA( a0,Stramptbl_sv)							// loads the PA address in a0 
-	LI a1, ( PTE_D | PTE_A | PTE_X| PTE_W | PTE_R | PTE_V ) 			// sets the permission bits 
-	PTE_SETUP_RV64(a0, a1, t0, t1, save_area, LEVEL0,sv39)                 // setup the PTE for level0 for sv39
-
-
-
+	LI a1, ( PTE_D | PTE_A	 | PTE_X| PTE_W | PTE_R | PTE_V ) 		// sets the permission bits 
+	PTE_SETUP_RV64(a0, a1, t0, t1, save_area, LEVEL0,sv39)                  // setup the PTE for level0 for sv39
                                                                                 // PTE setup for 0x0900020118 -> rvtest_sig_begin
 	la a0, rvtest_sig_begin   						// Physical address of signature area
 	li a1, ( PTE_D | PTE_A | PTE_R | PTE_W | PTE_V )                	// sets the permissions bits 
@@ -110,31 +115,31 @@ _start:
 	in their respective S-mode save area */
 
 	/****** code ******/
-	LI (t0, save_area)                                                             // load the virtual address of vm_en in t0
-	LA (t1, Stramptbl_sv)                                                             // load the physical address of vm_en in t1
+	LI (t0, save_area)                                                      // load the virtual address of vm_en in t0
+	LA (t1, Stramptbl_sv)                                                   // load the physical address of vm_en in t1
 	sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 	csrr sp, mscratch                                                       // load the value of mscratch in sp
-	add t1,sp,t0                                                            // add the offset to the base address of save area
+	add t1,sp,t0 
+	addi t1, t1, 0x298                                                           // add the offset to the base address of save area
 	csrw sscratch, t1                                                       // write the address of save area in sscratch
 
 	LI (t0, va)                                                             // load the virtual address of vm_en in t0
 	LI (t1, pa)                                                             // load the physical address of vm_en in t1
         sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 
-
 	LREG t1, code_bgn_off+0*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
 	add t2, t1, t0                                                          // add the offset to the base address of save area
 	SREG t2, code_bgn_off+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
 
-        LI (t0, save_area)                                                             // load the virtual address of vm_en in t0
-	LA (t1, Stramptbl_sv)                                                             // load the physical address of vm_en in t1
-        sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
+        # LI (t0, save_area)                                                      // load the virtual address of vm_en in t0
+	# LA (t1, Stramptbl_sv)                                                   // load the physical address of vm_en in t1
+        # sub t0, t0, t1                                                          // (VA-PA) Note: VA > PA 
 
 
-	# LREG t1, tentry_addr+1*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
-	LA (t1, common_Sentry)
-        add t2, t1, t0                                                          // add the offset to the base address of save area
-	SREG t2, tentry_addr+1*sv_area_sz(sp)                                  // write the address of code_bgn_off in sscratch
+	# # LREG t1, tentry_addr+1*sv_area_sz(sp)                                  // load the address of code_bgn_off in t1
+	# LA (t1, common_Sentry)
+        # add t2, t1, t0                                                          // add the offset to the base address of save area
+	# SREG t2, tentry_addr+1*sv_area_sz(sp)                                   // write the address of code_bgn_off in sscratch
 
 
 	/******* data *******/
@@ -162,9 +167,9 @@ _start:
 
 	sfence.vma                                                              // flush the TLB
 
-        li      t1, 0x2000                                                         
-        csrs    medeleg, t1                                                     // makes the 13th bit to 1
-        li t1, 0x0900030780
+        li      t1, 0xA000                                                         
+        csrs    medeleg, t1                                                     // makes the 13th & 14th bit to 1
+        li t1, trampoline
         csrw stvec, t1
         RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
 

@@ -25,6 +25,12 @@ RVTEST_SIGBASE( x13,signature_x13_1)
 
 main:
 
+j _start
+.align 3									// to align for 64 bit 
+rvtest_data:									// rvtest_data region for RWX access(ppn1==0 and ppn0==0)
+	.dword 0xFACECAFEBEEDCAFE
+_start:
+
 # -------------------------------------------------------------------------
 
 #ifdef rvtest_mtrap_routine							// Verification of existance of rvtest_mtrap_routine
@@ -40,18 +46,31 @@ main:
 
 	ALL_MEM_PMP							        // set the permissions of all memory 
 	csrw satp, zero								// write zero to the satp (bare mode)	
-	sfence.vma                                                              // flush the TLB
 	
-        li      t1, 0x4                                                         
-        csrs    medeleg, t1                                                     // makes the 2nd bit to 1
-	SATP_SETUP_SV32                                                         // set the SATP for virtualization
+        sfence.vma                                                              // flush the TLB
+	csrw mstatus, zero
+        
+        LI (t1, MSTATUS_MPP)                                                    // loads the value of MSTATUS_MPP
+        csrs mstatus,t1                                                         // sets the mstatus MPP bit 
+        
+        LI (t1, MSTATUS_MPRV)                                                   // loads the value of MSTATUS_MPP
+        csrs mstatus,t1                                                         // sets the mstatus MPP bit 
 
-        RVTEST_GOTO_LOWER_MODE	Smode		                                // Switching to S mode
+	SATP_SETUP_RV64(sv39)                                                   // set the SATP for virtualization
+      
+        LA ( t1,vm_en)
+        csrw mepc,t1 
+        mret
 
 # -------------------------------------------------------------------------
-	
+vm_en:	
         csrr s1,mstatus
         nop
+
+        LA   ( t1, rvtest_data)
+        LREG  s2, 0(t1)
+        nop
+       
         RVTEST_GOTO_MMODE		                                        // Switching back to M mode
 
 	LI (a4, 0x123)
